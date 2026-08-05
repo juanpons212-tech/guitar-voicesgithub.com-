@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guitar Voices</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+        <a href="#">Inicio</a> |
+        <a href="#">Videos</a> |
+        <a href="#">Redes</a> |
+        <a href="#">Contacto</a>
+    </nav>
+
+
+    <header>
+        <h1>Guitar Voices</h1>
+        <p>Descubre afinaciones abiertas y emociones en cada una.</p>
+    </header>
+
+
+    <section class="biblioteca">
+
+        <h2>Biblioteca de Afinaciones</h2>
+
+        <div id="categorias">
+
+            <button onclick="mostrarCategoria('abiertas')">
+                Afinaciones Abiertas
+            </button>
+
+            <button onclick="mostrarCategoria('standard')">
+                Afinaciones Standard
+            </button>
+
+            <button onclick="mostrarCategoria('drop')">
+                Afinaciones Drop
+            </button>
+
+        </div>
+
+
+        <div id="tonalidades"></div>
+
+        <div id="variantes"></div>
+
+
+        <div id="afinacionElegida">
+
+            <h3>Elegí una afinación</h3>
+
+            <p>
+                La afinación seleccionada aparecerá aquí.
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+
+    <section class="afinador" id="seccionAfinador" style="display:none;">
+
+        <h2>Afinador Cromático</h2>
+
+
+        <div id="nota">
+            --
+        </div>
+
+
+        <div id="frecuencia">
+            Esperando sonido...
+        </div>
+
+
+        <h3 id="cuerdas">
+            Cuerdas
+        </h3>
+
+
+        <button id="iniciar">
+            Iniciar afinador
+        </button>
+
+
+    </section>
+
+
+
+    <section class="redes">
+
+        <h2>Redes Sociales</h2>
+
+        <div class="redes-links">
+
+            <a href="#">YouTube</a>
+
+            <a href="#">Instagram</a>
+
+            <a href="#">TikTok</a>
+
+        </div>
+
+    </section>
+
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
