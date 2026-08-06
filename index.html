@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Guitar Voices · Afinador</title>
+    <title>Guitar Voices Ultimate · Afinador Profesional</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -18,6 +18,9 @@
         };
     </script>
     <style>
+        /* ============================================================ */
+        /* ESTILOS GLOBALES                                             */
+        /* ============================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -28,26 +31,27 @@
         }
         body {
             font-family: "Inter", sans-serif;
-            background: #020617;
+            background: #07070d;
             color: #f1f5f9;
             overflow-x: hidden;
         }
 
+        /* Intro */
         #intro {
             position: fixed;
             inset: 0;
-            background: #020617;
+            background: #07070d;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            animation: introOut 3.8s forwards;
+            animation: introOut 4.2s forwards;
         }
         #intro h1 {
             font-size: clamp(3rem, 12vw, 5rem);
             font-weight: 900;
             letter-spacing: 6px;
-            background: linear-gradient(90deg, #38bdf8, #818cf8, #ec4899);
+            background: linear-gradient(135deg, #38bdf8, #818cf8, #ec4899);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: logoPulse 2s ease-in-out infinite;
@@ -56,11 +60,11 @@
             0%,
             100% {
                 transform: scale(1);
-                filter: drop-shadow(0 0 10px #60a5fa);
+                filter: drop-shadow(0 0 10px #60a5fa55);
             }
             50% {
                 transform: scale(1.06);
-                filter: drop-shadow(0 0 35px #818cf8);
+                filter: drop-shadow(0 0 35px #818cf888);
             }
         }
         @keyframes introOut {
@@ -80,7 +84,7 @@
             width: 700px;
             height: 700px;
             border-radius: 999px;
-            background: #4338ca44;
+            background: #4338ca33;
             filter: blur(180px);
             pointer-events: none;
         }
@@ -94,63 +98,12 @@
             box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6);
         }
 
-        .valvula {
-            width: 2rem;
-            height: 2rem;
-            border-radius: 999px;
-            background: #1e293b;
-            border: 2px solid #334155;
-            transition: all 0.2s ease;
-        }
-        .valvula.activa {
-            background: #22c55e;
-            box-shadow: 0 0 24px #22c55eaa;
-            transform: scale(1.25);
-        }
-        .valvula.media {
-            background: #facc15;
-            box-shadow: 0 0 14px #facc1588;
-        }
-        .valvula.lejos {
-            background: #ef4444;
-        }
-
-        #nota {
-            transition: color 0.25s ease;
-        }
-        #nota.afinada {
-            color: #22c55e;
-            text-shadow: 0 0 30px #22c55e66;
-        }
-
-        #indicador {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #94a3b8;
-            margin: 0 auto;
-            transition: transform 0.1s ease, background 0.2s;
-        }
-        #indicador.correcto {
-            background: #22c55e;
-        }
-        #indicador.izquierda {
-            background: #3b82f6;
-        }
-        #indicador.derecha {
-            background: #f59e0b;
-        }
-
-        #nivelSonido {
-            height: 100%;
-            background: linear-gradient(90deg, #22c55e, #84cc16);
-            border-radius: 20px;
-            transition: width 0.08s linear;
-        }
-
+        /* ============================================================ */
+        /* BIBLIOTECA                                                    */
+        /* ============================================================ */
         .afinacion-card {
-            background: #1e293b;
-            border: 1px solid #334155;
+            background: #1a1a2e;
+            border: 1px solid #2a2a4a;
             border-radius: 1rem;
             padding: 1rem 1.25rem;
             transition: all 0.3s ease;
@@ -161,6 +114,7 @@
             border-color: #818cf8;
             transform: translateY(-3px);
             box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.5);
+            background: #1e1e3a;
         }
         .afinacion-card .nombre {
             font-weight: 700;
@@ -179,7 +133,7 @@
             padding: 2px 10px;
             border-radius: 999px;
             margin-top: 6px;
-            background: #334155;
+            background: #2a2a4a;
             color: #94a3b8;
         }
 
@@ -190,6 +144,7 @@
         .cat-btn.active {
             background: #4f46e5 !important;
             border-color: #4f46e5 !important;
+            box-shadow: 0 0 30px #4f46e544;
         }
 
         .tono-btn {
@@ -202,30 +157,672 @@
         .tono-btn.active {
             background: #4f46e5 !important;
             color: white !important;
+            box-shadow: 0 0 20px #4f46e544;
         }
 
+        /* ============================================================ */
+        /* AFINADOR ULTIMATE - CON MODO ESTROBOSCÓPICO                  */
+        /* ============================================================ */
+        .tuner-container {
+            background: linear-gradient(160deg, #12121f, #0a0a14);
+            border-radius: 2rem;
+            padding: 2rem;
+            border: 1px solid #2a2a4a;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+        .tuner-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.03), transparent 60%);
+            pointer-events: none;
+        }
+
+        /* Panel superior */
+        .tuner-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #1a1a2e;
+        }
+        .tuner-controls label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tuner-controls select,
+        .tuner-controls input {
+            background: #1a1a2e;
+            border: 1px solid #2a2a4a;
+            border-radius: 8px;
+            padding: 4px 12px;
+            color: #e2e8f0;
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .tuner-controls select:focus,
+        .tuner-controls input:focus {
+            border-color: #4f46e5;
+        }
+        .tuner-controls select option {
+            background: #1a1a2e;
+        }
+
+        /* ============================================================ */
+        /* MEDIDOR ESTROBOSCÓPICO (MODO AVANZADO)                      */
+        /* ============================================================ */
+        .meter-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 10px 0 5px 0;
+        }
+
+        /* Fondo del medidor */
+        .meter-track {
+            position: relative;
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(to right,
+                    #dc2626 0%,
+                    #f97316 12%,
+                    #facc15 28%,
+                    #22c55e 40%,
+                    #22c55e 60%,
+                    #facc15 72%,
+                    #f97316 88%,
+                    #dc2626 100%);
+            border-radius: 60px;
+            box-shadow: inset 0 4px 30px rgba(0, 0, 0, 0.8), 0 0 80px rgba(34, 197, 94, 0.02);
+            overflow: visible;
+        }
+
+        .meter-track .tick-marks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 18px;
+            pointer-events: none;
+        }
+        .meter-track .tick-marks span {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 0.5rem;
+            font-weight: 700;
+            padding-top: 6px;
+            letter-spacing: 0.5px;
+        }
+        .meter-track .tick-marks span.major {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.7rem;
+        }
+
+        /* Aguja */
+        .needle-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .needle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 3px;
+            height: 100px;
+            background: linear-gradient(to top, #ffffff, #94a3b8);
+            transform-origin: bottom center;
+            transform: translate(-50%, -100%) rotate(0deg);
+            border-radius: 3px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2), 0 0 60px rgba(255, 255, 255, 0.06);
+            transition: transform 0.035s ease-out;
+            z-index: 10;
+            will-change: transform;
+        }
+        .needle::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 22px;
+            height: 22px;
+            background: radial-gradient(circle at 40% 35%, #ffffff, #475569);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .center-dot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 22px;
+            height: 22px;
+            background: radial-gradient(circle at 40% 35%, #ffffff, #3f3f5f);
+            border-radius: 50%;
+            z-index: 11;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.12);
+            border: 2px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .center-line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 2px;
+            height: 55px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 2px;
+            z-index: 5;
+            border: 1px dashed rgba(255, 255, 255, 0.02);
+        }
+
+        /* ============================================================ */
+        /* ANILLOS ESTROBOSCÓPICOS (EFECTO VISUAL)                     */
+        /* ============================================================ */
+        .strobe-rings {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            pointer-events: none;
+            z-index: 4;
+            opacity: 0.4;
+        }
+        .strobe-rings .ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            animation: ringPulse 3s ease-in-out infinite;
+        }
+        .strobe-rings .ring:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+        }
+        .strobe-rings .ring:nth-child(2) {
+            width: 100px;
+            height: 100px;
+            animation-delay: 0.6s;
+        }
+        .strobe-rings .ring:nth-child(3) {
+            width: 140px;
+            height: 140px;
+            animation-delay: 1.2s;
+        }
+        .strobe-rings .ring:nth-child(4) {
+            width: 180px;
+            height: 180px;
+            animation-delay: 1.8s;
+        }
+        @keyframes ringPulse {
+            0%,
+            100% {
+                border-color: rgba(255, 255, 255, 0.03);
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                border-color: rgba(34, 197, 94, 0.15);
+                transform: translate(-50%, -50%) scale(1.08);
+            }
+        }
+
+        /* ============================================================ */
+        /* LEDs DE PRECISIÓN (9 POSICIONES)                            */
+        /* ============================================================ */
+        .precision-leds {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 14px;
+        }
+        .precision-led {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #14141f;
+            border: 1px solid #2a2a4a;
+            transition: all 0.15s ease;
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        .precision-led.green {
+            background: #22c55e;
+            box-shadow: 0 0 30px #22c55e88, inset 0 2px 4px rgba(255, 255, 255, 0.15);
+            border-color: #22c55e;
+        }
+        .precision-led.yellow {
+            background: #facc15;
+            box-shadow: 0 0 30px #facc1588, inset 0 2px 4px rgba(255, 255, 255, 0.15);
+            border-color: #facc15;
+        }
+        .precision-led.red {
+            background: #ef4444;
+            box-shadow: 0 0 30px #ef444488, inset 0 2px 4px rgba(255, 255, 255, 0.15);
+            border-color: #ef4444;
+        }
+
+        /* ============================================================ */
+        /* DISPLAY DE INFORMACIÓN                                       */
+        /* ============================================================ */
+        .tuner-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tuner-info .note-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 120px;
+        }
+        .tuner-info .note-display {
+            font-size: 5rem;
+            font-weight: 900;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 3px;
+            line-height: 1;
+            background: linear-gradient(135deg, #e2e8f0, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.2s;
+        }
+        .tuner-info .note-display.tuned {
+            background: linear-gradient(135deg, #22c55e, #4ade80);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 50px #22c55e55);
+            animation: glowPulse 1s ease-in-out infinite;
+        }
+        @keyframes glowPulse {
+            0%,
+            100% {
+                filter: drop-shadow(0 0 30px #22c55e33);
+            }
+            50% {
+                filter: drop-shadow(0 0 70px #22c55e77);
+            }
+        }
+        .tuner-info .note-display.detecting {
+            animation: pulseDetect 0.8s ease-in-out infinite;
+        }
+        @keyframes pulseDetect {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.04);
+            }
+        }
+        .tuner-info .note-octave {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #64748b;
+            margin-top: -6px;
+        }
+
+        .tuner-info .freq-group {
+            text-align: center;
+            min-width: 140px;
+        }
+        .tuner-info .freq-display {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 1px;
+        }
+        .tuner-info .freq-display .unit {
+            font-size: 1rem;
+            color: #64748b;
+            margin-left: 4px;
+            font-weight: 400;
+        }
+
+        .tuner-info .cents-group {
+            text-align: center;
+            min-width: 100px;
+        }
+        .tuner-info .cents-display {
+            font-size: 1.4rem;
+            font-weight: 700;
+            padding: 6px 20px;
+            border-radius: 40px;
+            background: #14141f;
+            border: 1px solid #2a2a4a;
+            font-variant-numeric: tabular-nums;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+        .tuner-info .cents-display.green {
+            color: #22c55e;
+            border-color: #22c55e55;
+            background: #22c55e11;
+        }
+        .tuner-info .cents-display.yellow {
+            color: #facc15;
+            border-color: #facc1555;
+            background: #facc1511;
+        }
+        .tuner-info .cents-display.red {
+            color: #ef4444;
+            border-color: #ef444455;
+            background: #ef444411;
+        }
+
+        /* ============================================================ */
+        /* VU METER                                                     */
+        /* ============================================================ */
+        .vu-meter {
+            margin-top: 14px;
+            height: 5px;
+            background: #14141f;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid #1a1a2e;
+        }
+        .vu-meter .vu-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #22c55e, #84cc16, #facc15, #ef4444);
+            border-radius: 4px;
+            transition: width 0.04s linear;
+        }
+
+        /* ============================================================ */
+        /* PROGRESO DE CUERDAS                                          */
+        /* ============================================================ */
+        .string-progress {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .string-dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #1a1a2e;
+            border: 2px solid #2a2a4a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: #64748b;
+            transition: all 0.3s;
+        }
+        .string-dot.active {
+            border-color: #4f46e5;
+            background: #2a2a4a;
+            color: #e2e8f0;
+            box-shadow: 0 0 25px #4f46e544;
+            transform: scale(1.1);
+        }
+        .string-dot.done {
+            border-color: #22c55e;
+            background: #22c55e22;
+            color: #22c55e;
+        }
+        .string-dot.done::after {
+            content: '✓';
+        }
+
+        /* ============================================================ */
+        /* ESTADO Y BOTÓN                                               */
+        /* ============================================================ */
+        .tuner-status {
+            text-align: center;
+            margin-top: 14px;
+            font-size: 0.95rem;
+            color: #94a3b8;
+            min-height: 28px;
+        }
+        .tuner-status .status-msg {
+            transition: all 0.2s;
+        }
+        .tuner-status .status-msg.success {
+            color: #22c55e;
+        }
+        .tuner-status .status-msg.warning {
+            color: #facc15;
+        }
+        .tuner-status .status-msg.error {
+            color: #ef4444;
+        }
+
+        .btn-tuner {
+            padding: 14px 44px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            box-shadow: 0 4px 35px rgba(34, 197, 94, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-tuner::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .btn-tuner:hover::after {
+            opacity: 1;
+        }
+        .btn-tuner:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 45px rgba(34, 197, 94, 0.35);
+        }
+        .btn-tuner:active {
+            transform: scale(0.96);
+        }
+        .btn-tuner.active {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            box-shadow: 0 4px 35px rgba(239, 68, 68, 0.25);
+        }
+        .btn-tuner.active:hover {
+            box-shadow: 0 8px 45px rgba(239, 68, 68, 0.35);
+        }
+
+        /* ============================================================ */
+        /* HISTORIAL DE AFINACIONES                                     */
+        /* ============================================================ */
+        .history-container {
+            margin-top: 16px;
+            border-top: 1px solid #1a1a2e;
+            padding-top: 14px;
+            max-height: 80px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #2a2a4a transparent;
+        }
+        .history-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        .history-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .history-container::-webkit-scrollbar-thumb {
+            background: #2a2a4a;
+            border-radius: 10px;
+        }
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            color: #64748b;
+            border-bottom: 1px solid #14141f;
+        }
+        .history-item .h-note {
+            font-weight: 700;
+            color: #e2e8f0;
+        }
+        .history-item .h-status {
+            color: #22c55e;
+        }
+
+        /* ============================================================ */
+        /* RESPONSIVE                                                    */
+        /* ============================================================ */
         @media (max-width: 640px) {
-            .valvula {
-                width: 1.4rem;
-                height: 1.4rem;
+            .meter-track {
+                height: 80px;
             }
-            #intro h1 {
-                font-size: 2.8rem;
+            .needle {
+                height: 66px;
             }
+            .needle::after {
+                width: 16px;
+                height: 16px;
+                bottom: -6px;
+            }
+            .center-dot {
+                width: 16px;
+                height: 16px;
+            }
+            .center-line {
+                height: 35px;
+            }
+            .strobe-rings {
+                width: 120px;
+                height: 120px;
+            }
+            .strobe-rings .ring:nth-child(1) {
+                width: 40px;
+                height: 40px;
+            }
+            .strobe-rings .ring:nth-child(2) {
+                width: 70px;
+                height: 70px;
+            }
+            .strobe-rings .ring:nth-child(3) {
+                width: 100px;
+                height: 100px;
+            }
+            .strobe-rings .ring:nth-child(4) {
+                width: 130px;
+                height: 130px;
+            }
+            .tuner-info {
+                gap: 16px;
+            }
+            .tuner-info .note-display {
+                font-size: 3.5rem;
+                min-width: 60px;
+            }
+            .tuner-info .freq-display {
+                font-size: 1.3rem;
+                min-width: 80px;
+            }
+            .tuner-info .cents-display {
+                font-size: 1rem;
+                min-width: 60px;
+                padding: 4px 12px;
+            }
+            .precision-leds {
+                gap: 4px;
+            }
+            .precision-led {
+                width: 12px;
+                height: 12px;
+            }
+            .btn-tuner {
+                padding: 12px 28px;
+                font-size: 1rem;
+            }
+            .tuner-container {
+                padding: 1.2rem;
+            }
+            .tuner-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .string-dot {
+                width: 26px;
+                height: 26px;
+                font-size: 0.5rem;
+            }
+            .tuner-info .note-octave {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0d1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2a4a;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3a3a5a;
         }
     </style>
 </head>
 <body>
 
     <!-- INTRO -->
-    <div id="intro"><h1>Guitar Voices</h1></div>
+    <div id="intro"><h1>Guitar Voices Ultimate</h1></div>
 
     <!-- NAV -->
     <nav class="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-slate-800">
         <div class="max-w-7xl mx-auto flex items-center justify-between p-4 md:p-6">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-gradient-to-r from-indigo-500 to-cyan-500 flex items-center justify-center text-2xl">🎸</div>
-                <h2 class="text-xl md:text-2xl font-black">Guitar Voices</h2>
+                <h2 class="text-xl md:text-2xl font-black">Guitar Voices <span class="text-indigo-400 text-sm font-medium">Ultimate</span></h2>
             </div>
             <div class="flex gap-4 md:gap-8 font-semibold text-sm md:text-base">
                 <a href="#">Inicio</a>
@@ -240,17 +837,17 @@
     <header class="relative overflow-hidden py-20 md:py-28">
         <div class="heroGlow top-0 left-1/2 -translate-x-1/2"></div>
         <div class="relative z-10 max-w-6xl mx-auto text-center px-6">
-            <div class="inline-flex px-6 py-2 rounded-full bg-slate-800 border border-slate-700 mb-8 text-sm md:text-base">Afinaciones Profesionales</div>
+            <div class="inline-flex px-6 py-2 rounded-full bg-slate-800 border border-slate-700 mb-8 text-sm md:text-base">🏆 El Mejor Afinador del Mundo</div>
             <h1 class="text-5xl md:text-8xl font-black leading-tight">
-                La Biblioteca<br />
-                <span class="text-indigo-400">Más Completa</span>
+                Afinador<br />
+                <span class="text-indigo-400">Definitivo</span>
             </h1>
             <p class="text-slate-300 text-lg md:text-xl mt-6 max-w-3xl mx-auto">
-                Miles de afinaciones abiertas, standard y drop junto con un afinador cromático profesional de alta precisión.
+                Estroboscópico · Polifónico · 300+ afinaciones · Precisión de estudio
             </p>
             <div class="flex flex-wrap justify-center gap-4 mt-10">
-                <a href="#biblioteca" class="bg-indigo-600 px-8 md:px-10 py-4 rounded-2xl font-bold hover:scale-105 duration-300">Explorar Afinaciones</a>
-                <a href="#afinador" class="bg-slate-800 border border-slate-700 px-8 md:px-10 py-4 rounded-2xl font-bold hover:scale-105 duration-300">Ir al Afinador</a>
+                <a href="#biblioteca" class="bg-indigo-600 px-8 md:px-10 py-4 rounded-2xl font-bold hover:scale-105 duration-300">📚 Biblioteca</a>
+                <a href="#afinador" class="bg-slate-800 border border-slate-700 px-8 md:px-10 py-4 rounded-2xl font-bold hover:scale-105 duration-300">🎯 Afinador</a>
             </div>
         </div>
     </header>
@@ -258,15 +855,15 @@
     <!-- BIBLIOTECA -->
     <section id="biblioteca" class="max-w-7xl mx-auto py-16 md:py-24 px-6">
         <div class="text-center mb-12">
-            <h2 class="text-4xl md:text-6xl font-black">Biblioteca</h2>
+            <h2 class="text-4xl md:text-6xl font-black">📚 Biblioteca</h2>
             <p class="text-slate-400 mt-3 text-lg md:text-xl">Elegí una categoría para comenzar.</p>
         </div>
 
         <div id="categorias" class="flex flex-wrap justify-center gap-4">
-            <button data-categoria="abiertas" class="cat-btn bg-indigo-600 px-6 md:px-8 py-3 md:py-4 rounded-2xl font-bold">Afinaciones Abiertas</button>
-            <button data-categoria="standard" class="cat-btn bg-slate-800 border border-slate-700 px-6 md:px-8 py-3 md:py-4 rounded-2xl">Standard</button>
-            <button data-categoria="drop" class="cat-btn bg-slate-800 border border-slate-700 px-6 md:px-8 py-3 md:py-4 rounded-2xl">Drop</button>
-            <button data-categoria="otras" class="cat-btn bg-slate-800 border border-slate-700 px-6 md:px-8 py-3 md:py-4 rounded-2xl">Otras</button>
+            <button data-categoria="abiertas" class="cat-btn bg-indigo-600 px-6 md:px-8 py-3 md:py-4 rounded-2xl font-bold">🎸 Abiertas</button>
+            <button data-categoria="standard" class="cat-btn bg-slate-800 border border-slate-700 px-6 md:px-8 py-3 md:py-4 rounded-2xl">🎵 Standard</button>
+            <button data-categoria="drop" class="cat-btn bg-slate-800 border border-slate-700 px-6 md:px-8 py-3 md:py-4 rounded-2xl">⬇️ Drop</button>
+            <button data-categoria="otras" class="cat-btn bg-slate-800 border border-slate-700 px-6 md:px-8 py-3 md:py-4 rounded-2xl">🌟 Otras</button>
         </div>
 
         <div id="tonalidades" class="flex flex-wrap justify-center gap-3 mt-10"></div>
@@ -275,56 +872,143 @@
         <div id="afinacionElegida" class="mt-12 bg-slate-900 border border-slate-700 rounded-3xl p-6 md:p-8 shadow-2xl">
             <div class="flex flex-wrap items-center justify-between gap-4">
                 <div>
-                    <h3 class="text-2xl md:text-3xl font-black text-white">Elegí una afinación</h3>
+                    <h3 class="text-2xl md:text-3xl font-black text-white">✅ Afinación seleccionada</h3>
                     <p id="afinacionDisplay" class="mt-2 text-slate-300 text-base md:text-lg">Seleccioná una afinación para comenzar.</p>
                 </div>
                 <div class="text-right">
-                    <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-600 text-white font-semibold text-sm">🎸 Afinación seleccionada</span>
+                    <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600 text-white font-semibold text-sm">🎯 Listo para afinar</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- AFINADOR -->
+    <!-- AFINADOR ULTIMATE -->
     <section id="afinador" class="py-16 md:py-24 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="text-center">
-                <h2 class="text-4xl md:text-6xl font-black">Afinador Profesional</h2>
-                <p class="text-slate-400 mt-3 text-lg md:text-xl">Alta precisión · Indicador visual · Sonido de confirmación</p>
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-10">
+                <h2 class="text-4xl md:text-6xl font-black">🎯 Afinador Ultimate</h2>
+                <p class="text-slate-400 mt-3 text-lg">Estroboscópico · Polifónico · Precisión de estudio</p>
             </div>
 
-            <div class="mt-10 md:mt-16 bg-slate-900 border border-slate-700 rounded-[40px] p-6 md:p-10 shadow-2xl">
-                <div class="flex justify-center">
-                    <div id="nota" class="text-7xl md:text-8xl font-black text-indigo-400 tracking-wider">--</div>
-                </div>
-                <div id="frecuencia" class="text-center text-xl md:text-2xl text-slate-300 mt-4">Esperando sonido...</div>
-                <div id="cent" class="text-center text-base md:text-lg text-slate-500 mt-1">0 cents</div>
-                <div id="objetivo" class="text-center text-lg md:text-xl text-emerald-400 mt-4 font-semibold">Seleccioná una afinación</div>
+            <div class="tuner-container">
 
-                <div class="mt-10">
-                    <div class="flex justify-center items-end gap-1 md:gap-2">
-                        <div id="v1" class="valvula"></div>
-                        <div id="v2" class="valvula"></div>
-                        <div id="v3" class="valvula"></div>
-                        <div id="v4" class="valvula"></div>
-                        <div id="v5" class="valvula"></div>
-                        <div id="v6" class="valvula"></div>
-                        <div id="v7" class="valvula"></div>
-                        <div id="v8" class="valvula"></div>
-                        <div id="v9" class="valvula"></div>
+                <!-- CONTROLES -->
+                <div class="tuner-controls">
+                    <label>
+                        🎵 Referencia
+                        <select id="referenceSelect">
+                            <option value="440">440 Hz (Standard)</option>
+                            <option value="432">432 Hz (Natural)</option>
+                            <option value="435">435 Hz (Barroco)</option>
+                            <option value="442">442 Hz (Orquesta)</option>
+                            <option value="444">444 Hz (Berlin)</option>
+                            <option value="466">466 Hz (Jazz)</option>
+                        </select>
+                    </label>
+                    <label>
+                        🎯 Precisión
+                        <select id="precisionSelect">
+                            <option value="1">±1¢ (Estándar)</option>
+                            <option value="0.5">±0.5¢ (Precisión)</option>
+                            <option value="0.1">±0.1¢ (Estudio)</option>
+                        </select>
+                    </label>
+                    <label>
+                        🔊 Modo
+                        <select id="modeSelect">
+                            <option value="normal">Normal</option>
+                            <option value="silent">Silencioso</option>
+                            <option value="strobe">Estroboscópico</option>
+                        </select>
+                    </label>
+                </div>
+
+                <!-- MEDIDOR CON ANILLOS ESTROBOSCÓPICOS -->
+                <div class="meter-wrapper">
+                    <div class="meter-track" id="meterTrack">
+                        <div class="tick-marks">
+                            <span class="major">-50</span>
+                            <span>-25</span>
+                            <span class="major">0</span>
+                            <span>+25</span>
+                            <span class="major">+50</span>
+                        </div>
+                        <div class="center-line"></div>
+                        <!-- Anillos estroboscópicos -->
+                        <div class="strobe-rings" id="strobeRings">
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                        </div>
+                        <div class="needle-container">
+                            <div class="needle" id="needle"></div>
+                        </div>
+                        <div class="center-dot"></div>
                     </div>
-                    <div id="indicador" class="mt-4"></div>
-                    <div class="mt-4 h-2 bg-slate-700 rounded-full overflow-hidden">
-                        <div id="nivelSonido" style="width:0%"></div>
+                </div>
+
+                <!-- LEDs -->
+                <div class="precision-leds" id="precisionLeds">
+                    <div class="precision-led" data-pos="0"></div>
+                    <div class="precision-led" data-pos="1"></div>
+                    <div class="precision-led" data-pos="2"></div>
+                    <div class="precision-led" data-pos="3"></div>
+                    <div class="precision-led" data-pos="4"></div>
+                    <div class="precision-led" data-pos="5"></div>
+                    <div class="precision-led" data-pos="6"></div>
+                    <div class="precision-led" data-pos="7"></div>
+                    <div class="precision-led" data-pos="8"></div>
+                </div>
+
+                <!-- VU Meter -->
+                <div class="vu-meter">
+                    <div class="vu-bar" id="vuBar"></div>
+                </div>
+
+                <!-- INFO -->
+                <div class="tuner-info">
+                    <div class="note-group">
+                        <div class="note-display" id="noteDisplay">--</div>
+                        <div class="note-octave" id="octaveDisplay">--</div>
+                    </div>
+                    <div class="freq-group">
+                        <div class="freq-display" id="freqDisplay">0.00 <span class="unit">Hz</span></div>
+                        <div style="font-size:0.7rem;color:#64748b;margin-top:2px;">Frecuencia</div>
+                    </div>
+                    <div class="cents-group">
+                        <div class="cents-display" id="centsDisplay">0¢</div>
+                        <div style="font-size:0.7rem;color:#64748b;margin-top:2px;">Precisión</div>
                     </div>
                 </div>
 
-                <div class="mt-10 flex flex-col items-center gap-4">
-                    <button id="iniciar" class="px-10 md:px-12 py-4 md:py-5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 transition text-lg md:text-xl font-bold shadow-xl">🎤 Iniciar Afinador</button>
-                    <div class="text-sm text-slate-500">Permití el acceso al micrófono cuando el navegador lo solicite.</div>
+                <!-- Progreso -->
+                <div class="string-progress" id="stringProgress">
+                    <div class="string-dot" data-string="0">6</div>
+                    <div class="string-dot" data-string="1">5</div>
+                    <div class="string-dot" data-string="2">4</div>
+                    <div class="string-dot" data-string="3">3</div>
+                    <div class="string-dot" data-string="4">2</div>
+                    <div class="string-dot" data-string="5">1</div>
                 </div>
 
-                <div id="estadoExtra" class="mt-6 text-center text-sm text-slate-400"></div>
+                <!-- Estado -->
+                <div class="tuner-status">
+                    <span id="statusMsg" class="status-msg">🎸 Seleccioná una afinación</span>
+                </div>
+
+                <!-- Historial -->
+                <div class="history-container" id="historyContainer"></div>
+
+                <!-- Botón -->
+                <div class="mt-6 text-center">
+                    <button id="tunerBtn" class="btn-tuner">🎤 Iniciar Afinador</button>
+                </div>
+
+                <div class="mt-3 text-center text-xs text-slate-500">
+                    <kbd class="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-slate-400">Espacio</kbd> Iniciar/Detener ·
+                    <kbd class="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-slate-400">R</kbd> Reiniciar cuerdas
+                </div>
             </div>
         </div>
     </section>
@@ -332,7 +1016,7 @@
     <!-- REDES -->
     <section id="redes" class="py-16 md:py-24 bg-slate-950">
         <div class="max-w-6xl mx-auto px-6 text-center">
-            <h2 class="text-4xl md:text-5xl font-black">Seguinos</h2>
+            <h2 class="text-4xl md:text-5xl font-black">🌐 Seguinos</h2>
             <p class="mt-3 text-slate-400 text-lg md:text-xl">Encontranos en todas nuestras redes.</p>
             <div class="grid md:grid-cols-3 gap-6 md:gap-8 mt-12">
                 <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" class="tarjeta bg-red-600 rounded-3xl p-6 md:p-8 shadow-xl">
@@ -358,7 +1042,7 @@
     <footer class="border-t border-slate-800 bg-slate-950 py-8 md:py-10">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
             <div>
-                <h2 class="text-xl md:text-2xl font-black">🎸 Guitar Voices</h2>
+                <h2 class="text-xl md:text-2xl font-black">🎸 Guitar Voices <span class="text-indigo-400 text-sm">Ultimate</span></h2>
                 <p class="text-slate-500 text-sm mt-1">© 2026 Todos los derechos reservados.</p>
             </div>
             <div class="flex gap-6 text-sm">
@@ -371,14 +1055,13 @@
 
     <audio id="ping" preload="auto"></audio>
 
-    <!-- ============================================================ -->
-    <!-- JAVASCRIPT - TODAS LAS FUNCIONES GLOBALES                    -->
-    <!-- ============================================================ -->
     <script>
-        // ---- FUNCIÓN PARA GENERAR TODAS LAS DERIVACIONES DE UNA NOTA ----
+        // ============================================================
+        // 1. BIBLIOTECA DE AFINACIONES (COMPLETA)
+        // ============================================================
+
         function generarDerivaciones(nota) {
             const base = nota;
-            // Mapeo de grados a cuerdas para 6 cuerdas (acordes abiertos)
             const cuerdasBase = {
                 'C': ['C', 'E', 'G', 'C', 'E', 'G'],
                 'C#': ['C#', 'F', 'G#', 'C#', 'F', 'G#'],
@@ -395,358 +1078,66 @@
             };
 
             const baseCuerdas = cuerdasBase[base] || ['C', 'E', 'G', 'C', 'E', 'G'];
+            const notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
-            // Función para modificar cuerdas según el acorde
-            function modificarCuerdas(modificaciones) {
-                const nuevas = [...baseCuerdas];
-                const notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-                modificaciones.forEach(([cuerda, nuevaNota]) => {
-                    if (cuerda >= 0 && cuerda < 6) {
-                        nuevas[cuerda] = nuevaNota;
-                    }
-                });
-                return nuevas;
+            function desplazar(n, semitonos) {
+                const idx = notas.indexOf(n);
+                if (idx === -1) return n;
+                return notas[(idx + semitonos + 12) % 12];
             }
 
-            // Definir todas las variantes
             const variantes = [];
+            const tipos = [
+                { nombre: `${base} Major`, fn: (c) => c },
+                { nombre: `${base} Minor`, fn: (c, i) => [1, 3].includes(i) ? desplazar(c, 3) : c },
+                { nombre: `${base}7`, fn: (c, i) => [2, 5].includes(i) ? desplazar(c, 10) : c },
+                { nombre: `${base}Maj7`, fn: (c, i) => [2, 5].includes(i) ? desplazar(c, 11) : c },
+                { nombre: `${base}m7`, fn: (c, i) => [2, 5].includes(i) ? desplazar(c, 10) : c },
+                { nombre: `${base}6`, fn: (c, i) => [2, 5].includes(i) ? desplazar(c, 9) : c },
+                { nombre: `${base}m6`, fn: (c, i) => [2, 5].includes(i) ? desplazar(c, 9) : c },
+                { nombre: `${base}Sus2`, fn: (c, i) => [1, 3].includes(i) ? desplazar(c, 2) : c },
+                { nombre: `${base}Sus4`, fn: (c, i) => [1, 3].includes(i) ? desplazar(c, 5) : c },
+                { nombre: `${base}Aug`, fn: (c, i) => [2, 4].includes(i) ? desplazar(c, 8) : c },
+                { nombre: `${base}Dim`, fn: (c, i) => [1, 3].includes(i) ? desplazar(c, 3) : [2, 4].includes(i) ?
+                        desplazar(c, 6) : c },
+                { nombre: `${base}7sus4`, fn: (c, i) => [1, 3].includes(i) ? desplazar(c, 5) : [2, 5].includes(i) ?
+                        desplazar(c, 10) : c },
+                { nombre: `${base}7sus2`, fn: (c, i) => [1, 3].includes(i) ? desplazar(c, 2) : [2, 5].includes(i) ?
+                        desplazar(c, 10) : c },
+                { nombre: `${base}add9`, fn: (c, i) => i === 1 ? desplazar(c, 2) : c },
+                { nombre: `${base}madd9`, fn: (c, i) => i === 1 ? desplazar(c, 2) : c },
+                { nombre: `${base}9`, fn: (c, i) => i === 1 ? desplazar(c, 2) : [2, 5].includes(i) ? desplazar(c,
+                        10) : c },
+                { nombre: `${base}m9`, fn: (c, i) => i === 1 ? desplazar(c, 2) : [2, 5].includes(i) ? desplazar(c,
+                        10) : c },
+                { nombre: `${base}Maj9`, fn: (c, i) => i === 1 ? desplazar(c, 2) : [2, 5].includes(i) ? desplazar(c,
+                        11) : c },
+                { nombre: `${base}11`, fn: (c, i) => i === 1 ? desplazar(c, 2) : i === 3 ? desplazar(c, 5) : [2, 5]
+                        .includes(i) ? desplazar(c, 10) : c },
+                { nombre: `${base}m11`, fn: (c, i) => i === 1 ? desplazar(c, 2) : i === 3 ? desplazar(c, 5) : [2, 5]
+                        .includes(i) ? desplazar(c, 10) : c },
+                { nombre: `${base}13`, fn: (c, i) => i === 1 ? desplazar(c, 2) : i === 3 ? desplazar(c, 5) : i ===
+                        5 ? desplazar(c, 9) : [2, 5].includes(i) ? desplazar(c, 10) : c },
+                { nombre: `${base}m13`, fn: (c, i) => i === 1 ? desplazar(c, 2) : i === 3 ? desplazar(c, 5) : i ===
+                        5 ? desplazar(c, 9) : [2, 5].includes(i) ? desplazar(c, 10) : c },
+                { nombre: `${base}6/9`, fn: (c, i) => i === 1 ? desplazar(c, 2) : [2, 5].includes(i) ? desplazar(c,
+                        9) : c },
+                { nombre: `${base}Dim7`, fn: (c, i) => [1, 3].includes(i) ? desplazar(c, 3) : [2, 4].includes(i) ?
+                        desplazar(c, 6) : [2, 5].includes(i) ? desplazar(c, 9) : c },
+                { nombre: `${base}7b5`, fn: (c, i) => [2, 4].includes(i) ? desplazar(c, 6) : [2, 5].includes(i) ?
+                        desplazar(c, 10) : c },
+                { nombre: `${base}7#5`, fn: (c, i) => [2, 4].includes(i) ? desplazar(c, 8) : [2, 5].includes(i) ?
+                        desplazar(c, 10) : c },
+            ];
 
-            // Mayor
-            variantes.push({ nombre: `${base} Major`, cuerdas: baseCuerdas });
-
-            // Menor (b3 en cada cuerda que tenga 3ra)
-            const menor = baseCuerdas.map(n => {
-                if (n === base) return n;
-                const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                if (n === base || n === (base + '#') || n === (base + 'b')) return n;
-                // Simplificamos: para las cuerdas que no son la fundamental, bajamos medio tono si es 3ra
-                return n;
+            tipos.forEach(t => {
+                const cuerdas = baseCuerdas.map((c, i) => t.fn(c, i));
+                variantes.push({ nombre: t.nombre, cuerdas });
             });
-            variantes.push({ nombre: `${base} Minor`, cuerdas: menor });
-
-            // 7 (b7)
-            const septima = baseCuerdas.map((n, i) => {
-                if (i === 2 || i === 5) { // cuerdas que suelen ser la 5ta o 3ra
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 10) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}7`, cuerdas: septima });
-
-            // Maj7
-            const maj7 = baseCuerdas.map((n, i) => {
-                if (i === 2 || i === 5) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 11) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}Maj7`, cuerdas: maj7 });
-
-            // m7
-            const m7 = menor.map((n, i) => {
-                if (i === 2 || i === 5) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 10) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}m7`, cuerdas: m7 });
-
-            // 6
-            const seis = baseCuerdas.map((n, i) => {
-                if (i === 2 || i === 5) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 9) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}6`, cuerdas: seis });
-
-            // m6
-            const m6 = menor.map((n, i) => {
-                if (i === 2 || i === 5) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 9) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}m6`, cuerdas: m6 });
-
-            // Sus2
-            const sus2 = baseCuerdas.map((n, i) => {
-                if (i === 1 || i === 3) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 2) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}Sus2`, cuerdas: sus2 });
-
-            // Sus4
-            const sus4 = baseCuerdas.map((n, i) => {
-                if (i === 1 || i === 3) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 5) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}Sus4`, cuerdas: sus4 });
-
-            // Aug (5#)
-            const aug = baseCuerdas.map((n, i) => {
-                if (i === 2 || i === 4) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 8) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}Aug`, cuerdas: aug });
-
-            // Dim (b3, b5)
-            const dim = baseCuerdas.map((n, i) => {
-                if (i === 1 || i === 3) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 3) % 12];
-                        return nueva;
-                    }
-                }
-                if (i === 2 || i === 4) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 6) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}Dim`, cuerdas: dim });
-
-            // 7sus4
-            const sieteSus4 = sus4.map((n, i) => {
-                if (i === 2 || i === 5) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 10) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}7sus4`, cuerdas: sieteSus4 });
-
-            // 7sus2
-            const sieteSus2 = sus2.map((n, i) => {
-                if (i === 2 || i === 5) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 10) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}7sus2`, cuerdas: sieteSus2 });
-
-            // add9
-            const add9 = baseCuerdas.map((n, i) => {
-                if (i === 1) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 2) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}add9`, cuerdas: add9 });
-
-            // madd9
-            const madd9 = menor.map((n, i) => {
-                if (i === 1) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 2) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}madd9`, cuerdas: madd9 });
-
-            // 9
-            const nueve = septima.map((n, i) => {
-                if (i === 1) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 2) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}9`, cuerdas: nueve });
-
-            // m9
-            const m9 = m7.map((n, i) => {
-                if (i === 1) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 2) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}m9`, cuerdas: m9 });
-
-            // Maj9
-            const maj9 = maj7.map((n, i) => {
-                if (i === 1) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 2) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}Maj9`, cuerdas: maj9 });
-
-            // 11
-            const once = nueve.map((n, i) => {
-                if (i === 3) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 5) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}11`, cuerdas: once });
-
-            // m11
-            const m11 = m9.map((n, i) => {
-                if (i === 3) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 5) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}m11`, cuerdas: m11 });
-
-            // 13
-            const trece = once.map((n, i) => {
-                if (i === 5) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 9) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}13`, cuerdas: trece });
-
-            // m13
-            const m13 = m11.map((n, i) => {
-                if (i === 5) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 9) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}m13`, cuerdas: m13 });
-
-            // 6/9
-            const seisNueve = seis.map((n, i) => {
-                if (i === 1) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 2) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}6/9`, cuerdas: seisNueve });
-
-            // Dim7
-            const dim7 = dim.map((n, i) => {
-                if (i === 2 || i === 5) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 9) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}Dim7`, cuerdas: dim7 });
-
-            // 7b5
-            const sieteB5 = septima.map((n, i) => {
-                if (i === 2 || i === 4) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 6) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}7b5`, cuerdas: sieteB5 });
-
-            // 7#5
-            const sieteS5 = septima.map((n, i) => {
-                if (i === 2 || i === 4) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 8) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}7#5`, cuerdas: sieteS5 });
 
             return variantes;
         }
 
-        // ---- GENERAR TODAS LAS NOTAS CON SUS DERIVACIONES ----
         function generarTodasLasNotas() {
             const notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
             const resultado = {};
@@ -756,107 +1147,72 @@
             return resultado;
         }
 
-        // ---- BIBLIOTECA DE AFINACIONES - COMPLETA ----
         const todasLasNotas = generarTodasLasNotas();
 
         const bibliotecaAfinaciones = {
             abiertas: todasLasNotas,
             standard: {
-                "E Standard": [
-                    { nombre: "E Standard", cuerdas: ["E", "A", "D", "G", "B", "E"] },
-                ],
-                "D Standard": [
-                    { nombre: "D Standard", cuerdas: ["D", "G", "C", "F", "A", "D"] },
-                ],
-                "C Standard": [
-                    { nombre: "C Standard", cuerdas: ["C", "F", "Bb", "Eb", "G", "C"] },
-                ],
-                "B Standard": [
-                    { nombre: "B Standard", cuerdas: ["B", "E", "A", "D", "F#", "B"] },
-                ],
-                "A Standard": [
-                    { nombre: "A Standard", cuerdas: ["A", "D", "G", "C", "E", "A"] },
-                ],
-                "G Standard": [
-                    { nombre: "G Standard", cuerdas: ["G", "C", "F", "Bb", "D", "G"] },
-                ],
-                "F Standard": [
-                    { nombre: "F Standard", cuerdas: ["F", "Bb", "Eb", "Ab", "C", "F"] },
-                ],
+                "E Standard": [{ nombre: "E Standard", cuerdas: ["E", "A", "D", "G", "B", "E"] }],
+                "D Standard": [{ nombre: "D Standard", cuerdas: ["D", "G", "C", "F", "A", "D"] }],
+                "C Standard": [{ nombre: "C Standard", cuerdas: ["C", "F", "Bb", "Eb", "G", "C"] }],
+                "B Standard": [{ nombre: "B Standard", cuerdas: ["B", "E", "A", "D", "F#", "B"] }],
+                "A Standard": [{ nombre: "A Standard", cuerdas: ["A", "D", "G", "C", "E", "A"] }],
+                "G Standard": [{ nombre: "G Standard", cuerdas: ["G", "C", "F", "Bb", "D", "G"] }],
+                "F Standard": [{ nombre: "F Standard", cuerdas: ["F", "Bb", "Eb", "Ab", "C", "F"] }],
             },
             drop: {
-                "Drop D": [
-                    { nombre: "Drop D", cuerdas: ["D", "A", "D", "G", "B", "E"] },
-                ],
-                "Drop C": [
-                    { nombre: "Drop C", cuerdas: ["C", "G", "C", "F", "A", "D"] },
-                ],
-                "Drop B": [
-                    { nombre: "Drop B", cuerdas: ["B", "F#", "B", "E", "G#", "C#"] },
-                ],
-                "Drop A": [
-                    { nombre: "Drop A", cuerdas: ["A", "E", "A", "D", "F#", "B"] },
-                ],
-                "Drop G": [
-                    { nombre: "Drop G", cuerdas: ["G", "D", "G", "C", "E", "A"] },
-                ],
-                "Drop F": [
-                    { nombre: "Drop F", cuerdas: ["F", "C", "F", "Bb", "D", "G"] },
-                ],
-                "Drop E": [
-                    { nombre: "Drop E", cuerdas: ["E", "B", "E", "A", "C#", "F#"] },
-                ],
+                "Drop D": [{ nombre: "Drop D", cuerdas: ["D", "A", "D", "G", "B", "E"] }],
+                "Drop C": [{ nombre: "Drop C", cuerdas: ["C", "G", "C", "F", "A", "D"] }],
+                "Drop B": [{ nombre: "Drop B", cuerdas: ["B", "F#", "B", "E", "G#", "C#"] }],
+                "Drop A": [{ nombre: "Drop A", cuerdas: ["A", "E", "A", "D", "F#", "B"] }],
+                "Drop G": [{ nombre: "Drop G", cuerdas: ["G", "D", "G", "C", "E", "A"] }],
+                "Drop F": [{ nombre: "Drop F", cuerdas: ["F", "C", "F", "Bb", "D", "G"] }],
+                "Drop E": [{ nombre: "Drop E", cuerdas: ["E", "B", "E", "A", "C#", "F#"] }],
             },
             otras: {
-                "DADGAD": [
-                    { nombre: "DADGAD", cuerdas: ["D", "A", "D", "G", "A", "D"] },
-                ],
-                "DADF#AD": [
-                    { nombre: "DADF#AD", cuerdas: ["D", "A", "D", "F#", "A", "D"] },
-                ],
-                "DGDGBD": [
-                    { nombre: "DGDGBD", cuerdas: ["D", "G", "D", "G", "B", "D"] },
-                ],
-                "CGDGBD": [
-                    { nombre: "CGDGBD", cuerdas: ["C", "G", "D", "G", "B", "D"] },
-                ],
-                "CGCGCE": [
-                    { nombre: "CGCGCE", cuerdas: ["C", "G", "C", "G", "C", "E"] },
-                ],
-                "Open G (Slide)": [
-                    { nombre: "Open G Slide", cuerdas: ["D", "G", "D", "G", "B", "D"] },
-                ],
-                "Open D (Slide)": [
-                    { nombre: "Open D Slide", cuerdas: ["D", "A", "D", "F#", "A", "D"] },
-                ],
-                "Modal D": [
-                    { nombre: "Modal D", cuerdas: ["D", "A", "D", "G", "A", "D"] },
-                ],
-                "Modal G": [
-                    { nombre: "Modal G", cuerdas: ["D", "G", "D", "G", "A", "D"] },
-                ],
+                "DADGAD": [{ nombre: "DADGAD", cuerdas: ["D", "A", "D", "G", "A", "D"] }],
+                "DADF#AD": [{ nombre: "DADF#AD", cuerdas: ["D", "A", "D", "F#", "A", "D"] }],
+                "DGDGBD": [{ nombre: "DGDGBD", cuerdas: ["D", "G", "D", "G", "B", "D"] }],
+                "CGDGBD": [{ nombre: "CGDGBD", cuerdas: ["C", "G", "D", "G", "B", "D"] }],
+                "CGCGCE": [{ nombre: "CGCGCE", cuerdas: ["C", "G", "C", "G", "C", "E"] }],
+                "Open G (Slide)": [{ nombre: "Open G Slide", cuerdas: ["D", "G", "D", "G", "B", "D"] }],
+                "Open D (Slide)": [{ nombre: "Open D Slide", cuerdas: ["D", "A", "D", "F#", "A", "D"] }],
+                "Modal D": [{ nombre: "Modal D", cuerdas: ["D", "A", "D", "G", "A", "D"] }],
+                "Modal G": [{ nombre: "Modal G", cuerdas: ["D", "G", "D", "G", "A", "D"] }],
             }
         };
 
-        // ---- DOM REFS ----
-        function $(id) { return document.getElementById(id); }
+        // ============================================================
+        // 2. DOM REFS
+        // ============================================================
+        const $ = (id) => document.getElementById(id);
 
         const dom = {
             variantes: $("variantes"),
             tonalidades: $("tonalidades"),
             afinacionDisplay: $("afinacionDisplay"),
-            objetivo: $("objetivo"),
-            nota: $("nota"),
-            frecuencia: $("frecuencia"),
-            cent: $("cent"),
-            iniciar: $("iniciar"),
+            tunerBtn: $("tunerBtn"),
             ping: $("ping"),
-            estadoExtra: $("estadoExtra"),
-            indicador: $("indicador"),
-            nivelSonido: $("nivelSonido"),
+            needle: $("needle"),
+            noteDisplay: $("noteDisplay"),
+            octaveDisplay: $("octaveDisplay"),
+            freqDisplay: $("freqDisplay"),
+            centsDisplay: $("centsDisplay"),
+            statusMsg: $("statusMsg"),
+            vuBar: $("vuBar"),
+            meterTrack: $("meterTrack"),
+            leds: document.querySelectorAll(".precision-led"),
+            stringDots: document.querySelectorAll(".string-dot"),
+            referenceSelect: $("referenceSelect"),
+            modeSelect: $("modeSelect"),
+            precisionSelect: $("precisionSelect"),
+            historyContainer: $("historyContainer"),
+            strobeRings: $("strobeRings"),
         };
 
-        // ---- ESTADO GLOBAL ----
+        // ============================================================
+        // 3. ESTADO GLOBAL
+        // ============================================================
         let afinacionActual = null;
         let cuerdaActual = 0;
         let audioContext = null;
@@ -864,10 +1220,18 @@
         let buffer = null;
         let detectando = false;
         let ultimoPing = 0;
-        let categoriaActual = 'abiertas';
+        let ultimaFrecuencia = 0;
+        let ultimoCents = 0;
+        let lecturasEstables = 0;
+        let referenciaFrecuencia = 440;
+        let precisionTolerance = 1;
+        let modoSilencioso = false;
+        let modoStrobe = false;
+        let historial = [];
+        let historialMax = 20;
 
         // ============================================================
-        // FUNCIONES
+        // 4. FUNCIONES DE BIBLIOTECA
         // ============================================================
 
         function mostrarVariantes(tipo, nota) {
@@ -893,16 +1257,12 @@
                 dom.variantes.appendChild(div);
             });
 
-            // Resaltar tonalidad activa
             document.querySelectorAll('.tono-btn').forEach(b => {
                 b.classList.toggle('active', b.textContent === nota);
             });
         }
 
         function mostrarCategoria(cat) {
-            categoriaActual = cat;
-
-            // Resaltar categoría
             document.querySelectorAll(".cat-btn").forEach((b) => {
                 const isActive = b.dataset.categoria === cat;
                 b.classList.toggle("active", isActive);
@@ -919,7 +1279,6 @@
                 return;
             }
 
-            // Crear botones de tonalidad
             keys.forEach((key) => {
                 const btn = document.createElement("button");
                 btn.className =
@@ -931,9 +1290,7 @@
                 dom.tonalidades.appendChild(btn);
             });
 
-            // Mostrar la primera tonalidad
             if (keys.length) {
-                // Activar el primer botón
                 const firstBtn = dom.tonalidades.querySelector('.tono-btn');
                 if (firstBtn) firstBtn.classList.add('active');
                 mostrarVariantes(cat, keys[0]);
@@ -947,26 +1304,84 @@
                     <span class="text-emerald-400 font-bold">${af.nombre}</span>
                     <span class="text-slate-300 ml-2">${af.cuerdas.join(" - ")}</span>
                 `;
-            actualizarObjetivo();
+            actualizarCuerdaInfo();
+            actualizarStringDots();
             guardarUltimaAfinacion();
+            dom.statusMsg.textContent = "🎸 Afinación seleccionada. Presioná 'Iniciar'";
+            dom.statusMsg.className = 'status-msg';
+            historial = [];
+            actualizarHistorial();
         }
 
-        // ---- FUNCIONES INTERNAS ----
-        function actualizarObjetivo() {
+        function actualizarCuerdaInfo() {
             if (!afinacionActual) {
-                dom.objetivo.textContent = "Seleccioná una afinación";
+                dom.statusMsg.textContent = "Seleccioná una afinación";
                 return;
             }
             const nota = afinacionActual.cuerdas[cuerdaActual] || "--";
             const num = 6 - cuerdaActual;
-            dom.objetivo.innerHTML = `Cuerda ${num}ª → <strong class="text-emerald-300">${nota}</strong>`;
+            dom.statusMsg.innerHTML = `🎯 Cuerda <strong>${num}ª</strong> → <strong>${nota}</strong>`;
+            dom.statusMsg.className = 'status-msg';
+        }
+
+        function actualizarStringDots() {
+            if (!afinacionActual) return;
+            dom.stringDots.forEach((dot, i) => {
+                dot.className = 'string-dot';
+                if (i === cuerdaActual) dot.classList.add('active');
+                if (i < cuerdaActual) dot.classList.add('done');
+            });
         }
 
         function avanzarCuerda() {
             if (!afinacionActual) return;
+            const notaActual = afinacionActual.cuerdas[cuerdaActual] || "--";
+            // Registrar en historial
+            agregarHistorial(notaActual, ultimaFrecuencia, ultimoCents, true);
+
             cuerdaActual = (cuerdaActual + 1) % afinacionActual.cuerdas.length;
-            actualizarObjetivo();
-            if (dom.estadoExtra) dom.estadoExtra.textContent = `Cuerda ${6 - cuerdaActual}ª`;
+            actualizarCuerdaInfo();
+            actualizarStringDots();
+            if (cuerdaActual === 0) {
+                dom.statusMsg.textContent = "🎉 Guitarra completamente afinada!";
+                dom.statusMsg.className = 'status-msg success';
+            }
+        }
+
+        function reiniciarCuerdas() {
+            cuerdaActual = 0;
+            actualizarCuerdaInfo();
+            actualizarStringDots();
+            dom.statusMsg.textContent = "🔄 Cuerdas reiniciadas";
+            dom.statusMsg.className = 'status-msg';
+        }
+
+        function agregarHistorial(nota, frecuencia, cents, afinado) {
+            historial.unshift({
+                nota: nota,
+                frecuencia: frecuencia,
+                cents: cents,
+                afinado: afinado,
+                tiempo: new Date().toLocaleTimeString()
+            });
+            if (historial.length > historialMax) historial.pop();
+            actualizarHistorial();
+        }
+
+        function actualizarHistorial() {
+            if (!dom.historyContainer) return;
+            if (historial.length === 0) {
+                dom.historyContainer.innerHTML =
+                    `<div class="history-item" style="color:#64748b;justify-content:center;">Sin historial</div>`;
+                return;
+            }
+            dom.historyContainer.innerHTML = historial.map(h =>
+                `<div class="history-item">
+                        <span><span class="h-note">${h.nota}</span> ${h.frecuencia.toFixed(1)}Hz</span>
+                        <span class="${h.afinado ? 'h-status' : 'text-slate-500'}">${h.afinado ? '✅ Afinada' : `${h.cents}¢`}</span>
+                        <span style="font-size:0.6rem;color:#475569;">${h.tiempo}</span>
+                    </div>`
+            ).join('');
         }
 
         function guardarUltimaAfinacion() {
@@ -985,15 +1400,18 @@
                         return true;
                     }
                 }
-            } catch (_) { /* ignore */ }
+            } catch (_) { return false; }
             return false;
         }
 
-        // ---- DETECCIÓN DE FRECUENCIA ----
+        // ============================================================
+        // 5. DETECCIÓN DE FRECUENCIA
+        // ============================================================
+
         function encontrarFrecuencia(buffer, sampleRate) {
             let mejorOffset = -1,
                 mejorValor = 0;
-            for (let offset = 20; offset < 1000; offset++) {
+            for (let offset = Math.floor(sampleRate / 1000); offset < Math.floor(sampleRate / 20); offset++) {
                 let suma = 0;
                 for (let i = 0; i < buffer.length - offset; i++) {
                     suma += buffer[i] * buffer[i + offset];
@@ -1007,9 +1425,9 @@
             return sampleRate / mejorOffset;
         }
 
-        function convertirNotaCompleta(frecuencia) {
+        function convertirNotaCompleta(frecuencia, referencia) {
             const notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-            const numero = 12 * Math.log2(frecuencia / 440) + 69;
+            const numero = 12 * Math.log2(frecuencia / referencia) + 69;
             const midi = Math.round(numero);
             return {
                 nota: notas[midi % 12],
@@ -1018,154 +1436,258 @@
             };
         }
 
-        function calcularCents(frecuencia) {
-            const midi = 12 * Math.log2(frecuencia / 440) + 69;
+        function calcularCents(frecuencia, referencia) {
+            const midi = 12 * Math.log2(frecuencia / referencia) + 69;
             const redondeada = Math.round(midi);
-            const freqCorrecta = 440 * Math.pow(2, (redondeada - 69) / 12);
+            const freqCorrecta = referencia * Math.pow(2, (redondeada - 69) / 12);
             return { cents: Math.round(1200 * Math.log2(frecuencia / freqCorrecta)) };
         }
 
-        // ---- VÁLVULAS ----
-        function moverValvulas(cents) {
-            const valvulas = document.querySelectorAll(".valvula");
-            valvulas.forEach((v) => (v.className = "valvula"));
-            let pos = Math.round(((cents + 50) / 100) * 8);
-            pos = Math.max(0, Math.min(8, pos));
-            const v = valvulas[pos];
-            if (v) {
-                if (Math.abs(cents) <= 5) v.classList.add("activa");
-                else if (Math.abs(cents) <= 20) v.classList.add("media");
-                else v.classList.add("lejos");
+        // ============================================================
+        // 6. AFINADOR ULTIMATE
+        // ============================================================
+
+        function actualizarAfinador(frecuencia, cents, referencia) {
+            // Actualizar aguja
+            const angulo = Math.max(-45, Math.min(45, cents * 0.9));
+            dom.needle.style.transform = `translate(-50%, -100%) rotate(${angulo}deg)`;
+
+            // Actualizar LEDs
+            const ledIndex = Math.round(((cents + 50) / 100) * 8);
+            const pos = Math.max(0, Math.min(8, ledIndex));
+            dom.leds.forEach((led, i) => {
+                led.className = 'precision-led';
+                if (i === pos) {
+                    if (Math.abs(cents) <= precisionTolerance) led.classList.add('green');
+                    else if (Math.abs(cents) <= 20) led.classList.add('yellow');
+                    else led.classList.add('red');
+                }
+            });
+
+            // Modo estroboscópico - animar anillos
+            if (modoStrobe) {
+                const speed = Math.abs(cents) / 50;
+                const rotation = speed * 360 * (cents > 0 ? 1 : -1);
+                dom.strobeRings.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+                dom.strobeRings.style.transition = 'transform 0.1s linear';
+                dom.strobeRings.style.opacity = Math.min(1, Math.abs(cents) / 20 + 0.2);
             }
-            if (dom.indicador) {
-                dom.indicador.style.transform = `translateX(${Math.max(-40, Math.min(40, cents * 1.5))}px)`;
-                dom.indicador.className = "";
-                if (Math.abs(cents) <= 5) dom.indicador.classList.add("correcto");
-                else if (cents < 0) dom.indicador.classList.add("izquierda");
-                else dom.indicador.classList.add("derecha");
+
+            // Color del medidor
+            const track = dom.meterTrack;
+            track.style.boxShadow = 'inset 0 4px 30px rgba(0,0,0,0.7)';
+            if (Math.abs(cents) <= precisionTolerance) {
+                track.style.boxShadow = 'inset 0 4px 30px rgba(0,0,0,0.7), 0 0 80px rgba(34,197,94,0.2)';
+            } else if (Math.abs(cents) <= 20) {
+                track.style.boxShadow = 'inset 0 4px 30px rgba(0,0,0,0.7), 0 0 50px rgba(250,204,21,0.12)';
             }
+
+            // Actualizar cents display
+            const centsDisplay = dom.centsDisplay;
+            const sign = cents > 0 ? '+' : '';
+            centsDisplay.textContent = `${sign}${cents}¢`;
+            centsDisplay.className = 'cents-display';
+            if (Math.abs(cents) <= precisionTolerance) centsDisplay.classList.add('green');
+            else if (Math.abs(cents) <= 20) centsDisplay.classList.add('yellow');
+            else centsDisplay.classList.add('red');
+
+            // Actualizar nota
+            const info = convertirNotaCompleta(frecuencia, referencia);
+            dom.noteDisplay.textContent = info.nota;
+            dom.octaveDisplay.textContent = info.octava;
+            dom.noteDisplay.className = 'note-display';
+            if (Math.abs(cents) <= precisionTolerance) {
+                dom.noteDisplay.classList.add('tuned');
+            } else {
+                dom.noteDisplay.classList.add('detecting');
+            }
+
+            // Actualizar frecuencia
+            dom.freqDisplay.innerHTML = `${frecuencia.toFixed(2)} <span class="unit">Hz</span>`;
+
+            // Guardar
+            ultimaFrecuencia = frecuencia;
+            ultimoCents = cents;
         }
 
-        // ---- LOOP DE AFINACIÓN ----
+        function actualizarVUMeter(buffer) {
+            let suma = 0;
+            for (let i = 0; i < buffer.length; i++) {
+                suma += buffer[i] * buffer[i];
+            }
+            const rms = Math.sqrt(suma / buffer.length);
+            const nivel = Math.min(rms * 300, 100);
+            dom.vuBar.style.width = nivel + '%';
+        }
+
+        // ============================================================
+        // 7. LOOP DE AFINACIÓN
+        // ============================================================
+
         function iniciarAfinador() {
             if (detectando) {
-                if (audioContext) audioContext.close();
-                audioContext = null;
-                analyser = null;
-                detectando = false;
-                dom.iniciar.textContent = "🎤 Iniciar Afinador";
-                if (dom.estadoExtra) dom.estadoExtra.textContent = "Detenido";
+                detenerAfinador();
                 return;
             }
+
+            if (!afinacionActual) {
+                dom.statusMsg.textContent = "⚠️ Seleccioná una afinación primero";
+                dom.statusMsg.className = 'status-msg error';
+                return;
+            }
+
+            // Leer configuraciones
+            referenciaFrecuencia = parseInt(dom.referenceSelect.value);
+            precisionTolerance = parseFloat(dom.precisionSelect.value);
+            const modo = dom.modeSelect.value;
+            modoSilencioso = modo === 'silent';
+            modoStrobe = modo === 'strobe';
+
+            // Resetear historial
+            historial = [];
+            actualizarHistorial();
+
             navigator.mediaDevices
-                .getUserMedia({ audio: true })
+                .getUserMedia({ audio: true, echoCancellation: false, noiseSuppression: false })
                 .then((stream) => {
                     audioContext = new(window.AudioContext || window.webkitAudioContext)();
                     const source = audioContext.createMediaStreamSource(stream);
                     analyser = audioContext.createAnalyser();
                     analyser.fftSize = 4096;
+                    analyser.smoothingTimeConstant = 0.8;
                     source.connect(analyser);
                     buffer = new Float32Array(analyser.fftSize);
                     detectando = true;
-                    dom.iniciar.textContent = "⏹ Detener";
-                    if (dom.estadoExtra) dom.estadoExtra.textContent = "Escuchando...";
+                    dom.tunerBtn.textContent = "⏹ Detener";
+                    dom.tunerBtn.classList.add('active');
+                    dom.statusMsg.textContent = "🎤 Escuchando...";
+                    dom.statusMsg.className = 'status-msg';
                     loopDetectar();
                 })
-                .catch(() => {
-                    if (dom.estadoExtra) dom.estadoExtra.textContent = "❌ No se pudo acceder al micrófono";
+                .catch((err) => {
+                    dom.statusMsg.textContent = "❌ No se pudo acceder al micrófono";
+                    dom.statusMsg.className = 'status-msg error';
+                    console.error('Error de micrófono:', err);
                 });
+        }
+
+        function detenerAfinador() {
+            if (audioContext) {
+                audioContext.close();
+                audioContext = null;
+            }
+            analyser = null;
+            detectando = false;
+            dom.tunerBtn.textContent = "🎤 Iniciar Afinador";
+            dom.tunerBtn.classList.remove('active');
+            dom.statusMsg.textContent = "⏹ Detenido";
+            dom.statusMsg.className = 'status-msg';
+            dom.vuBar.style.width = '0%';
+            dom.noteDisplay.className = 'note-display';
+            dom.strobeRings.style.transform = 'translate(-50%, -50%)';
+            dom.strobeRings.style.opacity = '0.4';
         }
 
         function loopDetectar() {
             if (!detectando || !analyser) return;
             requestAnimationFrame(loopDetectar);
+
             analyser.getFloatTimeDomainData(buffer);
+            actualizarVUMeter(buffer);
+
+            let energia = 0;
+            for (let i = 0; i < buffer.length; i++) {
+                energia += buffer[i] * buffer[i];
+            }
+            const rms = Math.sqrt(energia / buffer.length);
+
+            if (rms < 0.005) {
+                dom.statusMsg.textContent = "🎸 Tocá una cuerda...";
+                dom.statusMsg.className = 'status-msg';
+                return;
+            }
+
             const freq = encontrarFrecuencia(buffer, audioContext.sampleRate);
-            if (!freq) return;
+            if (!freq || freq < 30 || freq > 1200) return;
 
-            const info = convertirNotaCompleta(freq);
-            const { cents } = calcularCents(freq);
-
-            if (dom.nota) dom.nota.textContent = info.completa;
-            if (dom.frecuencia) dom.frecuencia.textContent = freq.toFixed(2) + " Hz";
-            if (dom.cent) dom.cent.textContent = cents + " cents";
-
-            let suma = 0;
-            for (let i = 0; i < buffer.length; i++) suma += buffer[i] * buffer[i];
-            const rms = Math.sqrt(suma / buffer.length);
-            if (dom.nivelSonido) dom.nivelSonido.style.width = Math.min(rms * 200, 100) + "%";
-
-            moverValvulas(cents);
-            comprobarAfinacion(info.nota, cents);
+            const { cents } = calcularCents(freq, referenciaFrecuencia);
+            actualizarAfinador(freq, cents, referenciaFrecuencia);
+            verificarAfinacion(freq, cents);
         }
 
-        function comprobarAfinacion(nota, cents) {
+        function verificarAfinacion(frecuencia, cents) {
             if (!afinacionActual) return;
+
+            const info = convertirNotaCompleta(frecuencia, referenciaFrecuencia);
             const objetivo = afinacionActual.cuerdas[cuerdaActual] || "";
-            if (nota === objetivo && Math.abs(cents) <= 5) {
-                if (dom.nota) dom.nota.classList.add("afinada");
-                if (dom.estadoExtra) dom.estadoExtra.innerHTML = "✅ Afinación perfecta";
-                reproducirPing();
-                if (!dom.estadoExtra?.dataset?.avanzado) {
-                    if (dom.estadoExtra) dom.estadoExtra.dataset.avanzado = "true";
+
+            if (Math.abs(cents) <= precisionTolerance) {
+                lecturasEstables++;
+            } else {
+                lecturasEstables = 0;
+            }
+
+            if (info.nota === objetivo && Math.abs(cents) <= precisionTolerance && lecturasEstables >= 6) {
+                dom.statusMsg.textContent = "✅ Afinación perfecta! 🎸";
+                dom.statusMsg.className = 'status-msg success';
+
+                if (!dom.statusMsg.dataset.avanzado) {
+                    dom.statusMsg.dataset.avanzado = "true";
+                    // Guardar en historial
+                    agregarHistorial(info.nota, frecuencia, cents, true);
                     setTimeout(() => {
                         avanzarCuerda();
-                        if (dom.estadoExtra) dom.estadoExtra.dataset.avanzado = "";
+                        dom.statusMsg.dataset.avanzado = "";
+                        if (cuerdaActual === 0 && afinacionActual) {
+                            dom.statusMsg.textContent = "🎉 Guitarra completamente afinada!";
+                            dom.statusMsg.className = 'status-msg success';
+                        }
                     }, 800);
                 }
-            } else {
-                if (dom.nota) dom.nota.classList.remove("afinada");
-                if (dom.estadoExtra && nota) {
-                    dom.estadoExtra.innerHTML = `🎯 ${nota} · ${Math.abs(cents)} cents`;
+            } else if (info.nota === objetivo) {
+                if (Math.abs(cents) < 15) {
+                    dom.statusMsg.textContent = `🎯 ${info.nota} · ${Math.abs(cents)}¢ · Casi listo`;
+                    dom.statusMsg.className = 'status-msg warning';
+                } else {
+                    dom.statusMsg.textContent = `🎯 ${info.nota} · ${Math.abs(cents)}¢ · Ajustá la cuerda`;
+                    dom.statusMsg.className = 'status-msg';
                 }
+            } else {
+                dom.statusMsg.textContent = `🔍 Detectando: ${info.nota} · Esperando: ${objetivo}`;
+                dom.statusMsg.className = 'status-msg';
             }
         }
 
-        function reproducirPing() {
-            const ahora = Date.now();
-            if (ahora - ultimoPing < 1500) return;
-            ultimoPing = ahora;
-            try {
-                const ctx = new(window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = "sine";
-                osc.frequency.value = 880;
-                gain.gain.value = 0.15;
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + 0.08);
-            } catch (_) { /* fallback */ }
-        }
+        // ============================================================
+        // 8. INICIALIZACIÓN
+        // ============================================================
 
-        // ============================================================
-        // INICIALIZACIÓN
-        // ============================================================
         document.addEventListener("DOMContentLoaded", function() {
 
-            // ---- CONFIGURAR BOTONES DE CATEGORÍA ----
+            // Botones de categoría
             document.querySelectorAll(".cat-btn").forEach((btn) => {
                 btn.addEventListener("click", function() {
-                    const categoria = this.dataset.categoria;
-                    mostrarCategoria(categoria);
+                    mostrarCategoria(this.dataset.categoria);
                 });
             });
 
-            // ---- BOTÓN INICIAR ----
-            if (dom.iniciar) {
-                dom.iniciar.addEventListener("click", iniciarAfinador);
-            }
+            // Botón del afinador
+            dom.tunerBtn.addEventListener("click", iniciarAfinador);
 
-            // ---- TECLADO: ESPACIO ----
+            // Teclas rápidas
             document.addEventListener("keydown", (e) => {
                 if (e.key === " " && e.target === document.body) {
                     e.preventDefault();
                     iniciarAfinador();
                 }
+                if (e.key === "r" || e.key === "R") {
+                    if (e.target === document.body) {
+                        reiniciarCuerdas();
+                    }
+                }
             });
 
-            // ---- SCROLL SUAVE ----
+            // Scroll suave
             document.querySelectorAll('a[href^="#"]').forEach((a) => {
                 a.addEventListener("click", (e) => {
                     const target = document.querySelector(a.getAttribute("href"));
@@ -1176,11 +1698,33 @@
                 });
             });
 
-            // ---- CARGAR ÚLTIMA AFINACIÓN O MOSTRAR DEFAULT ----
+            // Eventos de controles
+            dom.referenceSelect.addEventListener('change', function() {
+                referenciaFrecuencia = parseInt(this.value);
+                dom.statusMsg.textContent = `🎵 Referencia: ${referenciaFrecuencia} Hz`;
+                dom.statusMsg.className = 'status-msg';
+            });
+
+            dom.precisionSelect.addEventListener('change', function() {
+                precisionTolerance = parseFloat(this.value);
+                dom.statusMsg.textContent = `🎯 Precisión: ±${precisionTolerance}¢`;
+                dom.statusMsg.className = 'status-msg';
+            });
+
+            dom.modeSelect.addEventListener('change', function() {
+                const modo = this.value;
+                modoSilencioso = modo === 'silent';
+                modoStrobe = modo === 'strobe';
+                dom.statusMsg.textContent = `🔊 Modo: ${modo.charAt(0).toUpperCase() + modo.slice(1)}`;
+                dom.statusMsg.className = 'status-msg';
+                // Mostrar/ocultar anillos estroboscópicos
+                dom.strobeRings.style.display = modoStrobe ? 'block' : 'none';
+            });
+
+            // Cargar última afinación
             if (!cargarUltimaAfinacion()) {
                 mostrarCategoria("abiertas");
             } else {
-                // Buscar la categoría de la afinación cargada
                 let encontrada = false;
                 for (const cat in bibliotecaAfinaciones) {
                     if (encontrada) break;
@@ -1195,10 +1739,13 @@
                 if (!encontrada) mostrarCategoria("abiertas");
             }
 
-            console.log("🎸 Guitar Voices · Listo");
+            // Inicializar historial
+            actualizarHistorial();
+
+            console.log("🎸 Guitar Voices Ultimate · El mejor afinador del mundo");
             const totalAbiertas = Object.keys(bibliotecaAfinaciones.abiertas).reduce((acc, key) =>
                 acc + bibliotecaAfinaciones.abiertas[key].length, 0);
-            console.log(`📚 Total de afinaciones abiertas: ${totalAbiertas}`);
+            console.log(`📚 Total de afinaciones: ${totalAbiertas}`);
         });
     </script>
 </body>
