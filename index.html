@@ -1282,36 +1282,133 @@
         }
 
         // ============================================================
-        // BIBLIOTECA DE AFINACIONES
+        // BIBLIOTECA DE AFINACIONES - COMPLETA (300+)
         // ============================================================
 
+        // --- GENERAR TODAS LAS DERIVACIONES DE UNA NOTA ---
+        function generarDerivaciones(nota) {
+            var base = nota;
+            var cuerdasBase = {
+                'C': ['C', 'E', 'G', 'C', 'E', 'G'],
+                'C#': ['C#', 'F', 'G#', 'C#', 'F', 'G#'],
+                'D': ['D', 'F#', 'A', 'D', 'F#', 'A'],
+                'D#': ['D#', 'G', 'A#', 'D#', 'G', 'A#'],
+                'E': ['E', 'G#', 'B', 'E', 'G#', 'B'],
+                'F': ['F', 'A', 'C', 'F', 'A', 'C'],
+                'F#': ['F#', 'A#', 'C#', 'F#', 'A#', 'C#'],
+                'G': ['G', 'B', 'D', 'G', 'B', 'D'],
+                'G#': ['G#', 'C', 'D#', 'G#', 'C', 'D#'],
+                'A': ['A', 'C#', 'E', 'A', 'C#', 'E'],
+                'A#': ['A#', 'D', 'F', 'A#', 'D', 'F'],
+                'B': ['B', 'D#', 'F#', 'B', 'D#', 'F#']
+            };
+
+            var baseCuerdas = cuerdasBase[base] || ['C', 'E', 'G', 'C', 'E', 'G'];
+            var notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+
+            function desplazar(n, semitonos) {
+                var idx = notas.indexOf(n);
+                if (idx === -1) return n;
+                return notas[(idx + semitonos + 12) % 12];
+            }
+
+            var variantes = [];
+            var tipos = [
+                { nombre: base + ' Major', fn: function(c) { return c; } },
+                { nombre: base + ' Minor', fn: function(c, i) { return (i === 1 || i === 3) ? desplazar(c, 3) : c; } },
+                { nombre: base + '7', fn: function(c, i) { return (i === 2 || i === 5) ? desplazar(c, 10) : c; } },
+                { nombre: base + 'Maj7', fn: function(c, i) { return (i === 2 || i === 5) ? desplazar(c, 11) : c; } },
+                { nombre: base + 'm7', fn: function(c, i) { return (i === 2 || i === 5) ? desplazar(c, 10) : c; } },
+                { nombre: base + '6', fn: function(c, i) { return (i === 2 || i === 5) ? desplazar(c, 9) : c; } },
+                { nombre: base + 'm6', fn: function(c, i) { return (i === 2 || i === 5) ? desplazar(c, 9) : c; } },
+                { nombre: base + 'Sus2', fn: function(c, i) { return (i === 1 || i === 3) ? desplazar(c, 2) : c; } },
+                { nombre: base + 'Sus4', fn: function(c, i) { return (i === 1 || i === 3) ? desplazar(c, 5) : c; } },
+                { nombre: base + 'Aug', fn: function(c, i) { return (i === 2 || i === 4) ? desplazar(c, 8) : c; } },
+                { nombre: base + 'Dim', fn: function(c, i) { return (i === 1 || i === 3) ? desplazar(c, 3) : (i === 2 ||
+                        i === 4) ? desplazar(c, 6) : c; } },
+                { nombre: base + '7sus4', fn: function(c, i) { return (i === 1 || i === 3) ? desplazar(c, 5) : (i ===
+                        2 || i === 5) ? desplazar(c, 10) : c; } },
+                { nombre: base + '7sus2', fn: function(c, i) { return (i === 1 || i === 3) ? desplazar(c, 2) : (i ===
+                        2 || i === 5) ? desplazar(c, 10) : c; } },
+                { nombre: base + 'add9', fn: function(c, i) { return i === 1 ? desplazar(c, 2) : c; } },
+                { nombre: base + 'madd9', fn: function(c, i) { return i === 1 ? desplazar(c, 2) : c; } },
+                { nombre: base + '9', fn: function(c, i) { return i === 1 ? desplazar(c, 2) : (i === 2 || i === 5) ?
+                        desplazar(c, 10) : c; } },
+                { nombre: base + 'm9', fn: function(c, i) { return i === 1 ? desplazar(c, 2) : (i === 2 || i === 5) ?
+                        desplazar(c, 10) : c; } },
+                { nombre: base + 'Maj9', fn: function(c, i) { return i === 1 ? desplazar(c, 2) : (i === 2 || i === 5) ?
+                        desplazar(c, 11) : c; } },
+                { nombre: base + '11', fn: function(c, i) { return i === 1 ? desplazar(c, 2) : i === 3 ? desplazar(c,
+                        5) : (i === 2 || i === 5) ? desplazar(c, 10) : c; } },
+                { nombre: base + 'm11', fn: function(c, i) { return i === 1 ? desplazar(c, 2) : i === 3 ? desplazar(c,
+                        5) : (i === 2 || i === 5) ? desplazar(c, 10) : c; } },
+                { nombre: base + '13', fn: function(c, i) { return i === 1 ? desplazar(c, 2) : i === 3 ? desplazar(c,
+                        5) : i === 5 ? desplazar(c, 9) : (i === 2 || i === 5) ? desplazar(c, 10) : c; } },
+                { nombre: base + 'm13', fn: function(c, i) { return i === 1 ? desplazar(c, 2) : i === 3 ? desplazar(c,
+                        5) : i === 5 ? desplazar(c, 9) : (i === 2 || i === 5) ? desplazar(c, 10) : c; } },
+                { nombre: base + '6/9', fn: function(c, i) { return i === 1 ? desplazar(c, 2) : (i === 2 || i === 5) ?
+                        desplazar(c, 9) : c; } },
+                { nombre: base + 'Dim7', fn: function(c, i) { return (i === 1 || i === 3) ? desplazar(c, 3) : (i ===
+                        2 || i === 4) ? desplazar(c, 6) : (i === 2 || i === 5) ? desplazar(c, 9) : c; } },
+                { nombre: base + '7b5', fn: function(c, i) { return (i === 2 || i === 4) ? desplazar(c, 6) : (i ===
+                        2 || i === 5) ? desplazar(c, 10) : c; } },
+                { nombre: base + '7#5', fn: function(c, i) { return (i === 2 || i === 4) ? desplazar(c, 8) : (i ===
+                        2 || i === 5) ? desplazar(c, 10) : c; } }
+            ];
+
+            for (var t = 0; t < tipos.length; t++) {
+                var cuerdas = [];
+                for (var j = 0; j < baseCuerdas.length; j++) {
+                    cuerdas.push(tipos[t].fn(baseCuerdas[j], j));
+                }
+                variantes.push({ nombre: tipos[t].nombre, cuerdas: cuerdas });
+            }
+            return variantes;
+        }
+
+        // --- GENERAR TODAS LAS NOTAS CON SUS DERIVACIONES ---
+        function generarTodasLasNotas() {
+            var notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+            var resultado = {};
+            for (var i = 0; i < notas.length; i++) {
+                resultado[notas[i]] = generarDerivaciones(notas[i]);
+            }
+            return resultado;
+        }
+
+        var todasLasNotas = generarTodasLasNotas();
+
+        // --- BIBLIOTECA COMPLETA ---
         var bibliotecaAfinaciones = {
-            abiertas: {
-                "G": [{ nombre: "Open G", cuerdas: ["D", "G", "D", "G", "B", "D"] }],
-                "D": [{ nombre: "Open D", cuerdas: ["D", "A", "D", "F#", "A", "D"] }],
-                "C": [{ nombre: "Open C", cuerdas: ["C", "G", "C", "G", "C", "E"] }],
-                "E": [{ nombre: "Open E", cuerdas: ["E", "B", "E", "G#", "B", "E"] }],
-                "A": [{ nombre: "Open A", cuerdas: ["E", "A", "E", "A", "C#", "E"] }],
-                "F": [{ nombre: "Open F", cuerdas: ["F", "A", "C", "F", "A", "C"] }]
-            },
+            abiertas: todasLasNotas,
             standard: {
-                "E Standard": [{ nombre: "E Standard", cuerdas: ["E", "A", "D", "G", "B", "E"] }],
-                "D Standard": [{ nombre: "D Standard", cuerdas: ["D", "G", "C", "F", "A", "D"] }],
                 "C Standard": [{ nombre: "C Standard", cuerdas: ["C", "F", "Bb", "Eb", "G", "C"] }],
-                "B Standard": [{ nombre: "B Standard", cuerdas: ["B", "E", "A", "D", "F#", "B"] }],
-                "A Standard": [{ nombre: "A Standard", cuerdas: ["A", "D", "G", "C", "E", "A"] }],
-                "G Standard": [{ nombre: "G Standard", cuerdas: ["G", "C", "F", "Bb", "D", "G"] }],
+                "C# Standard": [{ nombre: "C# Standard", cuerdas: ["C#", "F#", "B", "E", "G#", "C#"] }],
+                "D Standard": [{ nombre: "D Standard", cuerdas: ["D", "G", "C", "F", "A", "D"] }],
+                "D# Standard": [{ nombre: "D# Standard", cuerdas: ["D#", "G#", "C#", "F#", "A#", "D#"] }],
+                "E Standard": [{ nombre: "E Standard", cuerdas: ["E", "A", "D", "G", "B", "E"] }],
                 "F Standard": [{ nombre: "F Standard", cuerdas: ["F", "Bb", "Eb", "Ab", "C", "F"] }],
+                "F# Standard": [{ nombre: "F# Standard", cuerdas: ["F#", "B", "E", "A", "C#", "F#"] }],
+                "G Standard": [{ nombre: "G Standard", cuerdas: ["G", "C", "F", "Bb", "D", "G"] }],
+                "G# Standard": [{ nombre: "G# Standard", cuerdas: ["G#", "C#", "F#", "B", "D#", "G#"] }],
+                "A Standard": [{ nombre: "A Standard", cuerdas: ["A", "D", "G", "C", "E", "A"] }],
+                "A# Standard": [{ nombre: "A# Standard", cuerdas: ["A#", "D#", "G#", "C#", "F", "A#"] }],
+                "B Standard": [{ nombre: "B Standard", cuerdas: ["B", "E", "A", "D", "F#", "B"] }],
                 "Standard Barítono": [{ nombre: "Standard Barítono", cuerdas: ["B", "E", "A", "D", "F#", "B"] }]
             },
             drop: {
-                "Drop D": [{ nombre: "Drop D", cuerdas: ["D", "A", "D", "G", "B", "E"] }],
                 "Drop C": [{ nombre: "Drop C", cuerdas: ["C", "G", "C", "F", "A", "D"] }],
-                "Drop B": [{ nombre: "Drop B", cuerdas: ["B", "F#", "B", "E", "G#", "C#"] }],
-                "Drop A": [{ nombre: "Drop A", cuerdas: ["A", "E", "A", "D", "F#", "B"] }],
-                "Drop G": [{ nombre: "Drop G", cuerdas: ["G", "D", "G", "C", "E", "A"] }],
-                "Drop F": [{ nombre: "Drop F", cuerdas: ["F", "C", "F", "Bb", "D", "G"] }],
+                "Drop C#": [{ nombre: "Drop C#", cuerdas: ["C#", "G#", "C#", "F#", "A#", "D#"] }],
+                "Drop D": [{ nombre: "Drop D", cuerdas: ["D", "A", "D", "G", "B", "E"] }],
+                "Drop D#": [{ nombre: "Drop D#", cuerdas: ["D#", "A#", "D#", "G#", "C", "F"] }],
                 "Drop E": [{ nombre: "Drop E", cuerdas: ["E", "B", "E", "A", "C#", "F#"] }],
+                "Drop F": [{ nombre: "Drop F", cuerdas: ["F", "C", "F", "Bb", "D", "G"] }],
+                "Drop F#": [{ nombre: "Drop F#", cuerdas: ["F#", "C#", "F#", "B", "D#", "G#"] }],
+                "Drop G": [{ nombre: "Drop G", cuerdas: ["G", "D", "G", "C", "E", "A"] }],
+                "Drop G#": [{ nombre: "Drop G#", cuerdas: ["G#", "D#", "G#", "C#", "F", "A#"] }],
+                "Drop A": [{ nombre: "Drop A", cuerdas: ["A", "E", "A", "D", "F#", "B"] }],
+                "Drop A#": [{ nombre: "Drop A#", cuerdas: ["A#", "F", "A#", "D#", "G", "C"] }],
+                "Drop B": [{ nombre: "Drop B", cuerdas: ["B", "F#", "B", "E", "G#", "C#"] }],
                 "Drop D (7 cuerdas)": [{ nombre: "Drop D 7", cuerdas: ["D", "A", "D", "G", "B", "E", "A"] }],
                 "Drop A (7 cuerdas)": [{ nombre: "Drop A 7", cuerdas: ["A", "E", "A", "D", "G", "B", "E"] }]
             },
@@ -1397,7 +1494,7 @@
         var cuerdasAfinadas = [];
 
         // ============================================================
-        // FUNCIONES GLOBALES (expuestas al window)
+        // FUNCIONES GLOBALES
         // ============================================================
 
         window.mostrarVariantes = function(tipo, nota) {
