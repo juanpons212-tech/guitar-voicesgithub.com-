@@ -1041,13 +1041,13 @@
     <audio id="ping" preload="auto"></audio>
 
     <!-- ============================================================ -->
-    <!-- JAVASCRIPT COMPLETO                                          -->
+    <!-- JAVASCRIPT - TODAS LAS FUNCIONES GLOBALES                    -->
     <!-- ============================================================ -->
     <script>
         // ============================================================
         // TRADUCCIONES
         // ============================================================
-        const translations = {
+        var translations = {
             en: {
                 'nav-home': 'Home',
                 'nav-library': 'Library',
@@ -1242,13 +1242,15 @@
             }
         };
 
-        let currentLang = 'en';
+        var currentLang = 'en';
 
         function t(key, params) {
             params = params || {};
-            let text = translations[currentLang]?.[key] || translations['en'][key] || key;
+            var text = translations[currentLang] && translations[currentLang][key] || translations['en'][key] || key;
             for (var k in params) {
-                text = text.replace('{' + k + '}', params[k]);
+                if (params.hasOwnProperty(k)) {
+                    text = text.replace('{' + k + '}', params[k]);
+                }
             }
             return text;
         }
@@ -1256,15 +1258,17 @@
         function updateLanguage(lang) {
             currentLang = lang;
             localStorage.setItem('guitarVoicesLang', lang);
-            document.querySelectorAll('.lang-selector button').forEach(function(btn) {
-                btn.classList.toggle('active', btn.dataset.lang === lang);
-            });
-            document.querySelectorAll('[data-i18n]').forEach(function(el) {
-                var key = el.dataset.i18n;
+            var btns = document.querySelectorAll('.lang-selector button');
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].classList.toggle('active', btns[i].dataset.lang === lang);
+            }
+            var els = document.querySelectorAll('[data-i18n]');
+            for (var j = 0; j < els.length; j++) {
+                var key = els[j].dataset.i18n;
                 if (translations[lang] && translations[lang][key] !== undefined) {
-                    el.textContent = translations[lang][key];
+                    els[j].textContent = translations[lang][key];
                 }
-            });
+            }
             document.title = lang === 'en' ? 'Guitar Voices · Intelligent Tuner' :
                 lang === 'es' ? 'Guitar Voices · Afinador Inteligente' :
                 'Guitar Voices · Afinador Inteligente';
@@ -1275,16 +1279,6 @@
             actualizarStringDots();
             actualizarCuerdaInfo();
             actualizarDetectedStringInfo();
-        }
-
-        function setStatusMessage(key, params) {
-            params = params || {};
-            var el = document.getElementById('statusMsg');
-            if (el) {
-                el.textContent = t(key, params);
-                el.className = 'status-msg';
-                el.dataset.dynamic = 'true';
-            }
         }
 
         // ============================================================
@@ -1403,10 +1397,10 @@
         var cuerdasAfinadas = [];
 
         // ============================================================
-        // FUNCIONES DE BIBLIOTECA
+        // FUNCIONES GLOBALES (expuestas al window)
         // ============================================================
 
-        function mostrarVariantes(tipo, nota) {
+        window.mostrarVariantes = function(tipo, nota) {
             dom.variantes.innerHTML = "";
             var lista = bibliotecaAfinaciones[tipo] && bibliotecaAfinaciones[tipo][nota] || [];
             if (lista.length === 0) {
@@ -1414,29 +1408,34 @@
                     '</p>';
                 return;
             }
-            lista.forEach(function(af) {
+            for (var i = 0; i < lista.length; i++) {
+                var af = lista[i];
                 var div = document.createElement("div");
                 div.className = "afinacion-card";
                 div.innerHTML =
                     '<div class="nombre">' + af.nombre + '</div><div class="cuerdas">' + af.cuerdas.join(" • ") +
                     '</div><span class="badge">' + af.cuerdas.length + ' strings</span>';
-                div.addEventListener('click', function() {
-                    seleccionarAfinacion(af);
-                    document.getElementById("afinador").scrollIntoView({ behavior: "smooth", block: "center" });
-                });
+                div.addEventListener('click', function(af) {
+                    return function() {
+                        seleccionarAfinacion(af);
+                        document.getElementById("afinador").scrollIntoView({ behavior: "smooth", block: "center" });
+                    };
+                }(af));
                 dom.variantes.appendChild(div);
-            });
-            document.querySelectorAll('.tono-btn').forEach(function(b) {
-                b.classList.toggle('active', b.textContent === nota);
-            });
-        }
+            }
+            var tonoBtns = document.querySelectorAll('.tono-btn');
+            for (var j = 0; j < tonoBtns.length; j++) {
+                tonoBtns[j].classList.toggle('active', tonoBtns[j].textContent === nota);
+            }
+        };
 
-        function mostrarCategoria(cat) {
-            document.querySelectorAll(".cat-btn").forEach(function(b) {
-                var isActive = b.dataset.categoria === cat;
-                b.classList.toggle("active", isActive);
-                b.classList.toggle("bg-slate-800", !isActive);
-            });
+        window.mostrarCategoria = function(cat) {
+            var catBtns = document.querySelectorAll(".cat-btn");
+            for (var i = 0; i < catBtns.length; i++) {
+                var isActive = catBtns[i].dataset.categoria === cat;
+                catBtns[i].classList.toggle("active", isActive);
+                catBtns[i].classList.toggle("bg-slate-800", !isActive);
+            }
             var keys = Object.keys(bibliotecaAfinaciones[cat] || {});
             dom.tonalidades.innerHTML = "";
             if (keys.length === 0) {
@@ -1444,21 +1443,28 @@
                 dom.variantes.innerHTML = "";
                 return;
             }
-            keys.forEach(function(key) {
+            for (var j = 0; j < keys.length; j++) {
+                var key = keys[j];
                 var btn = document.createElement("button");
                 btn.className = "tono-btn px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 transition font-semibold text-sm";
                 btn.textContent = key;
-                btn.addEventListener('click', function() {
-                    mostrarVariantes(cat, key);
-                });
+                btn.addEventListener('click', function(cat, key) {
+                    return function() {
+                        window.mostrarVariantes(cat, key);
+                    };
+                }(cat, key));
                 dom.tonalidades.appendChild(btn);
-            });
+            }
             if (keys.length) {
                 var firstBtn = dom.tonalidades.querySelector('.tono-btn');
                 if (firstBtn) firstBtn.classList.add('active');
-                mostrarVariantes(cat, keys[0]);
+                window.mostrarVariantes(cat, keys[0]);
             }
-        }
+        };
+
+        // ============================================================
+        // FUNCIONES INTERNAS
+        // ============================================================
 
         function seleccionarAfinacion(af) {
             afinacionActual = af;
@@ -1470,11 +1476,11 @@
                 af.cuerdas.join(" - ") + '</span>';
             dom.tuningNameDisplay.textContent = af.nombre;
             var labels = dom.stringLabels;
-            af.cuerdas.forEach(function(nota, i) {
+            for (var i = 0; i < af.cuerdas.length; i++) {
                 var num = 6 - i;
-                labels[i].textContent = num + 'ª (' + nota + ')';
+                labels[i].textContent = num + 'ª (' + af.cuerdas[i] + ')';
                 labels[i].className = 'string-label';
-            });
+            }
             actualizarTargetDisplay();
             actualizarStringDots();
             actualizarCuerdaInfo();
@@ -1495,16 +1501,17 @@
             dom.targetCuerda.textContent = t('note-string').replace('--', num + 'ª');
             dom.targetNote.className = 'note-value target';
             var labels = dom.stringLabels;
-            afinacionActual.cuerdas.forEach(function(n, i) {
+            for (var i = 0; i < afinacionActual.cuerdas.length; i++) {
                 labels[i].className = 'string-label';
                 if (i === cuerdaActual) labels[i].classList.add('active');
                 if (i < cuerdaActual || cuerdasAfinadas.indexOf(i) !== -1) labels[i].classList.add('done');
-            });
+            }
         }
 
         function actualizarStringDots() {
             if (!afinacionActual) return;
-            dom.stringDots.forEach(function(dot, i) {
+            for (var i = 0; i < dom.stringDots.length; i++) {
+                var dot = dom.stringDots[i];
                 dot.className = 'string-dot';
                 if (cuerdasAfinadas.indexOf(i) !== -1) {
                     dot.classList.add('done');
@@ -1513,7 +1520,7 @@
                 } else if (i === cuerdaActual) {
                     dot.classList.add('active');
                 }
-            });
+            }
         }
 
         function actualizarCuerdaInfo() {
@@ -1595,7 +1602,6 @@
 
         function actualizarDetectedStringInfo() {
             var el = dom.detectedStringLabel;
-            var info = dom.detectedStringInfo;
             if (!afinacionActual) {
                 el.textContent = t('detected-none');
                 el.className = 'highlight';
@@ -1652,12 +1658,12 @@
             if (diff < -6) diff += 12;
             var esTono = Math.abs(diff) % 2 === 0;
             var semitonos = diff;
-            var tonos = diff / 2;
             if (diff > 0) {
                 arrow.className = 'arrow up';
                 arrow.textContent = '▲';
                 text.className = 'adjustment-text up';
                 if (esTono) {
+                    var tonos = diff / 2;
                     text.textContent = t('adjust-up', { semitonos: Math.abs(tonos) });
                     detail.textContent = Math.abs(tonos) + ' tono' + (Math.abs(tonos) !== 1 ? 's' : '') + ' arriba';
                 } else {
@@ -1670,6 +1676,7 @@
                 arrow.textContent = '▼';
                 text.className = 'adjustment-text down';
                 if (esTono) {
+                    var tonos = diff / 2;
                     text.textContent = t('adjust-down', { semitonos: Math.abs(tonos) });
                     detail.textContent = Math.abs(tonos) + ' tono' + (Math.abs(tonos) !== 1 ? 's' : '') + ' abajo';
                 } else {
@@ -1742,14 +1749,15 @@
             dom.needle.style.transform = 'translate(-50%, -100%) rotate(' + angulo + 'deg)';
             var ledIndex = Math.round(((cents + 50) / 100) * 8);
             var pos = Math.max(0, Math.min(8, ledIndex));
-            dom.leds.forEach(function(led, i) {
+            for (var i = 0; i < dom.leds.length; i++) {
+                var led = dom.leds[i];
                 led.className = 'precision-led';
                 if (i === pos) {
                     if (Math.abs(cents) <= precisionTolerance) led.classList.add('green');
                     else if (Math.abs(cents) <= 20) led.classList.add('yellow');
                     else led.classList.add('red');
                 }
-            });
+            }
             var track = dom.meterTrack;
             track.style.boxShadow = 'inset 0 4px 30px rgba(0,0,0,0.7)';
             if (Math.abs(cents) <= precisionTolerance) {
@@ -1991,6 +1999,20 @@
             } catch (e) {}
         }
 
+        function setStatusMessage(key, params) {
+            params = params || {};
+            var el = document.getElementById('statusMsg');
+            if (el) {
+                el.textContent = t(key, params);
+                el.className = 'status-msg';
+                el.dataset.dynamic = 'true';
+            }
+        }
+
+        function actualizarMensajesEstado() {
+            // Función auxiliar para actualizar mensajes
+        }
+
         // ============================================================
         // INICIALIZACIÓN
         // ============================================================
@@ -2000,17 +2022,19 @@
             var savedLang = localStorage.getItem('guitarVoicesLang') || 'en';
             updateLanguage(savedLang);
 
-            document.querySelectorAll('.lang-selector button').forEach(function(btn) {
-                btn.addEventListener('click', function() {
+            var langBtns = document.querySelectorAll('.lang-selector button');
+            for (var i = 0; i < langBtns.length; i++) {
+                langBtns[i].addEventListener('click', function() {
                     updateLanguage(this.dataset.lang);
                 });
-            });
+            }
 
-            document.querySelectorAll(".cat-btn").forEach(function(btn) {
-                btn.addEventListener("click", function() {
-                    mostrarCategoria(this.dataset.categoria);
+            var catBtns = document.querySelectorAll(".cat-btn");
+            for (var j = 0; j < catBtns.length; j++) {
+                catBtns[j].addEventListener("click", function() {
+                    window.mostrarCategoria(this.dataset.categoria);
                 });
-            });
+            }
 
             dom.tunerBtn.addEventListener("click", iniciarAfinador);
 
@@ -2021,18 +2045,20 @@
                 }
             });
 
-            dom.stringDots.forEach(function(dot, i) {
-                dot.addEventListener('click', function() {
-                    if (afinacionActual && cuerdasAfinadas.indexOf(i) === -1) {
-                        cuerdaActual = i;
-                        actualizarTargetDisplay();
-                        actualizarStringDots();
-                        actualizarCuerdaInfo();
-                        setStatusMessage('status-string', { num: 6 - i });
-                        dom.statusMsg.className = 'status-msg';
-                    }
-                });
-            });
+            for (var k = 0; k < dom.stringDots.length; k++) {
+                dom.stringDots[k].addEventListener('click', function(index) {
+                    return function() {
+                        if (afinacionActual && cuerdasAfinadas.indexOf(index) === -1) {
+                            cuerdaActual = index;
+                            actualizarTargetDisplay();
+                            actualizarStringDots();
+                            actualizarCuerdaInfo();
+                            setStatusMessage('status-string', { num: 6 - index });
+                            dom.statusMsg.className = 'status-msg';
+                        }
+                    };
+                }(k));
+            }
 
             dom.modeSelect.addEventListener('change', function() {
                 var modo = this.value;
@@ -2047,32 +2073,36 @@
                 }
             });
 
-            document.querySelectorAll('a[href^="#"]').forEach(function(a) {
-                a.addEventListener("click", function(e) {
+            var links = document.querySelectorAll('a[href^="#"]');
+            for (var l = 0; l < links.length; l++) {
+                links[l].addEventListener("click", function(e) {
                     var target = document.querySelector(this.getAttribute("href"));
                     if (target) {
                         e.preventDefault();
                         target.scrollIntoView({ behavior: "smooth" });
                     }
                 });
-            });
+            }
 
             if (!cargarUltimaAfinacion()) {
-                mostrarCategoria("standard");
+                window.mostrarCategoria("standard");
             } else {
                 var encontrada = false;
                 for (var cat in bibliotecaAfinaciones) {
                     if (encontrada) break;
                     for (var key in bibliotecaAfinaciones[cat]) {
-                        if (bibliotecaAfinaciones[cat][key].some(function(af) { return af.nombre === afinacionActual
-                                .nombre; })) {
-                            mostrarCategoria(cat);
-                            encontrada = true;
-                            break;
+                        var arr = bibliotecaAfinaciones[cat][key];
+                        for (var a = 0; a < arr.length; a++) {
+                            if (arr[a].nombre === afinacionActual.nombre) {
+                                window.mostrarCategoria(cat);
+                                encontrada = true;
+                                break;
+                            }
                         }
+                        if (encontrada) break;
                     }
                 }
-                if (!encontrada) mostrarCategoria("standard");
+                if (!encontrada) window.mostrarCategoria("standard");
             }
 
             dom.modeSelect.value = 'strobe';
