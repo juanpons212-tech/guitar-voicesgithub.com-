@@ -709,7 +709,7 @@
 </head>
 <body>
 
-    <!-- INTRO -->
+    <!-- INTRO - GUITAR VOICES SIEMPRE -->
     <div id="intro"><h1>Guitar Voices</h1></div>
 
     <!-- NAV -->
@@ -1200,9 +1200,14 @@
                 }
             });
 
+            // GUITAR VOICES se mantiene SIEMPRE (es el nombre de la marca)
             document.title = lang === 'en' ? 'Guitar Voices · Professional Tuner' :
                 lang === 'es' ? 'Guitar Voices · Afinador Profesional' :
                 'Guitar Voices · Afinador Profissional';
+
+            // Intro siempre muestra "Guitar Voices"
+            const intro = document.querySelector('#intro h1');
+            if (intro) intro.textContent = 'Guitar Voices';
 
             actualizarMensajesEstado();
             actualizarTargetDisplay();
