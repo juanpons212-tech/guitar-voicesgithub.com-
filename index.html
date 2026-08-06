@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Guitar Voices · Afinador</title>
+    <title>Guitar Voices · Tuner</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -596,6 +596,34 @@
             font-size: 0.8rem;
         }
 
+        /* Language selector */
+        .lang-selector {
+            display: flex;
+            gap: 4px;
+            background: #1a1a2e;
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid #2a2a4a;
+        }
+        .lang-selector button {
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: transparent;
+            color: #64748b;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .lang-selector button:hover {
+            color: #e2e8f0;
+        }
+        .lang-selector button.active {
+            background: #4f46e5;
+            color: white;
+        }
+
         @media (max-width: 640px) {
             .meter-track {
                 height: 70px;
@@ -672,6 +700,10 @@
                 height: 26px;
                 font-size: 0.5rem;
             }
+            .lang-selector button {
+                padding: 2px 8px;
+                font-size: 0.65rem;
+            }
         }
     </style>
 </head>
@@ -687,11 +719,19 @@
                 <div class="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-gradient-to-r from-indigo-500 to-cyan-500 flex items-center justify-center text-2xl">🎸</div>
                 <h2 class="text-xl md:text-2xl font-black">Guitar Voices</h2>
             </div>
-            <div class="flex gap-4 md:gap-8 font-semibold text-sm md:text-base">
-                <a href="#">Inicio</a>
-                <a href="#biblioteca">Biblioteca</a>
-                <a href="#afinador">Afinador</a>
-                <a href="#redes">Redes</a>
+            <div class="flex items-center gap-4 md:gap-8">
+                <div class="flex gap-4 md:gap-8 font-semibold text-sm md:text-base">
+                    <a href="#" data-i18n="nav-home">Home</a>
+                    <a href="#biblioteca" data-i18n="nav-library">Library</a>
+                    <a href="#afinador" data-i18n="nav-tuner">Tuner</a>
+                    <a href="#redes" data-i18n="nav-social">Social</a>
+                </div>
+                <!-- Language Selector -->
+                <div class="lang-selector">
+                    <button data-lang="en" class="active">🇬🇧 EN</button>
+                    <button data-lang="es">🇪🇸 ES</button>
+                    <button data-lang="pt">🇵🇹 PT</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -700,33 +740,33 @@
     <header class="relative overflow-hidden py-20 md:py-28">
         <div class="heroGlow top-0 left-1/2 -translate-x-1/2"></div>
         <div class="relative z-10 max-w-6xl mx-auto text-center px-6">
-            <div class="inline-flex px-6 py-2 rounded-full bg-slate-800 border border-slate-700 mb-8 text-sm md:text-base">🏆 Afinador Profesional</div>
+            <div class="inline-flex px-6 py-2 rounded-full bg-slate-800 border border-slate-700 mb-8 text-sm md:text-base" data-i18n="hero-badge">🏆 Professional Tuner</div>
             <h1 class="text-5xl md:text-8xl font-black leading-tight">
-                Afinador<br />
-                <span class="text-indigo-400">Profesional</span>
+                <span data-i18n="hero-title">Tuner</span><br />
+                <span class="text-indigo-400" data-i18n="hero-subtitle">Professional</span>
             </h1>
-            <p class="text-slate-300 text-lg md:text-xl mt-6 max-w-3xl mx-auto">
-                Precisión de estudio · 300+ afinaciones · Detección en tiempo real
+            <p class="text-slate-300 text-lg md:text-xl mt-6 max-w-3xl mx-auto" data-i18n="hero-desc">
+                Studio precision · 300+ tunings · Real-time detection
             </p>
             <div class="flex flex-wrap justify-center gap-4 mt-10">
-                <a href="#biblioteca" class="bg-indigo-600 px-8 md:px-10 py-4 rounded-2xl font-bold hover:scale-105 duration-300">📚 Biblioteca</a>
-                <a href="#afinador" class="bg-slate-800 border border-slate-700 px-8 md:px-10 py-4 rounded-2xl font-bold hover:scale-105 duration-300">🎯 Afinador</a>
+                <a href="#biblioteca" class="bg-indigo-600 px-8 md:px-10 py-4 rounded-2xl font-bold hover:scale-105 duration-300" data-i18n="hero-btn-library">📚 Library</a>
+                <a href="#afinador" class="bg-slate-800 border border-slate-700 px-8 md:px-10 py-4 rounded-2xl font-bold hover:scale-105 duration-300" data-i18n="hero-btn-tuner">🎯 Tuner</a>
             </div>
         </div>
     </header>
 
-    <!-- BIBLIOTECA -->
+    <!-- BIBLIOTECA / LIBRARY -->
     <section id="biblioteca" class="max-w-7xl mx-auto py-16 md:py-24 px-6">
         <div class="text-center mb-12">
-            <h2 class="text-4xl md:text-6xl font-black">📚 Biblioteca</h2>
-            <p class="text-slate-400 mt-3 text-lg md:text-xl">Elegí una categoría para comenzar.</p>
+            <h2 class="text-4xl md:text-6xl font-black" data-i18n="library-title">📚 Library</h2>
+            <p class="text-slate-400 mt-3 text-lg md:text-xl" data-i18n="library-subtitle">Choose a category to get started.</p>
         </div>
 
         <div id="categorias" class="flex flex-wrap justify-center gap-4">
-            <button data-categoria="abiertas" class="cat-btn bg-indigo-600 px-6 md:px-8 py-3 md:py-4 rounded-2xl font-bold">🎸 Abiertas</button>
-            <button data-categoria="standard" class="cat-btn bg-slate-800 border border-slate-700 px-6 md:px-8 py-3 md:py-4 rounded-2xl">🎵 Standard</button>
-            <button data-categoria="drop" class="cat-btn bg-slate-800 border border-slate-700 px-6 md:px-8 py-3 md:py-4 rounded-2xl">⬇️ Drop</button>
-            <button data-categoria="otras" class="cat-btn bg-slate-800 border border-slate-700 px-6 md:px-8 py-3 md:py-4 rounded-2xl">🌟 Otras</button>
+            <button data-categoria="abiertas" class="cat-btn bg-indigo-600 px-6 md:px-8 py-3 md:py-4 rounded-2xl font-bold" data-i18n="cat-open">🎸 Open</button>
+            <button data-categoria="standard" class="cat-btn bg-slate-800 border border-slate-700 px-6 md:px-8 py-3 md:py-4 rounded-2xl" data-i18n="cat-standard">🎵 Standard</button>
+            <button data-categoria="drop" class="cat-btn bg-slate-800 border border-slate-700 px-6 md:px-8 py-3 md:py-4 rounded-2xl" data-i18n="cat-drop">⬇️ Drop</button>
+            <button data-categoria="otras" class="cat-btn bg-slate-800 border border-slate-700 px-6 md:px-8 py-3 md:py-4 rounded-2xl" data-i18n="cat-other">🌟 Other</button>
         </div>
 
         <div id="tonalidades" class="flex flex-wrap justify-center gap-3 mt-10"></div>
@@ -735,22 +775,22 @@
         <div id="afinacionElegida" class="mt-12 bg-slate-900 border border-slate-700 rounded-3xl p-6 md:p-8 shadow-2xl">
             <div class="flex flex-wrap items-center justify-between gap-4">
                 <div>
-                    <h3 class="text-2xl md:text-3xl font-black text-white">✅ Afinación seleccionada</h3>
-                    <p id="afinacionDisplay" class="mt-2 text-slate-300 text-base md:text-lg">Seleccioná una afinación para comenzar.</p>
+                    <h3 class="text-2xl md:text-3xl font-black text-white" data-i18n="selected-title">✅ Tuning selected</h3>
+                    <p id="afinacionDisplay" class="mt-2 text-slate-300 text-base md:text-lg" data-i18n="selected-desc">Select a tuning to begin.</p>
                 </div>
                 <div class="text-right">
-                    <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600 text-white font-semibold text-sm">🎯 Listo para afinar</span>
+                    <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600 text-white font-semibold text-sm" data-i18n="selected-ready">🎯 Ready to tune</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- AFINADOR -->
+    <!-- AFINADOR / TUNER -->
     <section id="afinador" class="py-16 md:py-24 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
         <div class="max-w-4xl mx-auto px-6">
             <div class="text-center mb-10">
-                <h2 class="text-4xl md:text-6xl font-black">🎯 Afinador</h2>
-                <p class="text-slate-400 mt-3 text-lg">Precisión de estudio · Modo estroboscópico · Detección en tiempo real</p>
+                <h2 class="text-4xl md:text-6xl font-black" data-i18n="tuner-title">🎯 Tuner</h2>
+                <p class="text-slate-400 mt-3 text-lg" data-i18n="tuner-subtitle">Studio precision · Strobe mode · Real-time detection</p>
             </div>
 
             <div class="tuner-container">
@@ -758,7 +798,7 @@
                 <!-- PANEL DE INFORMACIÓN -->
                 <div class="tuning-info-panel" id="tuningInfoPanel">
                     <div class="tuning-name">
-                        🎸 <span id="tuningNameDisplay">Seleccioná una afinación</span>
+                        🎸 <span id="tuningNameDisplay" data-i18n="tuner-select">Select a tuning</span>
                     </div>
                     <div class="tuning-strings" id="tuningStringsDisplay">
                         <span class="string-label">6ª</span>
@@ -773,15 +813,15 @@
                 <!-- COMPARADOR -->
                 <div class="note-comparator">
                     <div class="note-box">
-                        <div class="label">🎤 Lo que tocas</div>
+                        <div class="label" data-i18n="note-you">🎤 You play</div>
                         <div class="note-value detected" id="detectedNote">--</div>
                         <div style="font-size:0.7rem;color:#64748b;margin-top:4px;" id="detectedFreq">0 Hz</div>
                     </div>
                     <div class="arrow">➜</div>
                     <div class="note-box">
-                        <div class="label">🎯 Lo que necesitas</div>
+                        <div class="label" data-i18n="note-target">🎯 Target</div>
                         <div class="note-value target" id="targetNote">--</div>
-                        <div style="font-size:0.7rem;color:#64748b;margin-top:4px;" id="targetCuerda">Cuerda --</div>
+                        <div style="font-size:0.7rem;color:#64748b;margin-top:4px;" id="targetCuerda" data-i18n="note-string">String --</div>
                     </div>
                 </div>
 
@@ -841,13 +881,13 @@
 
                 <!-- Estado -->
                 <div class="tuner-status">
-                    <span id="statusMsg" class="status-msg">🎸 Seleccioná una afinación</span>
+                    <span id="statusMsg" class="status-msg" data-i18n="tuner-select-msg">🎸 Select a tuning</span>
                 </div>
 
                 <!-- CONTROLES -->
                 <div class="mt-4 flex flex-wrap justify-center gap-3">
                     <label class="text-xs text-slate-500 flex items-center gap-2">
-                        🎵 Referencia
+                        🎵 <span data-i18n="ref-label">Reference</span>
                         <select id="referenceSelect" class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-1 text-white text-xs">
                             <option value="440">440 Hz</option>
                             <option value="432">432 Hz</option>
@@ -857,7 +897,7 @@
                         </select>
                     </label>
                     <label class="text-xs text-slate-500 flex items-center gap-2">
-                        🎯 Precisión
+                        🎯 <span data-i18n="precision-label">Precision</span>
                         <select id="precisionSelect" class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-1 text-white text-xs">
                             <option value="1">±1¢</option>
                             <option value="0.5">±0.5¢</option>
@@ -865,48 +905,48 @@
                         </select>
                     </label>
                     <label class="text-xs text-slate-500 flex items-center gap-2">
-                        🔄 Modo
+                        🔄 <span data-i18n="mode-label">Mode</span>
                         <select id="modeSelect" class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-1 text-white text-xs">
-                            <option value="strobe" selected>⭐ Estroboscópico</option>
-                            <option value="normal">Normal</option>
-                            <option value="silent">Silencioso</option>
+                            <option value="strobe" selected data-i18n="mode-strobe">⭐ Strobe</option>
+                            <option value="normal" data-i18n="mode-normal">Normal</option>
+                            <option value="silent" data-i18n="mode-silent">Silent</option>
                         </select>
                     </label>
                 </div>
 
                 <!-- Botón -->
                 <div class="mt-6 text-center">
-                    <button id="tunerBtn" class="btn-tuner">🎤 Iniciar Afinador</button>
+                    <button id="tunerBtn" class="btn-tuner" data-i18n="btn-start">🎤 Start Tuner</button>
                 </div>
 
                 <div class="mt-3 text-center text-xs text-slate-500">
-                    <kbd class="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-slate-400">Espacio</kbd> Iniciar/Detener ·
-                    <kbd class="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-slate-400">R</kbd> Reiniciar cuerdas
+                    <kbd class="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-slate-400">Space</kbd> <span data-i18n="shortcut-start">Start/Stop</span> ·
+                    <kbd class="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-slate-400">R</kbd> <span data-i18n="shortcut-reset">Reset strings</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- REDES -->
+    <!-- REDES / SOCIAL -->
     <section id="redes" class="py-16 md:py-24 bg-slate-950">
         <div class="max-w-6xl mx-auto px-6 text-center">
-            <h2 class="text-4xl md:text-5xl font-black">🌐 Seguinos</h2>
-            <p class="mt-3 text-slate-400 text-lg md:text-xl">Encontranos en todas nuestras redes.</p>
+            <h2 class="text-4xl md:text-5xl font-black" data-i18n="social-title">🌐 Follow us</h2>
+            <p class="mt-3 text-slate-400 text-lg md:text-xl" data-i18n="social-subtitle">Find us on all our social networks.</p>
             <div class="grid md:grid-cols-3 gap-6 md:gap-8 mt-12">
                 <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" class="tarjeta bg-red-600 rounded-3xl p-6 md:p-8 shadow-xl">
                     <div class="text-5xl md:text-6xl mb-4">▶️</div>
                     <h3 class="text-2xl md:text-3xl font-black">YouTube</h3>
-                    <p class="mt-3 text-red-100">Videos, afinaciones y tutoriales.</p>
+                    <p class="mt-3 text-red-100" data-i18n="social-yt">Videos, tunings and tutorials.</p>
                 </a>
                 <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="tarjeta bg-gradient-to-br from-pink-500 via-fuchsia-500 to-orange-500 rounded-3xl p-6 md:p-8 shadow-xl">
                     <div class="text-5xl md:text-6xl mb-4">📷</div>
                     <h3 class="text-2xl md:text-3xl font-black">Instagram</h3>
-                    <p class="mt-3 text-pink-100">Fotos, reels y novedades.</p>
+                    <p class="mt-3 text-pink-100" data-i18n="social-ig">Photos, reels and news.</p>
                 </a>
                 <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" class="tarjeta bg-black border border-slate-700 rounded-3xl p-6 md:p-8 shadow-xl">
                     <div class="text-5xl md:text-6xl mb-4">🎵</div>
                     <h3 class="text-2xl md:text-3xl font-black">TikTok</h3>
-                    <p class="mt-3 text-slate-300">Shorts y demostraciones.</p>
+                    <p class="mt-3 text-slate-300" data-i18n="social-tt">Shorts and demos.</p>
                 </a>
             </div>
         </div>
@@ -917,12 +957,12 @@
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
             <div>
                 <h2 class="text-xl md:text-2xl font-black">🎸 Guitar Voices</h2>
-                <p class="text-slate-500 text-sm mt-1">© 2026 Todos los derechos reservados.</p>
+                <p class="text-slate-500 text-sm mt-1">© 2026 <span data-i18n="footer-rights">All rights reserved.</span></p>
             </div>
             <div class="flex gap-6 text-sm">
-                <a href="#" class="hover:text-indigo-400 transition">Privacidad</a>
-                <a href="#" class="hover:text-indigo-400 transition">Términos</a>
-                <a href="#" class="hover:text-indigo-400 transition">Contacto</a>
+                <a href="#" class="hover:text-indigo-400 transition" data-i18n="footer-privacy">Privacy</a>
+                <a href="#" class="hover:text-indigo-400 transition" data-i18n="footer-terms">Terms</a>
+                <a href="#" class="hover:text-indigo-400 transition" data-i18n="footer-contact">Contact</a>
             </div>
         </div>
     </footer>
@@ -931,10 +971,266 @@
 
     <script>
         // ============================================================
+        // 0. SISTEMA DE TRADUCCIÓN - CORREGIDO
+        // ============================================================
+
+        const translations = {
+            en: {
+                // Nav
+                'nav-home': 'Home',
+                'nav-library': 'Library',
+                'nav-tuner': 'Tuner',
+                'nav-social': 'Social',
+                // Hero
+                'hero-badge': '🏆 Professional Tuner',
+                'hero-title': 'Tuner',
+                'hero-subtitle': 'Professional',
+                'hero-desc': 'Studio precision · 300+ tunings · Real-time detection',
+                'hero-btn-library': '📚 Library',
+                'hero-btn-tuner': '🎯 Tuner',
+                // Library
+                'library-title': '📚 Library',
+                'library-subtitle': 'Choose a category to get started.',
+                'cat-open': '🎸 Open',
+                'cat-standard': '🎵 Standard',
+                'cat-drop': '⬇️ Drop',
+                'cat-other': '🌟 Other',
+                'selected-title': '✅ Tuning selected',
+                'selected-desc': 'Select a tuning to begin.',
+                'selected-ready': '🎯 Ready to tune',
+                // Tuner
+                'tuner-title': '🎯 Tuner',
+                'tuner-subtitle': 'Studio precision · Strobe mode · Real-time detection',
+                'tuner-select': 'Select a tuning',
+                'tuner-select-msg': '🎸 Select a tuning',
+                'note-you': '🎤 You play',
+                'note-target': '🎯 Target',
+                'note-string': 'String --',
+                'ref-label': 'Reference',
+                'precision-label': 'Precision',
+                'mode-label': 'Mode',
+                'mode-strobe': '⭐ Strobe',
+                'mode-normal': 'Normal',
+                'mode-silent': 'Silent',
+                'btn-start': '🎤 Start Tuner',
+                'shortcut-start': 'Start/Stop',
+                'shortcut-reset': 'Reset strings',
+                // Social
+                'social-title': '🌐 Follow us',
+                'social-subtitle': 'Find us on all our social networks.',
+                'social-yt': 'Videos, tunings and tutorials.',
+                'social-ig': 'Photos, reels and news.',
+                'social-tt': 'Shorts and demos.',
+                // Footer
+                'footer-rights': 'All rights reserved.',
+                'footer-privacy': 'Privacy',
+                'footer-terms': 'Terms',
+                'footer-contact': 'Contact',
+                // Status messages
+                'status-tuned': '✅ Perfect tuning! 🎸',
+                'status-complete': '🎉 Guitar fully tuned!',
+                'status-listening': '🎤 Listening...',
+                'status-detected': '🔍 Detecting: {note} · Expecting: {target}',
+                'status-adjust': '🎯 {note} · {cents}¢ · Adjust the string',
+                'status-close': '🎯 {note} · {cents}¢ · Almost there',
+                'status-play': '🎸 Play a string...',
+                'status-select': '⚠️ Select a tuning first',
+                'status-error': '❌ Could not access microphone',
+                'status-stopped': '⏹ Stopped',
+                'status-reset': '🔄 Strings reset',
+                'status-string': '🎯 String {num}ª selected',
+                'status-done': '🎉 Guitar fully tuned!',
+            },
+            es: {
+                // Nav
+                'nav-home': 'Inicio',
+                'nav-library': 'Biblioteca',
+                'nav-tuner': 'Afinador',
+                'nav-social': 'Redes',
+                // Hero
+                'hero-badge': '🏆 Afinador Profesional',
+                'hero-title': 'Afinador',
+                'hero-subtitle': 'Profesional',
+                'hero-desc': 'Precisión de estudio · 300+ afinaciones · Detección en tiempo real',
+                'hero-btn-library': '📚 Biblioteca',
+                'hero-btn-tuner': '🎯 Afinador',
+                // Library
+                'library-title': '📚 Biblioteca',
+                'library-subtitle': 'Elegí una categoría para comenzar.',
+                'cat-open': '🎸 Abiertas',
+                'cat-standard': '🎵 Standard',
+                'cat-drop': '⬇️ Drop',
+                'cat-other': '🌟 Otras',
+                'selected-title': '✅ Afinación seleccionada',
+                'selected-desc': 'Seleccioná una afinación para comenzar.',
+                'selected-ready': '🎯 Listo para afinar',
+                // Tuner
+                'tuner-title': '🎯 Afinador',
+                'tuner-subtitle': 'Precisión de estudio · Modo estroboscópico · Detección en tiempo real',
+                'tuner-select': 'Seleccioná una afinación',
+                'tuner-select-msg': '🎸 Seleccioná una afinación',
+                'note-you': '🎤 Lo que tocas',
+                'note-target': '🎯 Lo que necesitas',
+                'note-string': 'Cuerda --',
+                'ref-label': 'Referencia',
+                'precision-label': 'Precisión',
+                'mode-label': 'Modo',
+                'mode-strobe': '⭐ Estroboscópico',
+                'mode-normal': 'Normal',
+                'mode-silent': 'Silencioso',
+                'btn-start': '🎤 Iniciar Afinador',
+                'shortcut-start': 'Iniciar/Detener',
+                'shortcut-reset': 'Reiniciar cuerdas',
+                // Social
+                'social-title': '🌐 Seguinos',
+                'social-subtitle': 'Encontranos en todas nuestras redes.',
+                'social-yt': 'Videos, afinaciones y tutoriales.',
+                'social-ig': 'Fotos, reels y novedades.',
+                'social-tt': 'Shorts y demostraciones.',
+                // Footer
+                'footer-rights': 'Todos los derechos reservados.',
+                'footer-privacy': 'Privacidad',
+                'footer-terms': 'Términos',
+                'footer-contact': 'Contacto',
+                // Status messages
+                'status-tuned': '✅ Afinación perfecta! 🎸',
+                'status-complete': '🎉 Guitarra completamente afinada!',
+                'status-listening': '🎤 Escuchando...',
+                'status-detected': '🔍 Detectando: {note} · Esperando: {target}',
+                'status-adjust': '🎯 {note} · {cents}¢ · Ajustá la cuerda',
+                'status-close': '🎯 {note} · {cents}¢ · Casi listo',
+                'status-play': '🎸 Tocá una cuerda...',
+                'status-select': '⚠️ Seleccioná una afinación primero',
+                'status-error': '❌ No se pudo acceder al micrófono',
+                'status-stopped': '⏹ Detenido',
+                'status-reset': '🔄 Cuerdas reiniciadas',
+                'status-string': '🎯 Cuerda {num}ª seleccionada',
+                'status-done': '🎉 Guitarra completamente afinada!',
+            },
+            pt: {
+                // Nav
+                'nav-home': 'Início',
+                'nav-library': 'Biblioteca',
+                'nav-tuner': 'Afinador',
+                'nav-social': 'Redes',
+                // Hero
+                'hero-badge': '🏆 Afinador Profissional',
+                'hero-title': 'Afinador',
+                'hero-subtitle': 'Profissional',
+                'hero-desc': 'Precisão de estúdio · 300+ afinações · Detecção em tempo real',
+                'hero-btn-library': '📚 Biblioteca',
+                'hero-btn-tuner': '🎯 Afinador',
+                // Library
+                'library-title': '📚 Biblioteca',
+                'library-subtitle': 'Escolha uma categoria para começar.',
+                'cat-open': '🎸 Abertas',
+                'cat-standard': '🎵 Standard',
+                'cat-drop': '⬇️ Drop',
+                'cat-other': '🌟 Outras',
+                'selected-title': '✅ Afinação selecionada',
+                'selected-desc': 'Selecione uma afinação para começar.',
+                'selected-ready': '🎯 Pronto para afinar',
+                // Tuner
+                'tuner-title': '🎯 Afinador',
+                'tuner-subtitle': 'Precisão de estúdio · Modo estroboscópico · Detecção em tempo real',
+                'tuner-select': 'Selecione uma afinação',
+                'tuner-select-msg': '🎸 Selecione uma afinação',
+                'note-you': '🎤 O que toca',
+                'note-target': '🎯 O que precisa',
+                'note-string': 'Corda --',
+                'ref-label': 'Referência',
+                'precision-label': 'Precisão',
+                'mode-label': 'Modo',
+                'mode-strobe': '⭐ Estroboscópico',
+                'mode-normal': 'Normal',
+                'mode-silent': 'Silencioso',
+                'btn-start': '🎤 Iniciar Afinador',
+                'shortcut-start': 'Iniciar/Parar',
+                'shortcut-reset': 'Reiniciar cordas',
+                // Social
+                'social-title': '🌐 Siga-nos',
+                'social-subtitle': 'Encontre-nos em todas as nossas redes.',
+                'social-yt': 'Vídeos, afinações e tutoriais.',
+                'social-ig': 'Fotos, reels e novidades.',
+                'social-tt': 'Shorts e demonstrações.',
+                // Footer
+                'footer-rights': 'Todos os direitos reservados.',
+                'footer-privacy': 'Privacidade',
+                'footer-terms': 'Termos',
+                'footer-contact': 'Contato',
+                // Status messages
+                'status-tuned': '✅ Afinação perfeita! 🎸',
+                'status-complete': '🎉 Guitarra completamente afinada!',
+                'status-listening': '🎤 Ouvindo...',
+                'status-detected': '🔍 Detectando: {note} · Esperando: {target}',
+                'status-adjust': '🎯 {note} · {cents}¢ · Ajuste a corda',
+                'status-close': '🎯 {note} · {cents}¢ · Quase lá',
+                'status-play': '🎸 Toque uma corda...',
+                'status-select': '⚠️ Selecione uma afinação primeiro',
+                'status-error': '❌ Não foi possível acessar o microfone',
+                'status-stopped': '⏹ Parado',
+                'status-reset': '🔄 Cordas reiniciadas',
+                'status-string': '🎯 Corda {num}ª selecionada',
+                'status-done': '🎉 Guitarra completamente afinada!',
+            }
+        };
+
+        let currentLang = 'en';
+
+        function t(key, params = {}) {
+            let text = translations[currentLang]?.[key] || translations['en'][key] || key;
+            for (const [k, v] of Object.entries(params)) {
+                text = text.replace(`{${k}}`, v);
+            }
+            return text;
+        }
+
+        function updateLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('guitarVoicesLang', lang);
+
+            document.querySelectorAll('.lang-selector button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (translations[lang]?.[key] !== undefined) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+
+            // Guitar Voices se mantiene en todos los idiomas (es el nombre de la marca)
+            document.title = lang === 'en' ? 'Guitar Voices · Tuner' :
+                lang === 'es' ? 'Guitar Voices · Afinador' :
+                'Guitar Voices · Afinador';
+
+            actualizarMensajesEstado();
+            actualizarTargetDisplay();
+            actualizarStringDots();
+            actualizarCuerdaInfo();
+        }
+
+        function actualizarMensajesEstado() {
+            const statusEl = document.getElementById('statusMsg');
+            if (statusEl && !statusEl.dataset.dynamic) {
+                // No sobrescribir mensajes dinámicos
+            }
+        }
+
+        function setStatusMessage(key, params = {}) {
+            const el = document.getElementById('statusMsg');
+            if (el) {
+                el.textContent = t(key, params);
+                el.className = 'status-msg';
+                el.dataset.dynamic = 'true';
+            }
+        }
+
+        // ============================================================
         // 1. BIBLIOTECA DE AFINACIONES - COMPLETA (300+)
         // ============================================================
 
-        // ---- FUNCIÓN PARA GENERAR DERIVACIONES DE UNA NOTA ----
         function generarDerivaciones(nota) {
             const base = nota;
             const cuerdasBase = {
@@ -1013,7 +1309,6 @@
             return variantes;
         }
 
-        // ---- GENERAR TODAS LAS NOTAS CON SUS DERIVACIONES ----
         function generarTodasLasNotas() {
             const notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
             const resultado = {};
@@ -1025,15 +1320,8 @@
 
         const todasLasNotas = generarTodasLasNotas();
 
-        // ============================================================
-        // BIBLIOTECA COMPLETA - ORDENADA DE C a B
-        // ============================================================
-
         const bibliotecaAfinaciones = {
-            // ---- AFINACIONES ABIERTAS (300+ variantes) ----
             abiertas: todasLasNotas,
-
-            // ---- AFINACIONES STANDARD (ordenadas C, C#, D, D#, E, F, F#, G, G#, A, A#, B) ----
             standard: {
                 "C Standard": [{ nombre: "C Standard", cuerdas: ["C", "F", "Bb", "Eb", "G", "C"] }],
                 "C# Standard": [{ nombre: "C# Standard", cuerdas: ["C#", "F#", "B", "E", "G#", "C#"] }],
@@ -1047,11 +1335,8 @@
                 "A Standard": [{ nombre: "A Standard", cuerdas: ["A", "D", "G", "C", "E", "A"] }],
                 "A# Standard": [{ nombre: "A# Standard", cuerdas: ["A#", "D#", "G#", "C#", "F", "A#"] }],
                 "B Standard": [{ nombre: "B Standard", cuerdas: ["B", "E", "A", "D", "F#", "B"] }],
-                // Extensión
                 "Standard Barítono": [{ nombre: "Standard Barítono", cuerdas: ["B", "E", "A", "D", "F#", "B"] }],
             },
-
-            // ---- AFINACIONES DROP (ordenadas C, C#, D, D#, E, F, F#, G, G#, A, A#, B) ----
             drop: {
                 "Drop C": [{ nombre: "Drop C", cuerdas: ["C", "G", "C", "F", "A", "D"] }],
                 "Drop C#": [{ nombre: "Drop C#", cuerdas: ["C#", "G#", "C#", "F#", "A#", "D#"] }],
@@ -1065,12 +1350,9 @@
                 "Drop A": [{ nombre: "Drop A", cuerdas: ["A", "E", "A", "D", "F#", "B"] }],
                 "Drop A#": [{ nombre: "Drop A#", cuerdas: ["A#", "F", "A#", "D#", "G", "C"] }],
                 "Drop B": [{ nombre: "Drop B", cuerdas: ["B", "F#", "B", "E", "G#", "C#"] }],
-                // Extensiones 7 cuerdas
                 "Drop D (7 cuerdas)": [{ nombre: "Drop D 7", cuerdas: ["D", "A", "D", "G", "B", "E", "A"] }],
                 "Drop A (7 cuerdas)": [{ nombre: "Drop A 7", cuerdas: ["A", "E", "A", "D", "G", "B", "E"] }],
             },
-
-            // ---- OTRAS AFINACIONES ----
             otras: {
                 "DADGAD": [{ nombre: "DADGAD", cuerdas: ["D", "A", "D", "G", "A", "D"] }],
                 "DADF#AD": [{ nombre: "DADF#AD", cuerdas: ["D", "A", "D", "F#", "A", "D"] }],
@@ -1146,6 +1428,7 @@
         let precisionTolerance = 1;
         let modoStrobe = true;
         let modoSilencioso = false;
+        let statusMessageTimeout = null;
 
         // ============================================================
         // 4. FUNCIONES DE BIBLIOTECA
@@ -1156,7 +1439,7 @@
             const lista = bibliotecaAfinaciones[tipo]?.[nota] || [];
             if (lista.length === 0) {
                 dom.variantes.innerHTML =
-                    `<p class="text-slate-400 text-center col-span-3">No hay afinaciones disponibles para esta tonalidad.</p>`;
+                    `<p class="text-slate-400 text-center col-span-3">${t('library-subtitle')}</p>`;
                 return;
             }
             lista.forEach((af) => {
@@ -1165,7 +1448,7 @@
                 div.innerHTML = `
                         <div class="nombre">${af.nombre}</div>
                         <div class="cuerdas">${af.cuerdas.join(" • ")}</div>
-                        <span class="badge">${af.cuerdas.length} cuerdas</span>
+                        <span class="badge">${af.cuerdas.length} ${t('note-string').split(' ')[0] || 'strings'}</span>
                     `;
                 div.addEventListener('click', function() {
                     seleccionarAfinacion(af);
@@ -1189,7 +1472,7 @@
             const keys = Object.keys(bibliotecaAfinaciones[cat] || {});
             dom.tonalidades.innerHTML = "";
             if (keys.length === 0) {
-                dom.tonalidades.innerHTML = `<p class="text-slate-400">No hay tonalidades disponibles.</p>`;
+                dom.tonalidades.innerHTML = `<p class="text-slate-400">${t('library-subtitle')}</p>`;
                 dom.variantes.innerHTML = "";
                 return;
             }
@@ -1233,20 +1516,19 @@
             actualizarTargetDisplay();
             actualizarStringDots();
             guardarUltimaAfinacion();
-            dom.statusMsg.textContent = "🎸 Afinación seleccionada. Presioná 'Iniciar'";
-            dom.statusMsg.className = 'status-msg';
+            setStatusMessage('tuner-select-msg');
         }
 
         function actualizarTargetDisplay() {
             if (!afinacionActual) {
                 dom.targetNote.textContent = "--";
-                dom.targetCuerda.textContent = "Cuerda --";
+                dom.targetCuerda.textContent = t('note-string');
                 return;
             }
             const nota = afinacionActual.cuerdas[cuerdaActual] || "--";
             const num = 6 - cuerdaActual;
             dom.targetNote.textContent = nota;
-            dom.targetCuerda.textContent = `Cuerda ${num}ª`;
+            dom.targetCuerda.textContent = t('note-string').replace('--', `${num}ª`);
             dom.targetNote.className = 'note-value target';
 
             const labels = dom.stringLabels;
@@ -1266,14 +1548,24 @@
             });
         }
 
+        function actualizarCuerdaInfo() {
+            if (!afinacionActual) {
+                dom.tuningNameDisplay.textContent = t('tuner-select');
+                return;
+            }
+            const nota = afinacionActual.cuerdas[cuerdaActual] || "--";
+            const num = 6 - cuerdaActual;
+            dom.tuningNameDisplay.textContent = `${afinacionActual.nombre} · ${num}ª (${nota})`;
+        }
+
         function avanzarCuerda() {
             if (!afinacionActual) return;
             cuerdaActual = (cuerdaActual + 1) % afinacionActual.cuerdas.length;
             actualizarTargetDisplay();
             actualizarStringDots();
+            actualizarCuerdaInfo();
             if (cuerdaActual === 0) {
-                dom.statusMsg.textContent = "🎉 Guitarra completamente afinada!";
-                dom.statusMsg.className = 'status-msg success';
+                setStatusMessage('status-done');
             }
         }
 
@@ -1281,8 +1573,8 @@
             cuerdaActual = 0;
             actualizarTargetDisplay();
             actualizarStringDots();
-            dom.statusMsg.textContent = "🔄 Cuerdas reiniciadas";
-            dom.statusMsg.className = 'status-msg';
+            actualizarCuerdaInfo();
+            setStatusMessage('status-reset');
         }
 
         function guardarUltimaAfinacion() {
@@ -1417,7 +1709,7 @@
             }
 
             if (!afinacionActual) {
-                dom.statusMsg.textContent = "⚠️ Seleccioná una afinación primero";
+                setStatusMessage('status-select');
                 dom.statusMsg.className = 'status-msg error';
                 return;
             }
@@ -1439,10 +1731,9 @@
                     source.connect(analyser);
                     buffer = new Float32Array(analyser.fftSize);
                     detectando = true;
-                    dom.tunerBtn.textContent = "⏹ Detener";
+                    dom.tunerBtn.textContent = t('btn-start').replace('🎤', '⏹');
                     dom.tunerBtn.classList.add('active');
-                    dom.statusMsg.textContent = "🎤 Escuchando...";
-                    dom.statusMsg.className = 'status-msg';
+                    setStatusMessage('status-listening');
 
                     if (modoStrobe) {
                         dom.strobeRings.classList.add('rotating');
@@ -1455,7 +1746,7 @@
                     loopDetectar();
                 })
                 .catch((err) => {
-                    dom.statusMsg.textContent = "❌ No se pudo acceder al micrófono";
+                    setStatusMessage('status-error');
                     dom.statusMsg.className = 'status-msg error';
                     console.error('Error de micrófono:', err);
                 });
@@ -1468,10 +1759,9 @@
             }
             analyser = null;
             detectando = false;
-            dom.tunerBtn.textContent = "🎤 Iniciar Afinador";
+            dom.tunerBtn.textContent = t('btn-start');
             dom.tunerBtn.classList.remove('active');
-            dom.statusMsg.textContent = "⏹ Detenido";
-            dom.statusMsg.className = 'status-msg';
+            setStatusMessage('status-stopped');
             dom.vuBar.style.width = '0%';
             dom.strobeRings.style.animationDuration = '3s';
             dom.strobeRings.style.opacity = '0.6';
@@ -1491,8 +1781,7 @@
             const rms = Math.sqrt(energia / buffer.length);
 
             if (rms < 0.005) {
-                dom.statusMsg.textContent = "🎸 Tocá una cuerda...";
-                dom.statusMsg.className = 'status-msg';
+                setStatusMessage('status-play');
                 return;
             }
 
@@ -1517,7 +1806,7 @@
             }
 
             if (info.nota === objetivo && Math.abs(cents) <= precisionTolerance && lecturasEstables >= 6) {
-                dom.statusMsg.textContent = "✅ Afinación perfecta! 🎸";
+                setStatusMessage('status-tuned');
                 dom.statusMsg.className = 'status-msg success';
 
                 if (!dom.statusMsg.dataset.avanzado) {
@@ -1526,21 +1815,21 @@
                         avanzarCuerda();
                         dom.statusMsg.dataset.avanzado = "";
                         if (cuerdaActual === 0 && afinacionActual) {
-                            dom.statusMsg.textContent = "🎉 Guitarra completamente afinada!";
+                            setStatusMessage('status-done');
                             dom.statusMsg.className = 'status-msg success';
                         }
                     }, 800);
                 }
             } else if (info.nota === objetivo) {
                 if (Math.abs(cents) < 15) {
-                    dom.statusMsg.textContent = `🎯 ${info.nota} · ${Math.abs(cents)}¢ · Casi listo`;
+                    setStatusMessage('status-close', { note: info.nota, cents: Math.abs(cents) });
                     dom.statusMsg.className = 'status-msg warning';
                 } else {
-                    dom.statusMsg.textContent = `🎯 ${info.nota} · ${Math.abs(cents)}¢ · Ajustá la cuerda`;
+                    setStatusMessage('status-adjust', { note: info.nota, cents: Math.abs(cents) });
                     dom.statusMsg.className = 'status-msg';
                 }
             } else {
-                dom.statusMsg.textContent = `🔍 Detectando: ${info.nota} · Esperando: ${objetivo}`;
+                setStatusMessage('status-detected', { note: info.nota, target: objetivo });
                 dom.statusMsg.className = 'status-msg';
             }
         }
@@ -1551,14 +1840,27 @@
 
         document.addEventListener("DOMContentLoaded", function() {
 
+            // ---- Configurar selector de idioma ----
+            const savedLang = localStorage.getItem('guitarVoicesLang') || 'en';
+            updateLanguage(savedLang);
+
+            document.querySelectorAll('.lang-selector button').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    updateLanguage(this.dataset.lang);
+                });
+            });
+
+            // ---- Botones de categoría ----
             document.querySelectorAll(".cat-btn").forEach((btn) => {
                 btn.addEventListener("click", function() {
                     mostrarCategoria(this.dataset.categoria);
                 });
             });
 
+            // ---- Botón del afinador ----
             dom.tunerBtn.addEventListener("click", iniciarAfinador);
 
+            // ---- Teclas rápidas ----
             document.addEventListener("keydown", (e) => {
                 if (e.key === " " && e.target === document.body) {
                     e.preventDefault();
@@ -1571,18 +1873,20 @@
                 }
             });
 
+            // ---- Click en dots para seleccionar cuerda ----
             dom.stringDots.forEach((dot, i) => {
                 dot.addEventListener('click', function() {
                     if (afinacionActual) {
                         cuerdaActual = i;
                         actualizarTargetDisplay();
                         actualizarStringDots();
-                        dom.statusMsg.textContent = `🎯 Cuerda ${6 - i}ª seleccionada`;
-                        dom.statusMsg.className = 'status-msg';
+                        actualizarCuerdaInfo();
+                        setStatusMessage('status-string', { num: 6 - i });
                     }
                 });
             });
 
+            // ---- Cambio de modo ----
             dom.modeSelect.addEventListener('change', function() {
                 const modo = this.value;
                 modoStrobe = modo === 'strobe';
@@ -1597,6 +1901,7 @@
                 }
             });
 
+            // ---- Scroll suave ----
             document.querySelectorAll('a[href^="#"]').forEach((a) => {
                 a.addEventListener("click", (e) => {
                     const target = document.querySelector(a.getAttribute("href"));
@@ -1607,6 +1912,7 @@
                 });
             });
 
+            // ---- Cargar última afinación ----
             if (!cargarUltimaAfinacion()) {
                 mostrarCategoria("standard");
             } else {
@@ -1628,7 +1934,7 @@
             modoStrobe = true;
             dom.strobeRings.style.display = 'block';
 
-            // Contar afinaciones
+            // ---- Contar afinaciones ----
             let total = 0;
             let totalAbiertas = 0;
             for (const cat in bibliotecaAfinaciones) {
@@ -1639,11 +1945,11 @@
                     }
                 }
             }
-            console.log(`🎸 Guitar Voices · ${total} afinaciones cargadas`);
-            console.log(`📚 Abiertas: ${totalAbiertas} variantes (12 notas × 25 acordes)`);
-            console.log(`📚 Standard: ${Object.keys(bibliotecaAfinaciones.standard).length} (C a B)`);
-            console.log(`📚 Drop: ${Object.keys(bibliotecaAfinaciones.drop).length} (C a B)`);
-            console.log(`📚 Otras: ${Object.keys(bibliotecaAfinaciones.otras).length}`);
+            console.log(`🎸 Guitar Voices · ${total} tunings loaded`);
+            console.log(`📚 Open: ${totalAbiertas} variants (12 notes × 25 chords)`);
+            console.log(`📚 Standard: ${Object.keys(bibliotecaAfinaciones.standard).length} (C to B)`);
+            console.log(`📚 Drop: ${Object.keys(bibliotecaAfinaciones.drop).length} (C to B)`);
+            console.log(`📚 Other: ${Object.keys(bibliotecaAfinaciones.otras).length}`);
         });
     </script>
 </body>
