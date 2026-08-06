@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Guitar Voices Ultimate · Afinador Profesional</title>
+    <title>Guitar Voices · Afinador Estroboscópico</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -36,7 +36,6 @@
             overflow-x: hidden;
         }
 
-        /* Intro */
         #intro {
             position: fixed;
             inset: 0;
@@ -98,9 +97,6 @@
             box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6);
         }
 
-        /* ============================================================ */
-        /* BIBLIOTECA                                                    */
-        /* ============================================================ */
         .afinacion-card {
             background: #1a1a2e;
             border: 1px solid #2a2a4a;
@@ -161,7 +157,7 @@
         }
 
         /* ============================================================ */
-        /* AFINADOR ULTIMATE - CON MODO ESTROBOSCÓPICO                  */
+        /* AFINADOR ESTROBOSCÓPICO                                      */
         /* ============================================================ */
         .tuner-container {
             background: linear-gradient(160deg, #12121f, #0a0a14);
@@ -172,60 +168,114 @@
             position: relative;
             overflow: hidden;
         }
-        .tuner-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.03), transparent 60%);
-            pointer-events: none;
-        }
 
-        /* Panel superior */
-        .tuner-controls {
+        .tuning-info-panel {
+            background: #14141f;
+            border-radius: 1.2rem;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #2a2a4a;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 12px;
-            margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid #1a1a2e;
         }
-        .tuner-controls label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .tuning-info-panel .tuning-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #e2e8f0;
+        }
+        .tuning-info-panel .tuning-name span {
+            color: #22c55e;
+        }
+        .tuning-info-panel .tuning-strings {
             display: flex;
-            align-items: center;
             gap: 8px;
+            flex-wrap: wrap;
         }
-        .tuner-controls select,
-        .tuner-controls input {
+        .tuning-info-panel .tuning-strings .string-label {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
             background: #1a1a2e;
             border: 1px solid #2a2a4a;
-            border-radius: 8px;
-            padding: 4px 12px;
-            color: #e2e8f0;
-            font-size: 0.85rem;
-            outline: none;
-            transition: border-color 0.2s;
+            color: #64748b;
+            transition: all 0.3s;
         }
-        .tuner-controls select:focus,
-        .tuner-controls input:focus {
+        .tuning-info-panel .tuning-strings .string-label.active {
             border-color: #4f46e5;
+            background: #2a2a4a;
+            color: #e2e8f0;
+            box-shadow: 0 0 20px #4f46e533;
         }
-        .tuner-controls select option {
-            background: #1a1a2e;
+        .tuning-info-panel .tuning-strings .string-label.done {
+            border-color: #22c55e;
+            background: #22c55e22;
+            color: #22c55e;
         }
 
-        /* ============================================================ */
-        /* MEDIDOR ESTROBOSCÓPICO (MODO AVANZADO)                      */
-        /* ============================================================ */
+        .note-comparator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin: 16px 0;
+            padding: 16px;
+            background: #14141f;
+            border-radius: 1.2rem;
+            border: 1px solid #2a2a4a;
+            flex-wrap: wrap;
+        }
+        .note-comparator .note-box {
+            text-align: center;
+            min-width: 100px;
+        }
+        .note-comparator .note-box .label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+        .note-comparator .note-box .note-value {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1;
+            transition: all 0.2s;
+        }
+        .note-comparator .note-box .note-value.detected {
+            color: #38bdf8;
+        }
+        .note-comparator .note-box .note-value.detected.match {
+            color: #22c55e;
+            text-shadow: 0 0 40px #22c55e44;
+        }
+        .note-comparator .note-box .note-value.target {
+            color: #facc15;
+        }
+        .note-comparator .note-box .note-value.target.match {
+            color: #22c55e;
+            text-shadow: 0 0 40px #22c55e44;
+        }
+        .note-comparator .arrow {
+            font-size: 2.5rem;
+            color: #334155;
+            animation: arrowPulse 1.5s ease-in-out infinite;
+        }
+        @keyframes arrowPulse {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+
         .meter-wrapper {
             position: relative;
             width: 100%;
@@ -234,11 +284,10 @@
             padding: 10px 0 5px 0;
         }
 
-        /* Fondo del medidor */
         .meter-track {
             position: relative;
             width: 100%;
-            height: 120px;
+            height: 100px;
             background: linear-gradient(to right,
                     #dc2626 0%,
                     #f97316 12%,
@@ -249,10 +298,9 @@
                     #f97316 88%,
                     #dc2626 100%);
             border-radius: 60px;
-            box-shadow: inset 0 4px 30px rgba(0, 0, 0, 0.8), 0 0 80px rgba(34, 197, 94, 0.02);
+            box-shadow: inset 0 4px 30px rgba(0, 0, 0, 0.8);
             overflow: visible;
         }
-
         .meter-track .tick-marks {
             position: absolute;
             top: 0;
@@ -269,14 +317,12 @@
             font-size: 0.5rem;
             font-weight: 700;
             padding-top: 6px;
-            letter-spacing: 0.5px;
         }
         .meter-track .tick-marks span.major {
             color: rgba(255, 255, 255, 0.5);
             font-size: 0.7rem;
         }
 
-        /* Aguja */
         .needle-container {
             position: absolute;
             top: 50%;
@@ -286,18 +332,17 @@
             height: 100%;
             pointer-events: none;
         }
-
         .needle {
             position: absolute;
             top: 50%;
             left: 50%;
             width: 3px;
-            height: 100px;
+            height: 85px;
             background: linear-gradient(to top, #ffffff, #94a3b8);
             transform-origin: bottom center;
             transform: translate(-50%, -100%) rotate(0deg);
             border-radius: 3px;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2), 0 0 60px rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
             transition: transform 0.035s ease-out;
             z-index: 10;
             will-change: transform;
@@ -308,54 +353,49 @@
             bottom: -8px;
             left: 50%;
             transform: translateX(-50%);
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             background: radial-gradient(circle at 40% 35%, #ffffff, #475569);
             border-radius: 50%;
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 35px rgba(255, 255, 255, 0.15);
             border: 2px solid rgba(255, 255, 255, 0.06);
         }
-
         .center-dot {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             background: radial-gradient(circle at 40% 35%, #ffffff, #3f3f5f);
             border-radius: 50%;
             z-index: 11;
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 35px rgba(255, 255, 255, 0.12);
             border: 2px solid rgba(255, 255, 255, 0.08);
         }
-
         .center-line {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 2px;
-            height: 55px;
+            height: 45px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 2px;
             z-index: 5;
             border: 1px dashed rgba(255, 255, 255, 0.02);
         }
 
-        /* ============================================================ */
-        /* ANILLOS ESTROBOSCÓPICOS (EFECTO VISUAL)                     */
-        /* ============================================================ */
         .strobe-rings {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 200px;
-            height: 200px;
+            width: 220px;
+            height: 220px;
             pointer-events: none;
             z-index: 4;
-            opacity: 0.4;
+            opacity: 0.6;
         }
         .strobe-rings .ring {
             position: absolute;
@@ -363,44 +403,65 @@
             left: 50%;
             transform: translate(-50%, -50%);
             border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            animation: ringPulse 3s ease-in-out infinite;
+            border: 1.5px solid rgba(255, 255, 255, 0.04);
+            animation: ringPulse 4s ease-in-out infinite;
         }
         .strobe-rings .ring:nth-child(1) {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             animation-delay: 0s;
         }
         .strobe-rings .ring:nth-child(2) {
-            width: 100px;
-            height: 100px;
-            animation-delay: 0.6s;
+            width: 85px;
+            height: 85px;
+            animation-delay: 0.5s;
         }
         .strobe-rings .ring:nth-child(3) {
-            width: 140px;
-            height: 140px;
-            animation-delay: 1.2s;
+            width: 120px;
+            height: 120px;
+            animation-delay: 1s;
         }
         .strobe-rings .ring:nth-child(4) {
-            width: 180px;
-            height: 180px;
-            animation-delay: 1.8s;
+            width: 155px;
+            height: 155px;
+            animation-delay: 1.5s;
+        }
+        .strobe-rings .ring:nth-child(5) {
+            width: 190px;
+            height: 190px;
+            animation-delay: 2s;
+        }
+        .strobe-rings .ring:nth-child(6) {
+            width: 225px;
+            height: 225px;
+            animation-delay: 2.5s;
         }
         @keyframes ringPulse {
             0%,
             100% {
                 border-color: rgba(255, 255, 255, 0.03);
                 transform: translate(-50%, -50%) scale(1);
+                opacity: 0.3;
             }
             50% {
-                border-color: rgba(34, 197, 94, 0.15);
-                transform: translate(-50%, -50%) scale(1.08);
+                border-color: rgba(34, 197, 94, 0.2);
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 1;
             }
         }
 
-        /* ============================================================ */
-        /* LEDs DE PRECISIÓN (9 POSICIONES)                            */
-        /* ============================================================ */
+        .strobe-rings.rotating {
+            animation: strobeRotate 2s linear infinite;
+        }
+        @keyframes strobeRotate {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
         .precision-leds {
             display: flex;
             justify-content: center;
@@ -415,7 +476,6 @@
             border: 1px solid #2a2a4a;
             transition: all 0.15s ease;
             box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
-            position: relative;
         }
         .precision-led.green {
             background: #22c55e;
@@ -433,125 +493,9 @@
             border-color: #ef4444;
         }
 
-        /* ============================================================ */
-        /* DISPLAY DE INFORMACIÓN                                       */
-        /* ============================================================ */
-        .tuner-info {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 50px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .tuner-info .note-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 120px;
-        }
-        .tuner-info .note-display {
-            font-size: 5rem;
-            font-weight: 900;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 3px;
-            line-height: 1;
-            background: linear-gradient(135deg, #e2e8f0, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            transition: all 0.2s;
-        }
-        .tuner-info .note-display.tuned {
-            background: linear-gradient(135deg, #22c55e, #4ade80);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 50px #22c55e55);
-            animation: glowPulse 1s ease-in-out infinite;
-        }
-        @keyframes glowPulse {
-            0%,
-            100% {
-                filter: drop-shadow(0 0 30px #22c55e33);
-            }
-            50% {
-                filter: drop-shadow(0 0 70px #22c55e77);
-            }
-        }
-        .tuner-info .note-display.detecting {
-            animation: pulseDetect 0.8s ease-in-out infinite;
-        }
-        @keyframes pulseDetect {
-            0%,
-            100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.04);
-            }
-        }
-        .tuner-info .note-octave {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #64748b;
-            margin-top: -6px;
-        }
-
-        .tuner-info .freq-group {
-            text-align: center;
-            min-width: 140px;
-        }
-        .tuner-info .freq-display {
-            font-size: 2rem;
-            font-weight: 600;
-            color: #e2e8f0;
-            font-variant-numeric: tabular-nums;
-            letter-spacing: 1px;
-        }
-        .tuner-info .freq-display .unit {
-            font-size: 1rem;
-            color: #64748b;
-            margin-left: 4px;
-            font-weight: 400;
-        }
-
-        .tuner-info .cents-group {
-            text-align: center;
-            min-width: 100px;
-        }
-        .tuner-info .cents-display {
-            font-size: 1.4rem;
-            font-weight: 700;
-            padding: 6px 20px;
-            border-radius: 40px;
-            background: #14141f;
-            border: 1px solid #2a2a4a;
-            font-variant-numeric: tabular-nums;
-            transition: all 0.2s;
-            display: inline-block;
-        }
-        .tuner-info .cents-display.green {
-            color: #22c55e;
-            border-color: #22c55e55;
-            background: #22c55e11;
-        }
-        .tuner-info .cents-display.yellow {
-            color: #facc15;
-            border-color: #facc1555;
-            background: #facc1511;
-        }
-        .tuner-info .cents-display.red {
-            color: #ef4444;
-            border-color: #ef444455;
-            background: #ef444411;
-        }
-
-        /* ============================================================ */
-        /* VU METER                                                     */
-        /* ============================================================ */
         .vu-meter {
             margin-top: 14px;
-            height: 5px;
+            height: 4px;
             background: #14141f;
             border-radius: 4px;
             overflow: hidden;
@@ -565,58 +509,12 @@
             transition: width 0.04s linear;
         }
 
-        /* ============================================================ */
-        /* PROGRESO DE CUERDAS                                          */
-        /* ============================================================ */
-        .string-progress {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 12px;
-            flex-wrap: wrap;
-        }
-        .string-dot {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: #1a1a2e;
-            border: 2px solid #2a2a4a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.6rem;
-            font-weight: 700;
-            color: #64748b;
-            transition: all 0.3s;
-        }
-        .string-dot.active {
-            border-color: #4f46e5;
-            background: #2a2a4a;
-            color: #e2e8f0;
-            box-shadow: 0 0 25px #4f46e544;
-            transform: scale(1.1);
-        }
-        .string-dot.done {
-            border-color: #22c55e;
-            background: #22c55e22;
-            color: #22c55e;
-        }
-        .string-dot.done::after {
-            content: '✓';
-        }
-
-        /* ============================================================ */
-        /* ESTADO Y BOTÓN                                               */
-        /* ============================================================ */
         .tuner-status {
             text-align: center;
             margin-top: 14px;
             font-size: 0.95rem;
             color: #94a3b8;
             min-height: 28px;
-        }
-        .tuner-status .status-msg {
-            transition: all 0.2s;
         }
         .tuner-status .status-msg.success {
             color: #22c55e;
@@ -639,22 +537,6 @@
             background: linear-gradient(135deg, #22c55e, #16a34a);
             color: white;
             box-shadow: 0 4px 35px rgba(34, 197, 94, 0.25);
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-tuner::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1), transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .btn-tuner:hover::after {
-            opacity: 1;
         }
         .btn-tuner:hover {
             transform: translateY(-2px);
@@ -671,105 +553,108 @@
             box-shadow: 0 8px 45px rgba(239, 68, 68, 0.35);
         }
 
-        /* ============================================================ */
-        /* HISTORIAL DE AFINACIONES                                     */
-        /* ============================================================ */
-        .history-container {
-            margin-top: 16px;
-            border-top: 1px solid #1a1a2e;
-            padding-top: 14px;
-            max-height: 80px;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: #2a2a4a transparent;
-        }
-        .history-container::-webkit-scrollbar {
-            width: 4px;
-        }
-        .history-container::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .history-container::-webkit-scrollbar-thumb {
-            background: #2a2a4a;
-            border-radius: 10px;
-        }
-        .history-item {
+        .string-progress {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .string-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #1a1a2e;
+            border: 2px solid #2a2a4a;
+            display: flex;
             align-items: center;
-            padding: 4px 8px;
-            font-size: 0.75rem;
-            color: #64748b;
-            border-bottom: 1px solid #14141f;
-        }
-        .history-item .h-note {
+            justify-content: center;
+            font-size: 0.65rem;
             font-weight: 700;
-            color: #e2e8f0;
+            color: #64748b;
+            transition: all 0.3s;
+            cursor: pointer;
         }
-        .history-item .h-status {
+        .string-dot:hover {
+            transform: scale(1.1);
+            border-color: #4f46e5;
+        }
+        .string-dot.active {
+            border-color: #4f46e5;
+            background: #2a2a4a;
+            color: #e2e8f0;
+            box-shadow: 0 0 25px #4f46e544;
+            transform: scale(1.1);
+        }
+        .string-dot.done {
+            border-color: #22c55e;
+            background: #22c55e22;
             color: #22c55e;
         }
+        .string-dot.done::after {
+            content: '✓';
+            font-size: 0.8rem;
+        }
 
-        /* ============================================================ */
-        /* RESPONSIVE                                                    */
-        /* ============================================================ */
         @media (max-width: 640px) {
             .meter-track {
-                height: 80px;
+                height: 70px;
             }
             .needle {
-                height: 66px;
+                height: 58px;
             }
             .needle::after {
-                width: 16px;
-                height: 16px;
+                width: 14px;
+                height: 14px;
                 bottom: -6px;
             }
             .center-dot {
-                width: 16px;
-                height: 16px;
+                width: 14px;
+                height: 14px;
             }
             .center-line {
-                height: 35px;
+                height: 30px;
             }
             .strobe-rings {
-                width: 120px;
-                height: 120px;
+                width: 140px;
+                height: 140px;
             }
             .strobe-rings .ring:nth-child(1) {
-                width: 40px;
-                height: 40px;
+                width: 30px;
+                height: 30px;
             }
             .strobe-rings .ring:nth-child(2) {
-                width: 70px;
-                height: 70px;
+                width: 55px;
+                height: 55px;
             }
             .strobe-rings .ring:nth-child(3) {
-                width: 100px;
-                height: 100px;
+                width: 80px;
+                height: 80px;
             }
             .strobe-rings .ring:nth-child(4) {
+                width: 105px;
+                height: 105px;
+            }
+            .strobe-rings .ring:nth-child(5) {
                 width: 130px;
                 height: 130px;
             }
-            .tuner-info {
+            .strobe-rings .ring:nth-child(6) {
+                width: 155px;
+                height: 155px;
+            }
+            .note-comparator .note-box .note-value {
+                font-size: 2.5rem;
+            }
+            .note-comparator {
                 gap: 16px;
+                padding: 12px;
             }
-            .tuner-info .note-display {
-                font-size: 3.5rem;
-                min-width: 60px;
+            .tuning-info-panel {
+                padding: 0.8rem 1rem;
             }
-            .tuner-info .freq-display {
-                font-size: 1.3rem;
-                min-width: 80px;
-            }
-            .tuner-info .cents-display {
+            .tuning-info-panel .tuning-name {
                 font-size: 1rem;
-                min-width: 60px;
-                padding: 4px 12px;
-            }
-            .precision-leds {
-                gap: 4px;
             }
             .precision-led {
                 width: 12px;
@@ -782,47 +667,25 @@
             .tuner-container {
                 padding: 1.2rem;
             }
-            .tuner-controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
             .string-dot {
                 width: 26px;
                 height: 26px;
                 font-size: 0.5rem;
             }
-            .tuner-info .note-octave {
-                font-size: 0.9rem;
-            }
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0d0d1a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #2a2a4a;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #3a3a5a;
         }
     </style>
 </head>
 <body>
 
     <!-- INTRO -->
-    <div id="intro"><h1>Guitar Voices Ultimate</h1></div>
+    <div id="intro"><h1>Guitar Voices</h1></div>
 
     <!-- NAV -->
     <nav class="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-slate-800">
         <div class="max-w-7xl mx-auto flex items-center justify-between p-4 md:p-6">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-gradient-to-r from-indigo-500 to-cyan-500 flex items-center justify-center text-2xl">🎸</div>
-                <h2 class="text-xl md:text-2xl font-black">Guitar Voices <span class="text-indigo-400 text-sm font-medium">Ultimate</span></h2>
+                <h2 class="text-xl md:text-2xl font-black">Guitar Voices</h2>
             </div>
             <div class="flex gap-4 md:gap-8 font-semibold text-sm md:text-base">
                 <a href="#">Inicio</a>
@@ -837,13 +700,13 @@
     <header class="relative overflow-hidden py-20 md:py-28">
         <div class="heroGlow top-0 left-1/2 -translate-x-1/2"></div>
         <div class="relative z-10 max-w-6xl mx-auto text-center px-6">
-            <div class="inline-flex px-6 py-2 rounded-full bg-slate-800 border border-slate-700 mb-8 text-sm md:text-base">🏆 El Mejor Afinador del Mundo</div>
+            <div class="inline-flex px-6 py-2 rounded-full bg-slate-800 border border-slate-700 mb-8 text-sm md:text-base">🏆 Afinador Estroboscópico</div>
             <h1 class="text-5xl md:text-8xl font-black leading-tight">
                 Afinador<br />
-                <span class="text-indigo-400">Definitivo</span>
+                <span class="text-indigo-400">Estroboscópico</span>
             </h1>
             <p class="text-slate-300 text-lg md:text-xl mt-6 max-w-3xl mx-auto">
-                Estroboscópico · Polifónico · 300+ afinaciones · Precisión de estudio
+                Precisión de estudio · 300+ afinaciones · Modo estroboscópico
             </p>
             <div class="flex flex-wrap justify-center gap-4 mt-10">
                 <a href="#biblioteca" class="bg-indigo-600 px-8 md:px-10 py-4 rounded-2xl font-bold hover:scale-105 duration-300">📚 Biblioteca</a>
@@ -882,48 +745,47 @@
         </div>
     </section>
 
-    <!-- AFINADOR ULTIMATE -->
+    <!-- AFINADOR ESTROBOSCÓPICO -->
     <section id="afinador" class="py-16 md:py-24 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
         <div class="max-w-4xl mx-auto px-6">
             <div class="text-center mb-10">
-                <h2 class="text-4xl md:text-6xl font-black">🎯 Afinador Ultimate</h2>
-                <p class="text-slate-400 mt-3 text-lg">Estroboscópico · Polifónico · Precisión de estudio</p>
+                <h2 class="text-4xl md:text-6xl font-black">🎯 Afinador Estroboscópico</h2>
+                <p class="text-slate-400 mt-3 text-lg">Modo estroboscópico activo · Precisión de estudio</p>
             </div>
 
             <div class="tuner-container">
 
-                <!-- CONTROLES -->
-                <div class="tuner-controls">
-                    <label>
-                        🎵 Referencia
-                        <select id="referenceSelect">
-                            <option value="440">440 Hz (Standard)</option>
-                            <option value="432">432 Hz (Natural)</option>
-                            <option value="435">435 Hz (Barroco)</option>
-                            <option value="442">442 Hz (Orquesta)</option>
-                            <option value="444">444 Hz (Berlin)</option>
-                            <option value="466">466 Hz (Jazz)</option>
-                        </select>
-                    </label>
-                    <label>
-                        🎯 Precisión
-                        <select id="precisionSelect">
-                            <option value="1">±1¢ (Estándar)</option>
-                            <option value="0.5">±0.5¢ (Precisión)</option>
-                            <option value="0.1">±0.1¢ (Estudio)</option>
-                        </select>
-                    </label>
-                    <label>
-                        🔊 Modo
-                        <select id="modeSelect">
-                            <option value="normal">Normal</option>
-                            <option value="silent">Silencioso</option>
-                            <option value="strobe">Estroboscópico</option>
-                        </select>
-                    </label>
+                <!-- PANEL DE INFORMACIÓN -->
+                <div class="tuning-info-panel" id="tuningInfoPanel">
+                    <div class="tuning-name">
+                        🎸 <span id="tuningNameDisplay">Seleccioná una afinación</span>
+                    </div>
+                    <div class="tuning-strings" id="tuningStringsDisplay">
+                        <span class="string-label">6ª</span>
+                        <span class="string-label">5ª</span>
+                        <span class="string-label">4ª</span>
+                        <span class="string-label">3ª</span>
+                        <span class="string-label">2ª</span>
+                        <span class="string-label">1ª</span>
+                    </div>
                 </div>
 
-                <!-- MEDIDOR CON ANILLOS ESTROBOSCÓPICOS -->
+                <!-- COMPARADOR -->
+                <div class="note-comparator">
+                    <div class="note-box">
+                        <div class="label">🎤 Lo que tocas</div>
+                        <div class="note-value detected" id="detectedNote">--</div>
+                        <div style="font-size:0.7rem;color:#64748b;margin-top:4px;" id="detectedFreq">0 Hz</div>
+                    </div>
+                    <div class="arrow">➜</div>
+                    <div class="note-box">
+                        <div class="label">🎯 Lo que necesitas</div>
+                        <div class="note-value target" id="targetNote">--</div>
+                        <div style="font-size:0.7rem;color:#64748b;margin-top:4px;" id="targetCuerda">Cuerda --</div>
+                    </div>
+                </div>
+
+                <!-- MEDIDOR ESTROBOSCÓPICO -->
                 <div class="meter-wrapper">
                     <div class="meter-track" id="meterTrack">
                         <div class="tick-marks">
@@ -934,8 +796,9 @@
                             <span class="major">+50</span>
                         </div>
                         <div class="center-line"></div>
-                        <!-- Anillos estroboscópicos -->
-                        <div class="strobe-rings" id="strobeRings">
+                        <div class="strobe-rings rotating" id="strobeRings">
+                            <div class="ring"></div>
+                            <div class="ring"></div>
                             <div class="ring"></div>
                             <div class="ring"></div>
                             <div class="ring"></div>
@@ -966,22 +829,6 @@
                     <div class="vu-bar" id="vuBar"></div>
                 </div>
 
-                <!-- INFO -->
-                <div class="tuner-info">
-                    <div class="note-group">
-                        <div class="note-display" id="noteDisplay">--</div>
-                        <div class="note-octave" id="octaveDisplay">--</div>
-                    </div>
-                    <div class="freq-group">
-                        <div class="freq-display" id="freqDisplay">0.00 <span class="unit">Hz</span></div>
-                        <div style="font-size:0.7rem;color:#64748b;margin-top:2px;">Frecuencia</div>
-                    </div>
-                    <div class="cents-group">
-                        <div class="cents-display" id="centsDisplay">0¢</div>
-                        <div style="font-size:0.7rem;color:#64748b;margin-top:2px;">Precisión</div>
-                    </div>
-                </div>
-
                 <!-- Progreso -->
                 <div class="string-progress" id="stringProgress">
                     <div class="string-dot" data-string="0">6</div>
@@ -997,8 +844,35 @@
                     <span id="statusMsg" class="status-msg">🎸 Seleccioná una afinación</span>
                 </div>
 
-                <!-- Historial -->
-                <div class="history-container" id="historyContainer"></div>
+                <!-- CONTROLES -->
+                <div class="mt-4 flex flex-wrap justify-center gap-3">
+                    <label class="text-xs text-slate-500 flex items-center gap-2">
+                        🎵 Referencia
+                        <select id="referenceSelect" class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-1 text-white text-xs">
+                            <option value="440">440 Hz</option>
+                            <option value="432">432 Hz</option>
+                            <option value="435">435 Hz</option>
+                            <option value="442">442 Hz</option>
+                            <option value="444">444 Hz</option>
+                        </select>
+                    </label>
+                    <label class="text-xs text-slate-500 flex items-center gap-2">
+                        🎯 Precisión
+                        <select id="precisionSelect" class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-1 text-white text-xs">
+                            <option value="1">±1¢</option>
+                            <option value="0.5">±0.5¢</option>
+                            <option value="0.1">±0.1¢</option>
+                        </select>
+                    </label>
+                    <label class="text-xs text-slate-500 flex items-center gap-2">
+                        🔄 Modo
+                        <select id="modeSelect" class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-1 text-white text-xs">
+                            <option value="strobe" selected>⭐ Estroboscópico</option>
+                            <option value="normal">Normal</option>
+                            <option value="silent">Silencioso</option>
+                        </select>
+                    </label>
+                </div>
 
                 <!-- Botón -->
                 <div class="mt-6 text-center">
@@ -1042,7 +916,7 @@
     <footer class="border-t border-slate-800 bg-slate-950 py-8 md:py-10">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
             <div>
-                <h2 class="text-xl md:text-2xl font-black">🎸 Guitar Voices <span class="text-indigo-400 text-sm">Ultimate</span></h2>
+                <h2 class="text-xl md:text-2xl font-black">🎸 Guitar Voices</h2>
                 <p class="text-slate-500 text-sm mt-1">© 2026 Todos los derechos reservados.</p>
             </div>
             <div class="flex gap-6 text-sm">
@@ -1057,9 +931,10 @@
 
     <script>
         // ============================================================
-        // 1. BIBLIOTECA DE AFINACIONES (COMPLETA)
+        // 1. BIBLIOTECA DE AFINACIONES - COMPLETA (300+)
         // ============================================================
 
+        // ---- FUNCIÓN PARA GENERAR DERIVACIONES DE UNA NOTA ----
         function generarDerivaciones(nota) {
             const base = nota;
             const cuerdasBase = {
@@ -1138,6 +1013,7 @@
             return variantes;
         }
 
+        // ---- GENERAR TODAS LAS NOTAS CON SUS DERIVACIONES ----
         function generarTodasLasNotas() {
             const notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
             const resultado = {};
@@ -1149,36 +1025,79 @@
 
         const todasLasNotas = generarTodasLasNotas();
 
+        // ============================================================
+        // BIBLIOTECA COMPLETA - ORDENADA DE C a B
+        // ============================================================
+
         const bibliotecaAfinaciones = {
+            // ---- AFINACIONES ABIERTAS (300+ variantes) ----
             abiertas: todasLasNotas,
+
+            // ---- AFINACIONES STANDARD (ordenadas C, C#, D, D#, E, F, F#, G, G#, A, A#, B) ----
             standard: {
-                "E Standard": [{ nombre: "E Standard", cuerdas: ["E", "A", "D", "G", "B", "E"] }],
-                "D Standard": [{ nombre: "D Standard", cuerdas: ["D", "G", "C", "F", "A", "D"] }],
                 "C Standard": [{ nombre: "C Standard", cuerdas: ["C", "F", "Bb", "Eb", "G", "C"] }],
-                "B Standard": [{ nombre: "B Standard", cuerdas: ["B", "E", "A", "D", "F#", "B"] }],
-                "A Standard": [{ nombre: "A Standard", cuerdas: ["A", "D", "G", "C", "E", "A"] }],
-                "G Standard": [{ nombre: "G Standard", cuerdas: ["G", "C", "F", "Bb", "D", "G"] }],
+                "C# Standard": [{ nombre: "C# Standard", cuerdas: ["C#", "F#", "B", "E", "G#", "C#"] }],
+                "D Standard": [{ nombre: "D Standard", cuerdas: ["D", "G", "C", "F", "A", "D"] }],
+                "D# Standard": [{ nombre: "D# Standard", cuerdas: ["D#", "G#", "C#", "F#", "A#", "D#"] }],
+                "E Standard": [{ nombre: "E Standard", cuerdas: ["E", "A", "D", "G", "B", "E"] }],
                 "F Standard": [{ nombre: "F Standard", cuerdas: ["F", "Bb", "Eb", "Ab", "C", "F"] }],
+                "F# Standard": [{ nombre: "F# Standard", cuerdas: ["F#", "B", "E", "A", "C#", "F#"] }],
+                "G Standard": [{ nombre: "G Standard", cuerdas: ["G", "C", "F", "Bb", "D", "G"] }],
+                "G# Standard": [{ nombre: "G# Standard", cuerdas: ["G#", "C#", "F#", "B", "D#", "G#"] }],
+                "A Standard": [{ nombre: "A Standard", cuerdas: ["A", "D", "G", "C", "E", "A"] }],
+                "A# Standard": [{ nombre: "A# Standard", cuerdas: ["A#", "D#", "G#", "C#", "F", "A#"] }],
+                "B Standard": [{ nombre: "B Standard", cuerdas: ["B", "E", "A", "D", "F#", "B"] }],
+                // Extensiones
+                "E Standard (Barítono)": [{ nombre: "Barítono Standard", cuerdas: ["B", "E", "A", "D", "F#", "B"] }],
+                "Eb Standard": [{ nombre: "Eb Standard", cuerdas: ["Eb", "Ab", "Db", "Gb", "Bb", "Eb"] }],
+                "Ab Standard": [{ nombre: "Ab Standard", cuerdas: ["Ab", "Db", "Gb", "Cb", "Eb", "Ab"] }],
             },
+
+            // ---- AFINACIONES DROP (ordenadas C, C#, D, D#, E, F, F#, G, G#, A, A#, B) ----
             drop: {
-                "Drop D": [{ nombre: "Drop D", cuerdas: ["D", "A", "D", "G", "B", "E"] }],
                 "Drop C": [{ nombre: "Drop C", cuerdas: ["C", "G", "C", "F", "A", "D"] }],
-                "Drop B": [{ nombre: "Drop B", cuerdas: ["B", "F#", "B", "E", "G#", "C#"] }],
-                "Drop A": [{ nombre: "Drop A", cuerdas: ["A", "E", "A", "D", "F#", "B"] }],
-                "Drop G": [{ nombre: "Drop G", cuerdas: ["G", "D", "G", "C", "E", "A"] }],
-                "Drop F": [{ nombre: "Drop F", cuerdas: ["F", "C", "F", "Bb", "D", "G"] }],
+                "Drop C#": [{ nombre: "Drop C#", cuerdas: ["C#", "G#", "C#", "F#", "A#", "D#"] }],
+                "Drop D": [{ nombre: "Drop D", cuerdas: ["D", "A", "D", "G", "B", "E"] }],
+                "Drop D#": [{ nombre: "Drop D#", cuerdas: ["D#", "A#", "D#", "G#", "C", "F"] }],
                 "Drop E": [{ nombre: "Drop E", cuerdas: ["E", "B", "E", "A", "C#", "F#"] }],
+                "Drop F": [{ nombre: "Drop F", cuerdas: ["F", "C", "F", "Bb", "D", "G"] }],
+                "Drop F#": [{ nombre: "Drop F#", cuerdas: ["F#", "C#", "F#", "B", "D#", "G#"] }],
+                "Drop G": [{ nombre: "Drop G", cuerdas: ["G", "D", "G", "C", "E", "A"] }],
+                "Drop G#": [{ nombre: "Drop G#", cuerdas: ["G#", "D#", "G#", "C#", "F", "A#"] }],
+                "Drop A": [{ nombre: "Drop A", cuerdas: ["A", "E", "A", "D", "F#", "B"] }],
+                "Drop A#": [{ nombre: "Drop A#", cuerdas: ["A#", "F", "A#", "D#", "G", "C"] }],
+                "Drop B": [{ nombre: "Drop B", cuerdas: ["B", "F#", "B", "E", "G#", "C#"] }],
+                // Extensiones 7 cuerdas
+                "Drop D (7 cuerdas)": [{ nombre: "Drop D 7", cuerdas: ["D", "A", "D", "G", "B", "E", "A"] }],
+                "Drop A (7 cuerdas)": [{ nombre: "Drop A 7", cuerdas: ["A", "E", "A", "D", "G", "B", "E"] }],
             },
+
+            // ---- OTRAS AFINACIONES ----
             otras: {
                 "DADGAD": [{ nombre: "DADGAD", cuerdas: ["D", "A", "D", "G", "A", "D"] }],
                 "DADF#AD": [{ nombre: "DADF#AD", cuerdas: ["D", "A", "D", "F#", "A", "D"] }],
                 "DGDGBD": [{ nombre: "DGDGBD", cuerdas: ["D", "G", "D", "G", "B", "D"] }],
                 "CGDGBD": [{ nombre: "CGDGBD", cuerdas: ["C", "G", "D", "G", "B", "D"] }],
                 "CGCGCE": [{ nombre: "CGCGCE", cuerdas: ["C", "G", "C", "G", "C", "E"] }],
+                "EADGBE (Drop D)": [{ nombre: "Drop D (6 cuerdas)", cuerdas: ["D", "A", "D", "G", "B", "E"] }],
+                "DADGAD (Celta)": [{ nombre: "DADGAD Celta", cuerdas: ["D", "A", "D", "G", "A", "D"] }],
                 "Open G (Slide)": [{ nombre: "Open G Slide", cuerdas: ["D", "G", "D", "G", "B", "D"] }],
                 "Open D (Slide)": [{ nombre: "Open D Slide", cuerdas: ["D", "A", "D", "F#", "A", "D"] }],
                 "Modal D": [{ nombre: "Modal D", cuerdas: ["D", "A", "D", "G", "A", "D"] }],
                 "Modal G": [{ nombre: "Modal G", cuerdas: ["D", "G", "D", "G", "A", "D"] }],
+                "New Standard": [{ nombre: "New Standard (Crafty)", cuerdas: ["C", "G", "D", "A", "E", "G"] }],
+                "All Fourths": [{ nombre: "All Fourths", cuerdas: ["E", "A", "D", "G", "C", "F"] }],
+                "Major Thirds": [{ nombre: "Major Thirds", cuerdas: ["E", "G#", "C", "E", "G#", "C"] }],
+                "Open C6": [{ nombre: "Open C6", cuerdas: ["C", "E", "G", "A", "C", "E"] }],
+                "Open D6": [{ nombre: "Open D6", cuerdas: ["D", "F#", "A", "B", "D", "F#"] }],
+                "Open G6": [{ nombre: "Open G6", cuerdas: ["D", "G", "B", "E", "G", "B"] }],
+                "Open A6": [{ nombre: "Open A6", cuerdas: ["E", "A", "C#", "F#", "A", "C#"] }],
+                "Open E6": [{ nombre: "Open E6", cuerdas: ["E", "G#", "B", "C#", "E", "G#"] }],
+                "Open Dm": [{ nombre: "Open D Minor", cuerdas: ["D", "A", "D", "F", "A", "D"] }],
+                "Open Gm": [{ nombre: "Open G Minor", cuerdas: ["D", "G", "D", "G", "Bb", "D"] }],
+                "Open Cm": [{ nombre: "Open C Minor", cuerdas: ["C", "G", "C", "Eb", "G", "C"] }],
+                "Open Em": [{ nombre: "Open E Minor", cuerdas: ["E", "B", "E", "G", "B", "E"] }],
+                "Open Am": [{ nombre: "Open A Minor", cuerdas: ["E", "A", "E", "A", "C", "E"] }],
             }
         };
 
@@ -1194,19 +1113,21 @@
             tunerBtn: $("tunerBtn"),
             ping: $("ping"),
             needle: $("needle"),
-            noteDisplay: $("noteDisplay"),
-            octaveDisplay: $("octaveDisplay"),
-            freqDisplay: $("freqDisplay"),
-            centsDisplay: $("centsDisplay"),
+            detectedNote: $("detectedNote"),
+            detectedFreq: $("detectedFreq"),
+            targetNote: $("targetNote"),
+            targetCuerda: $("targetCuerda"),
+            tuningNameDisplay: $("tuningNameDisplay"),
+            tuningStringsDisplay: $("tuningStringsDisplay"),
             statusMsg: $("statusMsg"),
             vuBar: $("vuBar"),
             meterTrack: $("meterTrack"),
             leds: document.querySelectorAll(".precision-led"),
             stringDots: document.querySelectorAll(".string-dot"),
+            stringLabels: document.querySelectorAll(".string-label"),
             referenceSelect: $("referenceSelect"),
-            modeSelect: $("modeSelect"),
             precisionSelect: $("precisionSelect"),
-            historyContainer: $("historyContainer"),
+            modeSelect: $("modeSelect"),
             strobeRings: $("strobeRings"),
         };
 
@@ -1225,10 +1146,8 @@
         let lecturasEstables = 0;
         let referenciaFrecuencia = 440;
         let precisionTolerance = 1;
+        let modoStrobe = true;
         let modoSilencioso = false;
-        let modoStrobe = false;
-        let historial = [];
-        let historialMax = 20;
 
         // ============================================================
         // 4. FUNCIONES DE BIBLIOTECA
@@ -1267,8 +1186,6 @@
                 const isActive = b.dataset.categoria === cat;
                 b.classList.toggle("active", isActive);
                 b.classList.toggle("bg-slate-800", !isActive);
-                b.classList.toggle("border", !isActive);
-                b.classList.toggle("border-slate-700", !isActive);
             });
 
             const keys = Object.keys(bibliotecaAfinaciones[cat] || {});
@@ -1300,28 +1217,46 @@
         function seleccionarAfinacion(af) {
             afinacionActual = af;
             cuerdaActual = 0;
+
             dom.afinacionDisplay.innerHTML = `
                     <span class="text-emerald-400 font-bold">${af.nombre}</span>
                     <span class="text-slate-300 ml-2">${af.cuerdas.join(" - ")}</span>
                 `;
-            actualizarCuerdaInfo();
+
+            dom.tuningNameDisplay.textContent = af.nombre;
+
+            const labels = dom.stringLabels;
+            af.cuerdas.forEach((nota, i) => {
+                const num = 6 - i;
+                labels[i].textContent = `${num}ª (${nota})`;
+                labels[i].className = 'string-label';
+            });
+
+            actualizarTargetDisplay();
             actualizarStringDots();
             guardarUltimaAfinacion();
             dom.statusMsg.textContent = "🎸 Afinación seleccionada. Presioná 'Iniciar'";
             dom.statusMsg.className = 'status-msg';
-            historial = [];
-            actualizarHistorial();
         }
 
-        function actualizarCuerdaInfo() {
+        function actualizarTargetDisplay() {
             if (!afinacionActual) {
-                dom.statusMsg.textContent = "Seleccioná una afinación";
+                dom.targetNote.textContent = "--";
+                dom.targetCuerda.textContent = "Cuerda --";
                 return;
             }
             const nota = afinacionActual.cuerdas[cuerdaActual] || "--";
             const num = 6 - cuerdaActual;
-            dom.statusMsg.innerHTML = `🎯 Cuerda <strong>${num}ª</strong> → <strong>${nota}</strong>`;
-            dom.statusMsg.className = 'status-msg';
+            dom.targetNote.textContent = nota;
+            dom.targetCuerda.textContent = `Cuerda ${num}ª`;
+            dom.targetNote.className = 'note-value target';
+
+            const labels = dom.stringLabels;
+            afinacionActual.cuerdas.forEach((n, i) => {
+                labels[i].className = 'string-label';
+                if (i === cuerdaActual) labels[i].classList.add('active');
+                if (i < cuerdaActual) labels[i].classList.add('done');
+            });
         }
 
         function actualizarStringDots() {
@@ -1335,12 +1270,8 @@
 
         function avanzarCuerda() {
             if (!afinacionActual) return;
-            const notaActual = afinacionActual.cuerdas[cuerdaActual] || "--";
-            // Registrar en historial
-            agregarHistorial(notaActual, ultimaFrecuencia, ultimoCents, true);
-
             cuerdaActual = (cuerdaActual + 1) % afinacionActual.cuerdas.length;
-            actualizarCuerdaInfo();
+            actualizarTargetDisplay();
             actualizarStringDots();
             if (cuerdaActual === 0) {
                 dom.statusMsg.textContent = "🎉 Guitarra completamente afinada!";
@@ -1350,38 +1281,10 @@
 
         function reiniciarCuerdas() {
             cuerdaActual = 0;
-            actualizarCuerdaInfo();
+            actualizarTargetDisplay();
             actualizarStringDots();
             dom.statusMsg.textContent = "🔄 Cuerdas reiniciadas";
             dom.statusMsg.className = 'status-msg';
-        }
-
-        function agregarHistorial(nota, frecuencia, cents, afinado) {
-            historial.unshift({
-                nota: nota,
-                frecuencia: frecuencia,
-                cents: cents,
-                afinado: afinado,
-                tiempo: new Date().toLocaleTimeString()
-            });
-            if (historial.length > historialMax) historial.pop();
-            actualizarHistorial();
-        }
-
-        function actualizarHistorial() {
-            if (!dom.historyContainer) return;
-            if (historial.length === 0) {
-                dom.historyContainer.innerHTML =
-                    `<div class="history-item" style="color:#64748b;justify-content:center;">Sin historial</div>`;
-                return;
-            }
-            dom.historyContainer.innerHTML = historial.map(h =>
-                `<div class="history-item">
-                        <span><span class="h-note">${h.nota}</span> ${h.frecuencia.toFixed(1)}Hz</span>
-                        <span class="${h.afinado ? 'h-status' : 'text-slate-500'}">${h.afinado ? '✅ Afinada' : `${h.cents}¢`}</span>
-                        <span style="font-size:0.6rem;color:#475569;">${h.tiempo}</span>
-                    </div>`
-            ).join('');
         }
 
         function guardarUltimaAfinacion() {
@@ -1444,15 +1347,13 @@
         }
 
         // ============================================================
-        // 6. AFINADOR ULTIMATE
+        // 6. AFINADOR ESTROBOSCÓPICO
         // ============================================================
 
         function actualizarAfinador(frecuencia, cents, referencia) {
-            // Actualizar aguja
             const angulo = Math.max(-45, Math.min(45, cents * 0.9));
             dom.needle.style.transform = `translate(-50%, -100%) rotate(${angulo}deg)`;
 
-            // Actualizar LEDs
             const ledIndex = Math.round(((cents + 50) / 100) * 8);
             const pos = Math.max(0, Math.min(8, ledIndex));
             dom.leds.forEach((led, i) => {
@@ -1464,48 +1365,35 @@
                 }
             });
 
-            // Modo estroboscópico - animar anillos
-            if (modoStrobe) {
-                const speed = Math.abs(cents) / 50;
-                const rotation = speed * 360 * (cents > 0 ? 1 : -1);
-                dom.strobeRings.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
-                dom.strobeRings.style.transition = 'transform 0.1s linear';
-                dom.strobeRings.style.opacity = Math.min(1, Math.abs(cents) / 20 + 0.2);
-            }
-
-            // Color del medidor
             const track = dom.meterTrack;
             track.style.boxShadow = 'inset 0 4px 30px rgba(0,0,0,0.7)';
             if (Math.abs(cents) <= precisionTolerance) {
                 track.style.boxShadow = 'inset 0 4px 30px rgba(0,0,0,0.7), 0 0 80px rgba(34,197,94,0.2)';
-            } else if (Math.abs(cents) <= 20) {
-                track.style.boxShadow = 'inset 0 4px 30px rgba(0,0,0,0.7), 0 0 50px rgba(250,204,21,0.12)';
             }
 
-            // Actualizar cents display
-            const centsDisplay = dom.centsDisplay;
-            const sign = cents > 0 ? '+' : '';
-            centsDisplay.textContent = `${sign}${cents}¢`;
-            centsDisplay.className = 'cents-display';
-            if (Math.abs(cents) <= precisionTolerance) centsDisplay.classList.add('green');
-            else if (Math.abs(cents) <= 20) centsDisplay.classList.add('yellow');
-            else centsDisplay.classList.add('red');
+            if (modoStrobe) {
+                const speed = Math.min(Math.abs(cents) / 30, 3);
+                const direction = cents > 0 ? 1 : -1;
+                dom.strobeRings.style.animationDuration = `${Math.max(0.5, 3 - speed)}s`;
+                dom.strobeRings.style.animationDirection = direction > 0 ? 'normal' : 'reverse';
+                dom.strobeRings.style.opacity = Math.min(0.8, 0.3 + Math.abs(cents) / 100);
+            }
 
-            // Actualizar nota
             const info = convertirNotaCompleta(frecuencia, referencia);
-            dom.noteDisplay.textContent = info.nota;
-            dom.octaveDisplay.textContent = info.octava;
-            dom.noteDisplay.className = 'note-display';
-            if (Math.abs(cents) <= precisionTolerance) {
-                dom.noteDisplay.classList.add('tuned');
-            } else {
-                dom.noteDisplay.classList.add('detecting');
+            dom.detectedNote.textContent = info.completa;
+            dom.detectedNote.className = 'note-value detected';
+            dom.detectedFreq.textContent = frecuencia.toFixed(2) + ' Hz';
+
+            if (afinacionActual) {
+                const objetivo = afinacionActual.cuerdas[cuerdaActual] || "";
+                if (info.nota === objetivo && Math.abs(cents) <= precisionTolerance) {
+                    dom.detectedNote.classList.add('match');
+                    dom.targetNote.classList.add('match');
+                } else {
+                    dom.targetNote.classList.remove('match');
+                }
             }
 
-            // Actualizar frecuencia
-            dom.freqDisplay.innerHTML = `${frecuencia.toFixed(2)} <span class="unit">Hz</span>`;
-
-            // Guardar
             ultimaFrecuencia = frecuencia;
             ultimoCents = cents;
         }
@@ -1536,16 +1424,11 @@
                 return;
             }
 
-            // Leer configuraciones
             referenciaFrecuencia = parseInt(dom.referenceSelect.value);
             precisionTolerance = parseFloat(dom.precisionSelect.value);
             const modo = dom.modeSelect.value;
-            modoSilencioso = modo === 'silent';
             modoStrobe = modo === 'strobe';
-
-            // Resetear historial
-            historial = [];
-            actualizarHistorial();
+            modoSilencioso = modo === 'silent';
 
             navigator.mediaDevices
                 .getUserMedia({ audio: true, echoCancellation: false, noiseSuppression: false })
@@ -1562,6 +1445,15 @@
                     dom.tunerBtn.classList.add('active');
                     dom.statusMsg.textContent = "🎤 Escuchando...";
                     dom.statusMsg.className = 'status-msg';
+
+                    if (modoStrobe) {
+                        dom.strobeRings.classList.add('rotating');
+                        dom.strobeRings.style.display = 'block';
+                    } else {
+                        dom.strobeRings.classList.remove('rotating');
+                        dom.strobeRings.style.display = 'none';
+                    }
+
                     loopDetectar();
                 })
                 .catch((err) => {
@@ -1583,9 +1475,8 @@
             dom.statusMsg.textContent = "⏹ Detenido";
             dom.statusMsg.className = 'status-msg';
             dom.vuBar.style.width = '0%';
-            dom.noteDisplay.className = 'note-display';
-            dom.strobeRings.style.transform = 'translate(-50%, -50%)';
-            dom.strobeRings.style.opacity = '0.4';
+            dom.strobeRings.style.animationDuration = '3s';
+            dom.strobeRings.style.opacity = '0.6';
         }
 
         function loopDetectar() {
@@ -1633,8 +1524,6 @@
 
                 if (!dom.statusMsg.dataset.avanzado) {
                     dom.statusMsg.dataset.avanzado = "true";
-                    // Guardar en historial
-                    agregarHistorial(info.nota, frecuencia, cents, true);
                     setTimeout(() => {
                         avanzarCuerda();
                         dom.statusMsg.dataset.avanzado = "";
@@ -1664,17 +1553,14 @@
 
         document.addEventListener("DOMContentLoaded", function() {
 
-            // Botones de categoría
             document.querySelectorAll(".cat-btn").forEach((btn) => {
                 btn.addEventListener("click", function() {
                     mostrarCategoria(this.dataset.categoria);
                 });
             });
 
-            // Botón del afinador
             dom.tunerBtn.addEventListener("click", iniciarAfinador);
 
-            // Teclas rápidas
             document.addEventListener("keydown", (e) => {
                 if (e.key === " " && e.target === document.body) {
                     e.preventDefault();
@@ -1687,7 +1573,32 @@
                 }
             });
 
-            // Scroll suave
+            dom.stringDots.forEach((dot, i) => {
+                dot.addEventListener('click', function() {
+                    if (afinacionActual) {
+                        cuerdaActual = i;
+                        actualizarTargetDisplay();
+                        actualizarStringDots();
+                        dom.statusMsg.textContent = `🎯 Cuerda ${6 - i}ª seleccionada`;
+                        dom.statusMsg.className = 'status-msg';
+                    }
+                });
+            });
+
+            dom.modeSelect.addEventListener('change', function() {
+                const modo = this.value;
+                modoStrobe = modo === 'strobe';
+                modoSilencioso = modo === 'silent';
+
+                if (modoStrobe) {
+                    dom.strobeRings.style.display = 'block';
+                    if (detectando) dom.strobeRings.classList.add('rotating');
+                } else {
+                    dom.strobeRings.classList.remove('rotating');
+                    dom.strobeRings.style.display = 'none';
+                }
+            });
+
             document.querySelectorAll('a[href^="#"]').forEach((a) => {
                 a.addEventListener("click", (e) => {
                     const target = document.querySelector(a.getAttribute("href"));
@@ -1698,32 +1609,8 @@
                 });
             });
 
-            // Eventos de controles
-            dom.referenceSelect.addEventListener('change', function() {
-                referenciaFrecuencia = parseInt(this.value);
-                dom.statusMsg.textContent = `🎵 Referencia: ${referenciaFrecuencia} Hz`;
-                dom.statusMsg.className = 'status-msg';
-            });
-
-            dom.precisionSelect.addEventListener('change', function() {
-                precisionTolerance = parseFloat(this.value);
-                dom.statusMsg.textContent = `🎯 Precisión: ±${precisionTolerance}¢`;
-                dom.statusMsg.className = 'status-msg';
-            });
-
-            dom.modeSelect.addEventListener('change', function() {
-                const modo = this.value;
-                modoSilencioso = modo === 'silent';
-                modoStrobe = modo === 'strobe';
-                dom.statusMsg.textContent = `🔊 Modo: ${modo.charAt(0).toUpperCase() + modo.slice(1)}`;
-                dom.statusMsg.className = 'status-msg';
-                // Mostrar/ocultar anillos estroboscópicos
-                dom.strobeRings.style.display = modoStrobe ? 'block' : 'none';
-            });
-
-            // Cargar última afinación
             if (!cargarUltimaAfinacion()) {
-                mostrarCategoria("abiertas");
+                mostrarCategoria("standard");
             } else {
                 let encontrada = false;
                 for (const cat in bibliotecaAfinaciones) {
@@ -1736,16 +1623,29 @@
                         }
                     }
                 }
-                if (!encontrada) mostrarCategoria("abiertas");
+                if (!encontrada) mostrarCategoria("standard");
             }
 
-            // Inicializar historial
-            actualizarHistorial();
+            dom.modeSelect.value = 'strobe';
+            modoStrobe = true;
+            dom.strobeRings.style.display = 'block';
 
-            console.log("🎸 Guitar Voices Ultimate · El mejor afinador del mundo");
-            const totalAbiertas = Object.keys(bibliotecaAfinaciones.abiertas).reduce((acc, key) =>
-                acc + bibliotecaAfinaciones.abiertas[key].length, 0);
-            console.log(`📚 Total de afinaciones: ${totalAbiertas}`);
+            // Contar afinaciones
+            let total = 0;
+            let totalAbiertas = 0;
+            for (const cat in bibliotecaAfinaciones) {
+                for (const key in bibliotecaAfinaciones[cat]) {
+                    total += bibliotecaAfinaciones[cat][key].length;
+                    if (cat === 'abiertas') {
+                        totalAbiertas += bibliotecaAfinaciones[cat][key].length;
+                    }
+                }
+            }
+            console.log(`🎸 Guitar Voices · ${total} afinaciones cargadas`);
+            console.log(`📚 Abiertas: ${totalAbiertas} variantes (12 notas × 25 acordes)`);
+            console.log(`📚 Standard: ${Object.keys(bibliotecaAfinaciones.standard).length} (C a B)`);
+            console.log(`📚 Drop: ${Object.keys(bibliotecaAfinaciones.drop).length} (C a B)`);
+            console.log(`📚 Otras: ${Object.keys(bibliotecaAfinaciones.otras).length}`);
         });
     </script>
 </body>
