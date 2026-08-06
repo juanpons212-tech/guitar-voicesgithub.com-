@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Guitar Voices · Tuner</title>
+    <title>Guitar Voices · Professional Tuner</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -742,8 +742,8 @@
         <div class="relative z-10 max-w-6xl mx-auto text-center px-6">
             <div class="inline-flex px-6 py-2 rounded-full bg-slate-800 border border-slate-700 mb-8 text-sm md:text-base" data-i18n="hero-badge">🏆 Professional Tuner</div>
             <h1 class="text-5xl md:text-8xl font-black leading-tight">
-                <span data-i18n="hero-title">Tuner</span><br />
-                <span class="text-indigo-400" data-i18n="hero-subtitle">Professional</span>
+                <span data-i18n="hero-title">Professional</span><br />
+                <span class="text-indigo-400" data-i18n="hero-subtitle">Tuner</span>
             </h1>
             <p class="text-slate-300 text-lg md:text-xl mt-6 max-w-3xl mx-auto" data-i18n="hero-desc">
                 Studio precision · 300+ tunings · Real-time detection
@@ -789,7 +789,7 @@
     <section id="afinador" class="py-16 md:py-24 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
         <div class="max-w-4xl mx-auto px-6">
             <div class="text-center mb-10">
-                <h2 class="text-4xl md:text-6xl font-black" data-i18n="tuner-title">🎯 Tuner</h2>
+                <h2 class="text-4xl md:text-6xl font-black" data-i18n="tuner-title">🎯 Professional Tuner</h2>
                 <p class="text-slate-400 mt-3 text-lg" data-i18n="tuner-subtitle">Studio precision · Strobe mode · Real-time detection</p>
             </div>
 
@@ -983,8 +983,8 @@
                 'nav-social': 'Social',
                 // Hero
                 'hero-badge': '🏆 Professional Tuner',
-                'hero-title': 'Tuner',
-                'hero-subtitle': 'Professional',
+                'hero-title': 'Professional',
+                'hero-subtitle': 'Tuner',
                 'hero-desc': 'Studio precision · 300+ tunings · Real-time detection',
                 'hero-btn-library': '📚 Library',
                 'hero-btn-tuner': '🎯 Tuner',
@@ -999,7 +999,7 @@
                 'selected-desc': 'Select a tuning to begin.',
                 'selected-ready': '🎯 Ready to tune',
                 // Tuner
-                'tuner-title': '🎯 Tuner',
+                'tuner-title': '🎯 Professional Tuner',
                 'tuner-subtitle': 'Studio precision · Strobe mode · Real-time detection',
                 'tuner-select': 'Select a tuning',
                 'tuner-select-msg': '🎸 Select a tuning',
@@ -1065,7 +1065,7 @@
                 'selected-desc': 'Seleccioná una afinación para comenzar.',
                 'selected-ready': '🎯 Listo para afinar',
                 // Tuner
-                'tuner-title': '🎯 Afinador',
+                'tuner-title': '🎯 Afinador Profesional',
                 'tuner-subtitle': 'Precisión de estudio · Modo estroboscópico · Detección en tiempo real',
                 'tuner-select': 'Seleccioná una afinación',
                 'tuner-select-msg': '🎸 Seleccioná una afinación',
@@ -1131,7 +1131,7 @@
                 'selected-desc': 'Selecione uma afinação para começar.',
                 'selected-ready': '🎯 Pronto para afinar',
                 // Tuner
-                'tuner-title': '🎯 Afinador',
+                'tuner-title': '🎯 Afinador Profissional',
                 'tuner-subtitle': 'Precisão de estúdio · Modo estroboscópico · Detecção em tempo real',
                 'tuner-select': 'Selecione uma afinação',
                 'tuner-select-msg': '🎸 Selecione uma afinação',
@@ -1200,10 +1200,9 @@
                 }
             });
 
-            // Guitar Voices se mantiene en todos los idiomas (es el nombre de la marca)
-            document.title = lang === 'en' ? 'Guitar Voices · Tuner' :
-                lang === 'es' ? 'Guitar Voices · Afinador' :
-                'Guitar Voices · Afinador';
+            document.title = lang === 'en' ? 'Guitar Voices · Professional Tuner' :
+                lang === 'es' ? 'Guitar Voices · Afinador Profesional' :
+                'Guitar Voices · Afinador Profissional';
 
             actualizarMensajesEstado();
             actualizarTargetDisplay();
