@@ -3,12 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- ============================================================ -->
-    <!-- BLOQUEAR TRADUCCIÓN AUTOMÁTICA DE GOOGLE                     -->
-    <!-- ============================================================ -->
     <meta name="google" content="notranslate" />
-    <meta name="google-translate-custom" content="notranslate" />
-    <meta http-equiv="Content-Language" content="en,es,pt" />
     <title>Guitar Voices · Professional Tuner</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,45 +18,10 @@
             },
         };
     </script>
-    <!-- ============================================================ -->
-    <!-- SCRIPT PARA BLOQUEAR GOOGLE TRANSLATE                       -->
-    <!-- ============================================================ -->
-    <script>
-        // Detener la traducción automática de Google
-        document.addEventListener('DOMContentLoaded', function() {
-            // Si Google Translate está presente, lo desactivamos
-            if (window.google && window.google.translate) {
-                // Forzar que no traduzca
-            }
-            // Eliminar el widget de Google Translate si existe
-            const gtranslate = document.querySelector('.goog-te-banner-frame');
-            if (gtranslate) {
-                gtranslate.style.display = 'none';
-            }
-            // Remover el contenedor que Google agrega
-            const gcontainer = document.getElementById('goog-gt-');
-            if (gcontainer) {
-                gcontainer.remove();
-            }
-        });
-    </script>
     <style>
         /* ============================================================ */
         /* ESTILOS GLOBALES                                             */
         /* ============================================================ */
-        /* Evitar que Google Translate cambie los estilos */
-        .goog-te-banner-frame {
-            display: none !important;
-        }
-        body {
-            top: 0 !important;
-        }
-        /* Forzar que los textos con translate="no" no se modifiquen */
-        [translate="no"] {
-            -webkit-user-modify: read-only;
-        }
-        /* ============================================================ */
-
         * {
             margin: 0;
             padding: 0;
@@ -75,6 +35,17 @@
             background: #07070d;
             color: #f1f5f9;
             overflow-x: hidden;
+        }
+
+        [translate="no"] {
+            -webkit-user-modify: read-only;
+        }
+
+        .goog-te-banner-frame {
+            display: none !important;
+        }
+        body {
+            top: 0 !important;
         }
 
         #intro {
@@ -257,13 +228,16 @@
             color: #22c55e;
         }
 
+        /* ============================================================ */
+        /* COMPARADOR DE NOTAS MEJORADO                                 */
+        /* ============================================================ */
         .note-comparator {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 30px;
+            gap: 20px;
             margin: 16px 0;
-            padding: 16px;
+            padding: 16px 20px;
             background: #14141f;
             border-radius: 1.2rem;
             border: 1px solid #2a2a4a;
@@ -271,17 +245,17 @@
         }
         .note-comparator .note-box {
             text-align: center;
-            min-width: 100px;
+            min-width: 80px;
         }
         .note-comparator .note-box .label {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: #64748b;
             margin-bottom: 4px;
         }
         .note-comparator .note-box .note-value {
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 900;
             line-height: 1;
             transition: all 0.2s;
@@ -300,23 +274,70 @@
             color: #22c55e;
             text-shadow: 0 0 40px #22c55e44;
         }
-        .note-comparator .arrow {
-            font-size: 2.5rem;
-            color: #334155;
-            animation: arrowPulse 1.5s ease-in-out infinite;
+
+        /* Flechas de ajuste */
+        .adjustment-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+            padding: 8px 12px;
+            border-radius: 12px;
+            background: #1a1a2e;
+            border: 1px solid #2a2a4a;
         }
+        .adjustment-indicator .arrow {
+            font-size: 2.2rem;
+            line-height: 1;
+            animation: arrowPulse 1.2s ease-in-out infinite;
+        }
+        .adjustment-indicator .arrow.up {
+            color: #22c55e;
+        }
+        .adjustment-indicator .arrow.down {
+            color: #ef4444;
+        }
+        .adjustment-indicator .arrow.neutral {
+            color: #22c55e;
+            animation: none;
+        }
+        .adjustment-indicator .adjustment-text {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+        .adjustment-indicator .adjustment-text.up {
+            color: #22c55e;
+        }
+        .adjustment-indicator .adjustment-text.down {
+            color: #ef4444;
+        }
+        .adjustment-indicator .adjustment-text.neutral {
+            color: #22c55e;
+        }
+
         @keyframes arrowPulse {
             0%,
             100% {
                 transform: scale(1);
-                opacity: 0.5;
+                opacity: 0.7;
             }
             50% {
-                transform: scale(1.2);
+                transform: scale(1.15);
                 opacity: 1;
             }
         }
 
+        .adjustment-detail {
+            font-size: 0.65rem;
+            color: #64748b;
+            text-align: center;
+            margin-top: 2px;
+        }
+
+        /* ============================================================ */
+        /* MEDIDOR                                                      */
+        /* ============================================================ */
         .meter-wrapper {
             position: relative;
             width: 100%;
@@ -636,8 +657,23 @@
             content: '✓';
             font-size: 0.8rem;
         }
+        /* Cuerda detectada automáticamente */
+        .string-dot.detected {
+            border-color: #38bdf8;
+            background: #38bdf822;
+            color: #38bdf8;
+            animation: detectedPulse 0.6s ease-in-out infinite;
+        }
+        @keyframes detectedPulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.15);
+            }
+        }
 
-        /* Language selector */
         .lang-selector {
             display: flex;
             gap: 4px;
@@ -663,6 +699,27 @@
         .lang-selector button.active {
             background: #4f46e5;
             color: white;
+        }
+
+        /* ============================================================ */
+        /* CUERDA DETECTADA - INDICADOR VISUAL                         */
+        /* ============================================================ */
+        .detected-string-info {
+            text-align: center;
+            margin-top: 8px;
+            font-size: 0.85rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: #1a1a2e;
+            border: 1px solid #2a2a4a;
+            display: inline-block;
+        }
+        .detected-string-info .highlight {
+            color: #38bdf8;
+            font-weight: 700;
+        }
+        .detected-string-info .highlight.match {
+            color: #22c55e;
         }
 
         @media (max-width: 640px) {
@@ -716,8 +773,18 @@
                 font-size: 2.5rem;
             }
             .note-comparator {
-                gap: 16px;
+                gap: 12px;
                 padding: 12px;
+            }
+            .adjustment-indicator {
+                min-width: 60px;
+                padding: 4px 10px;
+            }
+            .adjustment-indicator .arrow {
+                font-size: 1.8rem;
+            }
+            .adjustment-indicator .adjustment-text {
+                font-size: 0.8rem;
             }
             .tuning-info-panel {
                 padding: 0.8rem 1rem;
@@ -750,7 +817,7 @@
 </head>
 <body>
 
-    <!-- INTRO - GUITAR VOICES SIEMPRE -->
+    <!-- INTRO -->
     <div id="intro"><h1 translate="no">Guitar Voices</h1></div>
 
     <!-- NAV -->
@@ -767,7 +834,6 @@
                     <a href="#afinador" data-i18n="nav-tuner" translate="no">Tuner</a>
                     <a href="#redes" data-i18n="nav-social" translate="no">Social</a>
                 </div>
-                <!-- Language Selector -->
                 <div class="lang-selector" translate="no">
                     <button data-lang="en" class="active">🇬🇧 EN</button>
                     <button data-lang="es">🇪🇸 ES</button>
@@ -796,7 +862,7 @@
         </div>
     </header>
 
-    <!-- BIBLIOTECA / LIBRARY -->
+    <!-- BIBLIOTECA -->
     <section id="biblioteca" class="max-w-7xl mx-auto py-16 md:py-24 px-6">
         <div class="text-center mb-12">
             <h2 class="text-4xl md:text-6xl font-black" data-i18n="library-title" translate="no">📚 Library</h2>
@@ -826,12 +892,12 @@
         </div>
     </section>
 
-    <!-- AFINADOR / TUNER -->
+    <!-- AFINADOR INTELIGENTE -->
     <section id="afinador" class="py-16 md:py-24 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
         <div class="max-w-4xl mx-auto px-6">
             <div class="text-center mb-10">
-                <h2 class="text-4xl md:text-6xl font-black" data-i18n="tuner-title" translate="no">🎯 Professional Tuner</h2>
-                <p class="text-slate-400 mt-3 text-lg" data-i18n="tuner-subtitle" translate="no">Studio precision · Strobe mode · Real-time detection</p>
+                <h2 class="text-4xl md:text-6xl font-black" data-i18n="tuner-title" translate="no">🎯 Intelligent Tuner</h2>
+                <p class="text-slate-400 mt-3 text-lg" data-i18n="tuner-subtitle" translate="no">Auto string detection · Real-time guidance</p>
             </div>
 
             <div class="tuner-container">
@@ -851,18 +917,32 @@
                     </div>
                 </div>
 
-                <!-- COMPARADOR -->
+                <!-- COMPARADOR MEJORADO CON FLECHAS -->
                 <div class="note-comparator" translate="no">
                     <div class="note-box">
                         <div class="label" data-i18n="note-you">🎤 You play</div>
                         <div class="note-value detected" id="detectedNote">--</div>
                         <div style="font-size:0.7rem;color:#64748b;margin-top:4px;" id="detectedFreq">0 Hz</div>
                     </div>
-                    <div class="arrow">➜</div>
+
+                    <!-- INDICADOR DE AJUSTE -->
+                    <div class="adjustment-indicator" id="adjustmentIndicator">
+                        <div class="arrow neutral" id="adjustmentArrow">●</div>
+                        <div class="adjustment-text neutral" id="adjustmentText">✓</div>
+                        <div class="adjustment-detail" id="adjustmentDetail">Perfecto</div>
+                    </div>
+
                     <div class="note-box">
                         <div class="label" data-i18n="note-target">🎯 Target</div>
                         <div class="note-value target" id="targetNote">--</div>
                         <div style="font-size:0.7rem;color:#64748b;margin-top:4px;" id="targetCuerda" data-i18n="note-string">String --</div>
+                    </div>
+                </div>
+
+                <!-- CUERDA DETECTADA AUTOMÁTICAMENTE -->
+                <div class="text-center">
+                    <div class="detected-string-info" id="detectedStringInfo">
+                        🎸 Detectando: <span class="highlight" id="detectedStringLabel">--</span>
                     </div>
                 </div>
 
@@ -910,7 +990,7 @@
                     <div class="vu-bar" id="vuBar"></div>
                 </div>
 
-                <!-- Progreso -->
+                <!-- Progreso de cuerdas -->
                 <div class="string-progress" id="stringProgress">
                     <div class="string-dot" data-string="0">6</div>
                     <div class="string-dot" data-string="1">5</div>
@@ -961,14 +1041,13 @@
                 </div>
 
                 <div class="mt-3 text-center text-xs text-slate-500" translate="no">
-                    <kbd class="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-slate-400">Space</kbd> <span data-i18n="shortcut-start">Start/Stop</span> ·
-                    <kbd class="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-slate-400">R</kbd> <span data-i18n="shortcut-reset">Reset strings</span>
+                    <kbd class="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-slate-400">Space</kbd> <span data-i18n="shortcut-start">Start/Stop</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- REDES / SOCIAL -->
+    <!-- REDES -->
     <section id="redes" class="py-16 md:py-24 bg-slate-950">
         <div class="max-w-6xl mx-auto px-6 text-center">
             <h2 class="text-4xl md:text-5xl font-black" data-i18n="social-title" translate="no">🌐 Follow us</h2>
@@ -1012,24 +1091,21 @@
 
     <script>
         // ============================================================
-        // 0. SISTEMA DE TRADUCCIÓN - CORREGIDO
+        // 0. SISTEMA DE TRADUCCIÓN
         // ============================================================
 
         const translations = {
             en: {
-                // Nav
                 'nav-home': 'Home',
                 'nav-library': 'Library',
                 'nav-tuner': 'Tuner',
                 'nav-social': 'Social',
-                // Hero
                 'hero-badge': '🏆 Professional Tuner',
                 'hero-title': 'Professional',
                 'hero-subtitle': 'Tuner',
                 'hero-desc': 'Studio precision · 300+ tunings · Real-time detection',
                 'hero-btn-library': '📚 Library',
                 'hero-btn-tuner': '🎯 Tuner',
-                // Library
                 'library-title': '📚 Library',
                 'library-subtitle': 'Choose a category to get started.',
                 'cat-open': '🎸 Open',
@@ -1039,9 +1115,8 @@
                 'selected-title': '✅ Tuning selected',
                 'selected-desc': 'Select a tuning to begin.',
                 'selected-ready': '🎯 Ready to tune',
-                // Tuner
-                'tuner-title': '🎯 Professional Tuner',
-                'tuner-subtitle': 'Studio precision · Strobe mode · Real-time detection',
+                'tuner-title': '🎯 Intelligent Tuner',
+                'tuner-subtitle': 'Auto string detection · Real-time guidance',
                 'tuner-select': 'Select a tuning',
                 'tuner-select-msg': '🎸 Select a tuning',
                 'note-you': '🎤 You play',
@@ -1055,23 +1130,19 @@
                 'mode-silent': 'Silent',
                 'btn-start': '🎤 Start Tuner',
                 'shortcut-start': 'Start/Stop',
-                'shortcut-reset': 'Reset strings',
-                // Social
                 'social-title': '🌐 Follow us',
                 'social-subtitle': 'Find us on all our social networks.',
                 'social-yt': 'Videos, tunings and tutorials.',
                 'social-ig': 'Photos, reels and news.',
                 'social-tt': 'Shorts and demos.',
-                // Footer
                 'footer-rights': 'All rights reserved.',
                 'footer-privacy': 'Privacy',
                 'footer-terms': 'Terms',
                 'footer-contact': 'Contact',
-                // Status messages
                 'status-tuned': '✅ Perfect tuning! 🎸',
-                'status-complete': '🎉 Guitar fully tuned!',
+                'status-done': '🎉 Guitar fully tuned!',
                 'status-listening': '🎤 Listening...',
-                'status-detected': '🔍 Detecting: {note} · Expecting: {target}',
+                'status-detected': '🔍 Detecting: {note} · Target: {target}',
                 'status-adjust': '🎯 {note} · {cents}¢ · Adjust the string',
                 'status-close': '🎯 {note} · {cents}¢ · Almost there',
                 'status-play': '🎸 Play a string...',
@@ -1081,21 +1152,25 @@
                 'status-reset': '🔄 Strings reset',
                 'status-string': '🎯 String {num}ª selected',
                 'status-done': '🎉 Guitar fully tuned!',
+                'adjust-perfect': '✓ Perfect',
+                'adjust-up': '▲ {semitones} tone(s) up',
+                'adjust-down': '▼ {semitones} tone(s) down',
+                'adjust-half-up': '▲ {semitones} tone(s) up',
+                'adjust-half-down': '▼ {semitones} tone(s) down',
+                'detected-string': 'Detected: String {num}ª · {note}',
+                'detected-none': '--',
             },
             es: {
-                // Nav
                 'nav-home': 'Inicio',
                 'nav-library': 'Biblioteca',
                 'nav-tuner': 'Afinador',
                 'nav-social': 'Redes',
-                // Hero
                 'hero-badge': '🏆 Afinador Profesional',
                 'hero-title': 'Afinador',
                 'hero-subtitle': 'Profesional',
                 'hero-desc': 'Precisión de estudio · 300+ afinaciones · Detección en tiempo real',
                 'hero-btn-library': '📚 Biblioteca',
                 'hero-btn-tuner': '🎯 Afinador',
-                // Library
                 'library-title': '📚 Biblioteca',
                 'library-subtitle': 'Elegí una categoría para comenzar.',
                 'cat-open': '🎸 Abiertas',
@@ -1105,9 +1180,8 @@
                 'selected-title': '✅ Afinación seleccionada',
                 'selected-desc': 'Seleccioná una afinación para comenzar.',
                 'selected-ready': '🎯 Listo para afinar',
-                // Tuner
-                'tuner-title': '🎯 Afinador Profesional',
-                'tuner-subtitle': 'Precisión de estudio · Modo estroboscópico · Detección en tiempo real',
+                'tuner-title': '🎯 Afinador Inteligente',
+                'tuner-subtitle': 'Detección automática de cuerdas · Guía en tiempo real',
                 'tuner-select': 'Seleccioná una afinación',
                 'tuner-select-msg': '🎸 Seleccioná una afinación',
                 'note-you': '🎤 Lo que tocas',
@@ -1121,23 +1195,19 @@
                 'mode-silent': 'Silencioso',
                 'btn-start': '🎤 Iniciar Afinador',
                 'shortcut-start': 'Iniciar/Detener',
-                'shortcut-reset': 'Reiniciar cuerdas',
-                // Social
                 'social-title': '🌐 Seguinos',
                 'social-subtitle': 'Encontranos en todas nuestras redes.',
                 'social-yt': 'Videos, afinaciones y tutoriales.',
                 'social-ig': 'Fotos, reels y novedades.',
                 'social-tt': 'Shorts y demostraciones.',
-                // Footer
                 'footer-rights': 'Todos los derechos reservados.',
                 'footer-privacy': 'Privacidad',
                 'footer-terms': 'Términos',
                 'footer-contact': 'Contacto',
-                // Status messages
                 'status-tuned': '✅ Afinación perfecta! 🎸',
-                'status-complete': '🎉 Guitarra completamente afinada!',
+                'status-done': '🎉 Guitarra completamente afinada!',
                 'status-listening': '🎤 Escuchando...',
-                'status-detected': '🔍 Detectando: {note} · Esperando: {target}',
+                'status-detected': '🔍 Detectando: {note} · Objetivo: {target}',
                 'status-adjust': '🎯 {note} · {cents}¢ · Ajustá la cuerda',
                 'status-close': '🎯 {note} · {cents}¢ · Casi listo',
                 'status-play': '🎸 Tocá una cuerda...',
@@ -1147,21 +1217,25 @@
                 'status-reset': '🔄 Cuerdas reiniciadas',
                 'status-string': '🎯 Cuerda {num}ª seleccionada',
                 'status-done': '🎉 Guitarra completamente afinada!',
+                'adjust-perfect': '✓ Perfecto',
+                'adjust-up': '▲ {semitones} tono(s) arriba',
+                'adjust-down': '▼ {semitones} tono(s) abajo',
+                'adjust-half-up': '▲ {semitones} tono(s) arriba',
+                'adjust-half-down': '▼ {semitones} tono(s) abajo',
+                'detected-string': 'Detectada: Cuerda {num}ª · {note}',
+                'detected-none': '--',
             },
             pt: {
-                // Nav
                 'nav-home': 'Início',
                 'nav-library': 'Biblioteca',
                 'nav-tuner': 'Afinador',
                 'nav-social': 'Redes',
-                // Hero
                 'hero-badge': '🏆 Afinador Profissional',
                 'hero-title': 'Afinador',
                 'hero-subtitle': 'Profissional',
                 'hero-desc': 'Precisão de estúdio · 300+ afinações · Detecção em tempo real',
                 'hero-btn-library': '📚 Biblioteca',
                 'hero-btn-tuner': '🎯 Afinador',
-                // Library
                 'library-title': '📚 Biblioteca',
                 'library-subtitle': 'Escolha uma categoria para começar.',
                 'cat-open': '🎸 Abertas',
@@ -1171,9 +1245,8 @@
                 'selected-title': '✅ Afinação selecionada',
                 'selected-desc': 'Selecione uma afinação para começar.',
                 'selected-ready': '🎯 Pronto para afinar',
-                // Tuner
-                'tuner-title': '🎯 Afinador Profissional',
-                'tuner-subtitle': 'Precisão de estúdio · Modo estroboscópico · Detecção em tempo real',
+                'tuner-title': '🎯 Afinador Inteligente',
+                'tuner-subtitle': 'Detecção automática de cordas · Guia em tempo real',
                 'tuner-select': 'Selecione uma afinação',
                 'tuner-select-msg': '🎸 Selecione uma afinação',
                 'note-you': '🎤 O que toca',
@@ -1187,23 +1260,19 @@
                 'mode-silent': 'Silencioso',
                 'btn-start': '🎤 Iniciar Afinador',
                 'shortcut-start': 'Iniciar/Parar',
-                'shortcut-reset': 'Reiniciar cordas',
-                // Social
                 'social-title': '🌐 Siga-nos',
                 'social-subtitle': 'Encontre-nos em todas as nossas redes.',
                 'social-yt': 'Vídeos, afinações e tutoriais.',
                 'social-ig': 'Fotos, reels e novidades.',
                 'social-tt': 'Shorts e demonstrações.',
-                // Footer
                 'footer-rights': 'Todos os direitos reservados.',
                 'footer-privacy': 'Privacidade',
                 'footer-terms': 'Termos',
                 'footer-contact': 'Contato',
-                // Status messages
                 'status-tuned': '✅ Afinação perfeita! 🎸',
-                'status-complete': '🎉 Guitarra completamente afinada!',
+                'status-done': '🎉 Guitarra completamente afinada!',
                 'status-listening': '🎤 Ouvindo...',
-                'status-detected': '🔍 Detectando: {note} · Esperando: {target}',
+                'status-detected': '🔍 Detectando: {note} · Alvo: {target}',
                 'status-adjust': '🎯 {note} · {cents}¢ · Ajuste a corda',
                 'status-close': '🎯 {note} · {cents}¢ · Quase lá',
                 'status-play': '🎸 Toque uma corda...',
@@ -1213,6 +1282,13 @@
                 'status-reset': '🔄 Cordas reiniciadas',
                 'status-string': '🎯 Corda {num}ª selecionada',
                 'status-done': '🎉 Guitarra completamente afinada!',
+                'adjust-perfect': '✓ Perfeito',
+                'adjust-up': '▲ {semitones} tom(ns) acima',
+                'adjust-down': '▼ {semitones} tom(ns) abaixo',
+                'adjust-half-up': '▲ {semitones} tom(ns) acima',
+                'adjust-half-down': '▼ {semitones} tom(ns) abaixo',
+                'detected-string': 'Detectada: Corda {num}ª · {note}',
+                'detected-none': '--',
             }
         };
 
@@ -1229,38 +1305,25 @@
         function updateLanguage(lang) {
             currentLang = lang;
             localStorage.setItem('guitarVoicesLang', lang);
-
             document.querySelectorAll('.lang-selector button').forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.lang === lang);
             });
-
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.dataset.i18n;
                 if (translations[lang]?.[key] !== undefined) {
                     el.textContent = translations[lang][key];
                 }
             });
-
-            // GUITAR VOICES se mantiene SIEMPRE (es el nombre de la marca)
-            document.title = lang === 'en' ? 'Guitar Voices · Professional Tuner' :
-                lang === 'es' ? 'Guitar Voices · Afinador Profesional' :
-                'Guitar Voices · Afinador Profissional';
-
-            // Intro siempre muestra "Guitar Voices"
+            document.title = lang === 'en' ? 'Guitar Voices · Intelligent Tuner' :
+                lang === 'es' ? 'Guitar Voices · Afinador Inteligente' :
+                'Guitar Voices · Afinador Inteligente';
             const intro = document.querySelector('#intro h1');
             if (intro) intro.textContent = 'Guitar Voices';
-
             actualizarMensajesEstado();
             actualizarTargetDisplay();
             actualizarStringDots();
             actualizarCuerdaInfo();
-        }
-
-        function actualizarMensajesEstado() {
-            const statusEl = document.getElementById('statusMsg');
-            if (statusEl && !statusEl.dataset.dynamic) {
-                // No sobrescribir mensajes dinámicos
-            }
+            actualizarDetectedStringInfo();
         }
 
         function setStatusMessage(key, params = {}) {
@@ -1273,7 +1336,7 @@
         }
 
         // ============================================================
-        // 1. BIBLIOTECA DE AFINACIONES - COMPLETA (300+)
+        // 1. BIBLIOTECA DE AFINACIONES
         // ============================================================
 
         function generarDerivaciones(nota) {
@@ -1292,7 +1355,6 @@
                 'A#': ['A#', 'D', 'F', 'A#', 'D', 'F'],
                 'B': ['B', 'D#', 'F#', 'B', 'D#', 'F#']
             };
-
             const baseCuerdas = cuerdasBase[base] || ['C', 'E', 'G', 'C', 'E', 'G'];
             const notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
@@ -1345,12 +1407,10 @@
                 { nombre: `${base}7#5`, fn: (c, i) => [2, 4].includes(i) ? desplazar(c, 8) : [2, 5].includes(i) ?
                         desplazar(c, 10) : c },
             ];
-
             tipos.forEach(t => {
                 const cuerdas = baseCuerdas.map((c, i) => t.fn(c, i));
                 variantes.push({ nombre: t.nombre, cuerdas });
             });
-
             return variantes;
         }
 
@@ -1368,33 +1428,23 @@
         const bibliotecaAfinaciones = {
             abiertas: todasLasNotas,
             standard: {
-                "C Standard": [{ nombre: "C Standard", cuerdas: ["C", "F", "Bb", "Eb", "G", "C"] }],
-                "C# Standard": [{ nombre: "C# Standard", cuerdas: ["C#", "F#", "B", "E", "G#", "C#"] }],
-                "D Standard": [{ nombre: "D Standard", cuerdas: ["D", "G", "C", "F", "A", "D"] }],
-                "D# Standard": [{ nombre: "D# Standard", cuerdas: ["D#", "G#", "C#", "F#", "A#", "D#"] }],
                 "E Standard": [{ nombre: "E Standard", cuerdas: ["E", "A", "D", "G", "B", "E"] }],
-                "F Standard": [{ nombre: "F Standard", cuerdas: ["F", "Bb", "Eb", "Ab", "C", "F"] }],
-                "F# Standard": [{ nombre: "F# Standard", cuerdas: ["F#", "B", "E", "A", "C#", "F#"] }],
-                "G Standard": [{ nombre: "G Standard", cuerdas: ["G", "C", "F", "Bb", "D", "G"] }],
-                "G# Standard": [{ nombre: "G# Standard", cuerdas: ["G#", "C#", "F#", "B", "D#", "G#"] }],
-                "A Standard": [{ nombre: "A Standard", cuerdas: ["A", "D", "G", "C", "E", "A"] }],
-                "A# Standard": [{ nombre: "A# Standard", cuerdas: ["A#", "D#", "G#", "C#", "F", "A#"] }],
+                "D Standard": [{ nombre: "D Standard", cuerdas: ["D", "G", "C", "F", "A", "D"] }],
+                "C Standard": [{ nombre: "C Standard", cuerdas: ["C", "F", "Bb", "Eb", "G", "C"] }],
                 "B Standard": [{ nombre: "B Standard", cuerdas: ["B", "E", "A", "D", "F#", "B"] }],
+                "A Standard": [{ nombre: "A Standard", cuerdas: ["A", "D", "G", "C", "E", "A"] }],
+                "G Standard": [{ nombre: "G Standard", cuerdas: ["G", "C", "F", "Bb", "D", "G"] }],
+                "F Standard": [{ nombre: "F Standard", cuerdas: ["F", "Bb", "Eb", "Ab", "C", "F"] }],
                 "Standard Barítono": [{ nombre: "Standard Barítono", cuerdas: ["B", "E", "A", "D", "F#", "B"] }],
             },
             drop: {
-                "Drop C": [{ nombre: "Drop C", cuerdas: ["C", "G", "C", "F", "A", "D"] }],
-                "Drop C#": [{ nombre: "Drop C#", cuerdas: ["C#", "G#", "C#", "F#", "A#", "D#"] }],
                 "Drop D": [{ nombre: "Drop D", cuerdas: ["D", "A", "D", "G", "B", "E"] }],
-                "Drop D#": [{ nombre: "Drop D#", cuerdas: ["D#", "A#", "D#", "G#", "C", "F"] }],
-                "Drop E": [{ nombre: "Drop E", cuerdas: ["E", "B", "E", "A", "C#", "F#"] }],
-                "Drop F": [{ nombre: "Drop F", cuerdas: ["F", "C", "F", "Bb", "D", "G"] }],
-                "Drop F#": [{ nombre: "Drop F#", cuerdas: ["F#", "C#", "F#", "B", "D#", "G#"] }],
-                "Drop G": [{ nombre: "Drop G", cuerdas: ["G", "D", "G", "C", "E", "A"] }],
-                "Drop G#": [{ nombre: "Drop G#", cuerdas: ["G#", "D#", "G#", "C#", "F", "A#"] }],
-                "Drop A": [{ nombre: "Drop A", cuerdas: ["A", "E", "A", "D", "F#", "B"] }],
-                "Drop A#": [{ nombre: "Drop A#", cuerdas: ["A#", "F", "A#", "D#", "G", "C"] }],
+                "Drop C": [{ nombre: "Drop C", cuerdas: ["C", "G", "C", "F", "A", "D"] }],
                 "Drop B": [{ nombre: "Drop B", cuerdas: ["B", "F#", "B", "E", "G#", "C#"] }],
+                "Drop A": [{ nombre: "Drop A", cuerdas: ["A", "E", "A", "D", "F#", "B"] }],
+                "Drop G": [{ nombre: "Drop G", cuerdas: ["G", "D", "G", "C", "E", "A"] }],
+                "Drop F": [{ nombre: "Drop F", cuerdas: ["F", "C", "F", "Bb", "D", "G"] }],
+                "Drop E": [{ nombre: "Drop E", cuerdas: ["E", "B", "E", "A", "C#", "F#"] }],
                 "Drop D (7 cuerdas)": [{ nombre: "Drop D 7", cuerdas: ["D", "A", "D", "G", "B", "E", "A"] }],
                 "Drop A (7 cuerdas)": [{ nombre: "Drop A 7", cuerdas: ["A", "E", "A", "D", "G", "B", "E"] }],
             },
@@ -1404,8 +1454,6 @@
                 "DGDGBD": [{ nombre: "DGDGBD", cuerdas: ["D", "G", "D", "G", "B", "D"] }],
                 "CGDGBD": [{ nombre: "CGDGBD", cuerdas: ["C", "G", "D", "G", "B", "D"] }],
                 "CGCGCE": [{ nombre: "CGCGCE", cuerdas: ["C", "G", "C", "G", "C", "E"] }],
-                "EADGBE (Drop D)": [{ nombre: "Drop D (6 cuerdas)", cuerdas: ["D", "A", "D", "G", "B", "E"] }],
-                "DADGAD (Celta)": [{ nombre: "DADGAD Celta", cuerdas: ["D", "A", "D", "G", "A", "D"] }],
                 "Open G (Slide)": [{ nombre: "Open G Slide", cuerdas: ["D", "G", "D", "G", "B", "D"] }],
                 "Open D (Slide)": [{ nombre: "Open D Slide", cuerdas: ["D", "A", "D", "F#", "A", "D"] }],
                 "Modal D": [{ nombre: "Modal D", cuerdas: ["D", "A", "D", "G", "A", "D"] }],
@@ -1454,6 +1502,12 @@
             precisionSelect: $("precisionSelect"),
             modeSelect: $("modeSelect"),
             strobeRings: $("strobeRings"),
+            // Nuevos elementos
+            adjustmentArrow: $("adjustmentArrow"),
+            adjustmentText: $("adjustmentText"),
+            adjustmentDetail: $("adjustmentDetail"),
+            detectedStringInfo: $("detectedStringInfo"),
+            detectedStringLabel: $("detectedStringLabel"),
         };
 
         // ============================================================
@@ -1473,7 +1527,9 @@
         let precisionTolerance = 1;
         let modoStrobe = true;
         let modoSilencioso = false;
-        let statusMessageTimeout = null;
+        // Para detección automática de cuerda
+        let cuerdaDetectada = -1;
+        let cuerdasAfinadas = [];
 
         // ============================================================
         // 4. FUNCIONES DE BIBLIOTECA
@@ -1543,6 +1599,8 @@
         function seleccionarAfinacion(af) {
             afinacionActual = af;
             cuerdaActual = 0;
+            cuerdasAfinadas = [];
+            cuerdaDetectada = -1;
 
             dom.afinacionDisplay.innerHTML = `
                     <span class="text-emerald-400 font-bold">${af.nombre}</span>
@@ -1560,8 +1618,10 @@
 
             actualizarTargetDisplay();
             actualizarStringDots();
+            actualizarCuerdaInfo();
             guardarUltimaAfinacion();
             setStatusMessage('tuner-select-msg');
+            actualizarDetectedStringInfo();
         }
 
         function actualizarTargetDisplay() {
@@ -1580,7 +1640,7 @@
             afinacionActual.cuerdas.forEach((n, i) => {
                 labels[i].className = 'string-label';
                 if (i === cuerdaActual) labels[i].classList.add('active');
-                if (i < cuerdaActual) labels[i].classList.add('done');
+                if (i < cuerdaActual || cuerdasAfinadas.includes(i)) labels[i].classList.add('done');
             });
         }
 
@@ -1588,8 +1648,13 @@
             if (!afinacionActual) return;
             dom.stringDots.forEach((dot, i) => {
                 dot.className = 'string-dot';
-                if (i === cuerdaActual) dot.classList.add('active');
-                if (i < cuerdaActual) dot.classList.add('done');
+                if (cuerdasAfinadas.includes(i)) {
+                    dot.classList.add('done');
+                } else if (i === cuerdaDetectada) {
+                    dot.classList.add('detected');
+                } else if (i === cuerdaActual) {
+                    dot.classList.add('active');
+                }
             });
         }
 
@@ -1605,21 +1670,39 @@
 
         function avanzarCuerda() {
             if (!afinacionActual) return;
-            cuerdaActual = (cuerdaActual + 1) % afinacionActual.cuerdas.length;
+            // Buscar la siguiente cuerda no afinada
+            let next = (cuerdaActual + 1) % afinacionActual.cuerdas.length;
+            let contador = 0;
+            while (cuerdasAfinadas.includes(next) && contador < afinacionActual.cuerdas.length) {
+                next = (next + 1) % afinacionActual.cuerdas.length;
+                contador++;
+            }
+            if (contador >= afinacionActual.cuerdas.length) {
+                // Todas las cuerdas están afinadas
+                setStatusMessage('status-done');
+                dom.statusMsg.className = 'status-msg success';
+                return;
+            }
+            cuerdaActual = next;
             actualizarTargetDisplay();
             actualizarStringDots();
             actualizarCuerdaInfo();
-            if (cuerdaActual === 0) {
-                setStatusMessage('status-done');
-            }
+            actualizarDetectedStringInfo();
         }
 
-        function reiniciarCuerdas() {
-            cuerdaActual = 0;
-            actualizarTargetDisplay();
-            actualizarStringDots();
-            actualizarCuerdaInfo();
-            setStatusMessage('status-reset');
+        function marcarCuerdaAfinada(index) {
+            if (!cuerdasAfinadas.includes(index)) {
+                cuerdasAfinadas.push(index);
+                // Ordenar
+                cuerdasAfinadas.sort((a, b) => a - b);
+                actualizarStringDots();
+                actualizarTargetDisplay();
+                // Verificar si todas están afinadas
+                if (cuerdasAfinadas.length === afinacionActual.cuerdas.length) {
+                    setStatusMessage('status-done');
+                    dom.statusMsg.className = 'status-msg success';
+                }
+            }
         }
 
         function guardarUltimaAfinacion() {
@@ -1643,7 +1726,139 @@
         }
 
         // ============================================================
-        // 5. DETECCIÓN DE FRECUENCIA
+        // 5. DETECCIÓN DE CUERDA AUTOMÁTICA
+        // ============================================================
+
+        function detectarCuerda(nota) {
+            if (!afinacionActual) return -1;
+            // Buscar en qué cuerda coincide la nota detectada
+            for (let i = 0; i < afinacionActual.cuerdas.length; i++) {
+                if (afinacionActual.cuerdas[i] === nota && !cuerdasAfinadas.includes(i)) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        function actualizarDetectedStringInfo() {
+            const el = dom.detectedStringLabel;
+            const info = dom.detectedStringInfo;
+            if (!afinacionActual) {
+                el.textContent = t('detected-none');
+                el.className = 'highlight';
+                return;
+            }
+            if (cuerdaDetectada >= 0 && cuerdaDetectada < afinacionActual.cuerdas.length) {
+                const num = 6 - cuerdaDetectada;
+                const nota = afinacionActual.cuerdas[cuerdaDetectada];
+                el.textContent = t('detected-string', { num: num, note: nota });
+                el.className = 'highlight';
+                if (cuerdasAfinadas.includes(cuerdaDetectada)) {
+                    el.classList.add('match');
+                }
+            } else {
+                el.textContent = t('detected-none');
+                el.className = 'highlight';
+            }
+        }
+
+        // ============================================================
+        // 6. INDICADOR DE AJUSTE (TONOS A SUBIR/BAJAR)
+        // ============================================================
+
+        function actualizarAjuste(cents, notaDetectada, notaObjetivo) {
+            const arrow = dom.adjustmentArrow;
+            const text = dom.adjustmentText;
+            const detail = dom.adjustmentDetail;
+
+            // Si no hay nota detectada o no hay objetivo
+            if (!notaDetectada || !notaObjetivo || !afinacionActual) {
+                arrow.className = 'arrow neutral';
+                text.className = 'adjustment-text neutral';
+                text.textContent = '✓';
+                detail.textContent = t('adjust-perfect');
+                return;
+            }
+
+            // Si la nota detectada coincide con el objetivo y está dentro de la tolerancia
+            if (notaDetectada === notaObjetivo && Math.abs(cents) <= precisionTolerance) {
+                arrow.className = 'arrow neutral';
+                text.className = 'adjustment-text neutral';
+                text.textContent = '✓';
+                detail.textContent = t('adjust-perfect');
+                return;
+            }
+
+            // Calcular diferencia en semitonos entre la nota detectada y el objetivo
+            const notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+            const idxDetectada = notas.indexOf(notaDetectada);
+            const idxObjetivo = notas.indexOf(notaObjetivo);
+
+            if (idxDetectada === -1 || idxObjetivo === -1) {
+                arrow.className = 'arrow neutral';
+                text.className = 'adjustment-text neutral';
+                text.textContent = '✓';
+                detail.textContent = t('adjust-perfect');
+                return;
+            }
+
+            let diff = idxObjetivo - idxDetectada;
+            // Normalizar para obtener la distancia más corta
+            if (diff > 6) diff -= 12;
+            if (diff < -6) diff += 12;
+
+            // Determinar si es tono o semitono
+            const esTono = Math.abs(diff) % 2 === 0;
+            const semitonos = diff;
+            const tonos = diff / 2;
+
+            if (diff > 0) {
+                // Hay que subir (afinar más agudo)
+                arrow.className = 'arrow up';
+                arrow.textContent = '▲';
+                text.className = 'adjustment-text up';
+                if (esTono) {
+                    const plural = Math.abs(tonos) !== 1 ? 's' : '';
+                    text.textContent = t('adjust-up', { semitonos: Math.abs(tonos) + (Math.abs(tonos) !== 1 ? ' tone' :
+                            ' tone') });
+                    detail.textContent = `${Math.abs(tonos)} tono${Math.abs(tonos) !== 1 ? 's' : ''} arriba`;
+                } else {
+                    text.textContent = t('adjust-half-up', { semitonos: Math.abs(semitonos) });
+                    detail.textContent = `${Math.abs(semitonos)} semitono${Math.abs(semitonos) !== 1 ? 's' : ''} arriba`;
+                }
+            } else if (diff < 0) {
+                // Hay que bajar (afinar más grave)
+                arrow.className = 'arrow down';
+                arrow.textContent = '▼';
+                text.className = 'adjustment-text down';
+                if (esTono) {
+                    const plural = Math.abs(tonos) !== 1 ? 's' : '';
+                    text.textContent = t('adjust-down', { semitonos: Math.abs(tonos) });
+                    detail.textContent = `${Math.abs(tonos)} tono${Math.abs(tonos) !== 1 ? 's' : ''} abajo`;
+                } else {
+                    text.textContent = t('adjust-half-down', { semitonos: Math.abs(semitonos) });
+                    detail.textContent = `${Math.abs(semitonos)} semitono${Math.abs(semitonos) !== 1 ? 's' : ''} abajo`;
+                }
+            } else {
+                // diff === 0, pero cents está fuera de tolerancia
+                if (cents > 0) {
+                    arrow.className = 'arrow up';
+                    arrow.textContent = '▲';
+                    text.className = 'adjustment-text up';
+                    text.textContent = `+${Math.abs(cents)}¢`;
+                    detail.textContent = 'Ajuste fino';
+                } else {
+                    arrow.className = 'arrow down';
+                    arrow.textContent = '▼';
+                    text.className = 'adjustment-text down';
+                    text.textContent = `-${Math.abs(cents)}¢`;
+                    detail.textContent = 'Ajuste fino';
+                }
+            }
+        }
+
+        // ============================================================
+        // 7. DETECCIÓN DE FRECUENCIA
         // ============================================================
 
         function encontrarFrecuencia(buffer, sampleRate) {
@@ -1682,7 +1897,7 @@
         }
 
         // ============================================================
-        // 6. AFINADOR
+        // 8. AFINADOR
         // ============================================================
 
         function actualizarAfinador(frecuencia, cents, referencia) {
@@ -1719,14 +1934,41 @@
             dom.detectedNote.className = 'note-value detected';
             dom.detectedFreq.textContent = frecuencia.toFixed(2) + ' Hz';
 
+            // DETECCIÓN AUTOMÁTICA DE CUERDA
+            const cuerdaEncontrada = detectarCuerda(info.nota);
+            if (cuerdaEncontrada >= 0) {
+                cuerdaDetectada = cuerdaEncontrada;
+                // Cambiar la cuerda actual a la detectada
+                if (cuerdaActual !== cuerdaDetectada && !cuerdasAfinadas.includes(cuerdaDetectada)) {
+                    cuerdaActual = cuerdaDetectada;
+                    actualizarTargetDisplay();
+                    actualizarStringDots();
+                    actualizarCuerdaInfo();
+                }
+            } else {
+                // Si la nota no coincide con ninguna cuerda, mantener la detección
+                // pero no cambiar la cuerda actual
+                if (cuerdaDetectada >= 0 && !cuerdasAfinadas.includes(cuerdaDetectada)) {
+                    // Mantener la detección
+                }
+            }
+            actualizarDetectedStringInfo();
+
             if (afinacionActual) {
                 const objetivo = afinacionActual.cuerdas[cuerdaActual] || "";
                 if (info.nota === objetivo && Math.abs(cents) <= precisionTolerance) {
                     dom.detectedNote.classList.add('match');
                     dom.targetNote.classList.add('match');
+                    // Marcar cuerda como afinada
+                    if (cuerdaActual >= 0 && !cuerdasAfinadas.includes(cuerdaActual)) {
+                        marcarCuerdaAfinada(cuerdaActual);
+                    }
                 } else {
                     dom.targetNote.classList.remove('match');
                 }
+
+                // Actualizar indicador de ajuste
+                actualizarAjuste(cents, info.nota, objetivo);
             }
 
             ultimaFrecuencia = frecuencia;
@@ -1744,7 +1986,7 @@
         }
 
         // ============================================================
-        // 7. LOOP DE AFINACIÓN
+        // 9. LOOP DE AFINACIÓN
         // ============================================================
 
         function iniciarAfinador() {
@@ -1810,6 +2052,15 @@
             dom.vuBar.style.width = '0%';
             dom.strobeRings.style.animationDuration = '3s';
             dom.strobeRings.style.opacity = '0.6';
+            // Resetear detección de cuerda
+            cuerdaDetectada = -1;
+            actualizarDetectedStringInfo();
+            // Resetear indicador de ajuste
+            dom.adjustmentArrow.className = 'arrow neutral';
+            dom.adjustmentArrow.textContent = '●';
+            dom.adjustmentText.className = 'adjustment-text neutral';
+            dom.adjustmentText.textContent = '✓';
+            dom.adjustmentDetail.textContent = t('adjust-perfect');
         }
 
         function loopDetectar() {
@@ -1827,6 +2078,17 @@
 
             if (rms < 0.005) {
                 setStatusMessage('status-play');
+                // Resetear detección de cuerda si no hay sonido
+                if (cuerdaDetectada >= 0) {
+                    cuerdaDetectada = -1;
+                    actualizarDetectedStringInfo();
+                    // Resetear indicador de ajuste
+                    dom.adjustmentArrow.className = 'arrow neutral';
+                    dom.adjustmentArrow.textContent = '●';
+                    dom.adjustmentText.className = 'adjustment-text neutral';
+                    dom.adjustmentText.textContent = '✓';
+                    dom.adjustmentDetail.textContent = t('adjust-perfect');
+                }
                 return;
             }
 
@@ -1844,7 +2106,25 @@
             const info = convertirNotaCompleta(frecuencia, referenciaFrecuencia);
             const objetivo = afinacionActual.cuerdas[cuerdaActual] || "";
 
-            if (Math.abs(cents) <= precisionTolerance) {
+            // Verificar si la cuerda actual ya está afinada
+            if (cuerdasAfinadas.includes(cuerdaActual)) {
+                // Buscar la siguiente cuerda no afinada
+                let next = (cuerdaActual + 1) % afinacionActual.cuerdas.length;
+                let contador = 0;
+                while (cuerdasAfinadas.includes(next) && contador < afinacionActual.cuerdas.length) {
+                    next = (next + 1) % afinacionActual.cuerdas.length;
+                    contador++;
+                }
+                if (contador < afinacionActual.cuerdas.length) {
+                    cuerdaActual = next;
+                    actualizarTargetDisplay();
+                    actualizarStringDots();
+                    actualizarCuerdaInfo();
+                }
+                return;
+            }
+
+            if (info.nota === objetivo && Math.abs(cents) <= precisionTolerance) {
                 lecturasEstables++;
             } else {
                 lecturasEstables = 0;
@@ -1853,18 +2133,38 @@
             if (info.nota === objetivo && Math.abs(cents) <= precisionTolerance && lecturasEstables >= 6) {
                 setStatusMessage('status-tuned');
                 dom.statusMsg.className = 'status-msg success';
+                // Marcar cuerda como afinada
+                marcarCuerdaAfinada(cuerdaActual);
 
-                if (!dom.statusMsg.dataset.avanzado) {
-                    dom.statusMsg.dataset.avanzado = "true";
-                    setTimeout(() => {
-                        avanzarCuerda();
-                        dom.statusMsg.dataset.avanzado = "";
-                        if (cuerdaActual === 0 && afinacionActual) {
-                            setStatusMessage('status-done');
-                            dom.statusMsg.className = 'status-msg success';
-                        }
-                    }, 800);
+                // Reproducir ping solo si no está en modo silencioso
+                if (!modoSilencioso) {
+                    reproducirPing();
                 }
+
+                // Avanzar automáticamente
+                setTimeout(() => {
+                    // Verificar si todas las cuerdas están afinadas
+                    if (cuerdasAfinadas.length === afinacionActual.cuerdas.length) {
+                        setStatusMessage('status-done');
+                        dom.statusMsg.className = 'status-msg success';
+                        return;
+                    }
+                    // Avanzar a la siguiente cuerda no afinada
+                    let next = (cuerdaActual + 1) % afinacionActual.cuerdas.length;
+                    let contador = 0;
+                    while (cuerdasAfinadas.includes(next) && contador < afinacionActual.cuerdas.length) {
+                        next = (next + 1) % afinacionActual.cuerdas.length;
+                        contador++;
+                    }
+                    if (contador < afinacionActual.cuerdas.length) {
+                        cuerdaActual = next;
+                        actualizarTargetDisplay();
+                        actualizarStringDots();
+                        actualizarCuerdaInfo();
+                        setStatusMessage('status-close', { note: afinacionActual.cuerdas[cuerdaActual], cents: 0 });
+                        dom.statusMsg.className = 'status-msg warning';
+                    }
+                }, 1000);
             } else if (info.nota === objetivo) {
                 if (Math.abs(cents) < 15) {
                     setStatusMessage('status-close', { note: info.nota, cents: Math.abs(cents) });
@@ -1874,13 +2174,34 @@
                     dom.statusMsg.className = 'status-msg';
                 }
             } else {
-                setStatusMessage('status-detected', { note: info.nota, target: objetivo });
+                // Mostrar la nota detectada y el objetivo
+                const target = objetivo || '--';
+                setStatusMessage('status-detected', { note: info.nota, target: target });
                 dom.statusMsg.className = 'status-msg';
             }
         }
 
+        function reproducirPing() {
+            const ahora = Date.now();
+            if (ahora - ultimoPing < 1500) return;
+            ultimoPing = ahora;
+            try {
+                const ctx = new(window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = "sine";
+                osc.frequency.value = 880;
+                gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.12);
+            } catch (_) {}
+        }
+
         // ============================================================
-        // 8. INICIALIZACIÓN
+        // 10. INICIALIZACIÓN
         // ============================================================
 
         document.addEventListener("DOMContentLoaded", function() {
@@ -1911,22 +2232,18 @@
                     e.preventDefault();
                     iniciarAfinador();
                 }
-                if (e.key === "r" || e.key === "R") {
-                    if (e.target === document.body) {
-                        reiniciarCuerdas();
-                    }
-                }
             });
 
-            // ---- Click en dots para seleccionar cuerda ----
+            // ---- Click en dots para seleccionar cuerda manualmente ----
             dom.stringDots.forEach((dot, i) => {
                 dot.addEventListener('click', function() {
-                    if (afinacionActual) {
+                    if (afinacionActual && !cuerdasAfinadas.includes(i)) {
                         cuerdaActual = i;
                         actualizarTargetDisplay();
                         actualizarStringDots();
                         actualizarCuerdaInfo();
                         setStatusMessage('status-string', { num: 6 - i });
+                        dom.statusMsg.className = 'status-msg';
                     }
                 });
             });
@@ -1978,23 +2295,13 @@
             dom.modeSelect.value = 'strobe';
             modoStrobe = true;
             dom.strobeRings.style.display = 'block';
+            dom.adjustmentArrow.className = 'arrow neutral';
+            dom.adjustmentArrow.textContent = '●';
+            dom.adjustmentText.className = 'adjustment-text neutral';
+            dom.adjustmentText.textContent = '✓';
+            dom.adjustmentDetail.textContent = t('adjust-perfect');
 
-            // ---- Contar afinaciones ----
-            let total = 0;
-            let totalAbiertas = 0;
-            for (const cat in bibliotecaAfinaciones) {
-                for (const key in bibliotecaAfinaciones[cat]) {
-                    total += bibliotecaAfinaciones[cat][key].length;
-                    if (cat === 'abiertas') {
-                        totalAbiertas += bibliotecaAfinaciones[cat][key].length;
-                    }
-                }
-            }
-            console.log(`🎸 Guitar Voices · ${total} tunings loaded`);
-            console.log(`📚 Open: ${totalAbiertas} variants (12 notes × 25 chords)`);
-            console.log(`📚 Standard: ${Object.keys(bibliotecaAfinaciones.standard).length} (C to B)`);
-            console.log(`📚 Drop: ${Object.keys(bibliotecaAfinaciones.drop).length} (C to B)`);
-            console.log(`📚 Other: ${Object.keys(bibliotecaAfinaciones.otras).length}`);
+            console.log('🎸 Guitar Voices · Intelligent Tuner loaded');
         });
     </script>
 </body>
