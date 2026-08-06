@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- ============================================================ -->
+    <!-- BLOQUEAR TRADUCCIÓN AUTOMÁTICA DE GOOGLE                     -->
+    <!-- ============================================================ -->
+    <meta name="google" content="notranslate" />
+    <meta name="google-translate-custom" content="notranslate" />
+    <meta http-equiv="Content-Language" content="en,es,pt" />
     <title>Guitar Voices · Professional Tuner</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,10 +23,45 @@
             },
         };
     </script>
+    <!-- ============================================================ -->
+    <!-- SCRIPT PARA BLOQUEAR GOOGLE TRANSLATE                       -->
+    <!-- ============================================================ -->
+    <script>
+        // Detener la traducción automática de Google
+        document.addEventListener('DOMContentLoaded', function() {
+            // Si Google Translate está presente, lo desactivamos
+            if (window.google && window.google.translate) {
+                // Forzar que no traduzca
+            }
+            // Eliminar el widget de Google Translate si existe
+            const gtranslate = document.querySelector('.goog-te-banner-frame');
+            if (gtranslate) {
+                gtranslate.style.display = 'none';
+            }
+            // Remover el contenedor que Google agrega
+            const gcontainer = document.getElementById('goog-gt-');
+            if (gcontainer) {
+                gcontainer.remove();
+            }
+        });
+    </script>
     <style>
         /* ============================================================ */
         /* ESTILOS GLOBALES                                             */
         /* ============================================================ */
+        /* Evitar que Google Translate cambie los estilos */
+        .goog-te-banner-frame {
+            display: none !important;
+        }
+        body {
+            top: 0 !important;
+        }
+        /* Forzar que los textos con translate="no" no se modifiquen */
+        [translate="no"] {
+            -webkit-user-modify: read-only;
+        }
+        /* ============================================================ */
+
         * {
             margin: 0;
             padding: 0;
@@ -710,24 +751,24 @@
 <body>
 
     <!-- INTRO - GUITAR VOICES SIEMPRE -->
-    <div id="intro"><h1>Guitar Voices</h1></div>
+    <div id="intro"><h1 translate="no">Guitar Voices</h1></div>
 
     <!-- NAV -->
     <nav class="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-slate-800">
         <div class="max-w-7xl mx-auto flex items-center justify-between p-4 md:p-6">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-gradient-to-r from-indigo-500 to-cyan-500 flex items-center justify-center text-2xl">🎸</div>
-                <h2 class="text-xl md:text-2xl font-black">Guitar Voices</h2>
+                <h2 class="text-xl md:text-2xl font-black" translate="no">Guitar Voices</h2>
             </div>
             <div class="flex items-center gap-4 md:gap-8">
                 <div class="flex gap-4 md:gap-8 font-semibold text-sm md:text-base">
-                    <a href="#" data-i18n="nav-home">Home</a>
-                    <a href="#biblioteca" data-i18n="nav-library">Library</a>
-                    <a href="#afinador" data-i18n="nav-tuner">Tuner</a>
-                    <a href="#redes" data-i18n="nav-social">Social</a>
+                    <a href="#" data-i18n="nav-home" translate="no">Home</a>
+                    <a href="#biblioteca" data-i18n="nav-library" translate="no">Library</a>
+                    <a href="#afinador" data-i18n="nav-tuner" translate="no">Tuner</a>
+                    <a href="#redes" data-i18n="nav-social" translate="no">Social</a>
                 </div>
                 <!-- Language Selector -->
-                <div class="lang-selector">
+                <div class="lang-selector" translate="no">
                     <button data-lang="en" class="active">🇬🇧 EN</button>
                     <button data-lang="es">🇪🇸 ES</button>
                     <button data-lang="pt">🇵🇹 PT</button>
@@ -740,17 +781,17 @@
     <header class="relative overflow-hidden py-20 md:py-28">
         <div class="heroGlow top-0 left-1/2 -translate-x-1/2"></div>
         <div class="relative z-10 max-w-6xl mx-auto text-center px-6">
-            <div class="inline-flex px-6 py-2 rounded-full bg-slate-800 border border-slate-700 mb-8 text-sm md:text-base" data-i18n="hero-badge">🏆 Professional Tuner</div>
+            <div class="inline-flex px-6 py-2 rounded-full bg-slate-800 border border-slate-700 mb-8 text-sm md:text-base" data-i18n="hero-badge" translate="no">🏆 Professional Tuner</div>
             <h1 class="text-5xl md:text-8xl font-black leading-tight">
-                <span data-i18n="hero-title">Professional</span><br />
-                <span class="text-indigo-400" data-i18n="hero-subtitle">Tuner</span>
+                <span data-i18n="hero-title" translate="no">Professional</span><br />
+                <span class="text-indigo-400" data-i18n="hero-subtitle" translate="no">Tuner</span>
             </h1>
-            <p class="text-slate-300 text-lg md:text-xl mt-6 max-w-3xl mx-auto" data-i18n="hero-desc">
+            <p class="text-slate-300 text-lg md:text-xl mt-6 max-w-3xl mx-auto" data-i18n="hero-desc" translate="no">
                 Studio precision · 300+ tunings · Real-time detection
             </p>
             <div class="flex flex-wrap justify-center gap-4 mt-10">
-                <a href="#biblioteca" class="bg-indigo-600 px-8 md:px-10 py-4 rounded-2xl font-bold hover:scale-105 duration-300" data-i18n="hero-btn-library">📚 Library</a>
-                <a href="#afinador" class="bg-slate-800 border border-slate-700 px-8 md:px-10 py-4 rounded-2xl font-bold hover:scale-105 duration-300" data-i18n="hero-btn-tuner">🎯 Tuner</a>
+                <a href="#biblioteca" class="bg-indigo-600 px-8 md:px-10 py-4 rounded-2xl font-bold hover:scale-105 duration-300" data-i18n="hero-btn-library" translate="no">📚 Library</a>
+                <a href="#afinador" class="bg-slate-800 border border-slate-700 px-8 md:px-10 py-4 rounded-2xl font-bold hover:scale-105 duration-300" data-i18n="hero-btn-tuner" translate="no">🎯 Tuner</a>
             </div>
         </div>
     </header>
@@ -758,11 +799,11 @@
     <!-- BIBLIOTECA / LIBRARY -->
     <section id="biblioteca" class="max-w-7xl mx-auto py-16 md:py-24 px-6">
         <div class="text-center mb-12">
-            <h2 class="text-4xl md:text-6xl font-black" data-i18n="library-title">📚 Library</h2>
-            <p class="text-slate-400 mt-3 text-lg md:text-xl" data-i18n="library-subtitle">Choose a category to get started.</p>
+            <h2 class="text-4xl md:text-6xl font-black" data-i18n="library-title" translate="no">📚 Library</h2>
+            <p class="text-slate-400 mt-3 text-lg md:text-xl" data-i18n="library-subtitle" translate="no">Choose a category to get started.</p>
         </div>
 
-        <div id="categorias" class="flex flex-wrap justify-center gap-4">
+        <div id="categorias" class="flex flex-wrap justify-center gap-4" translate="no">
             <button data-categoria="abiertas" class="cat-btn bg-indigo-600 px-6 md:px-8 py-3 md:py-4 rounded-2xl font-bold" data-i18n="cat-open">🎸 Open</button>
             <button data-categoria="standard" class="cat-btn bg-slate-800 border border-slate-700 px-6 md:px-8 py-3 md:py-4 rounded-2xl" data-i18n="cat-standard">🎵 Standard</button>
             <button data-categoria="drop" class="cat-btn bg-slate-800 border border-slate-700 px-6 md:px-8 py-3 md:py-4 rounded-2xl" data-i18n="cat-drop">⬇️ Drop</button>
@@ -775,11 +816,11 @@
         <div id="afinacionElegida" class="mt-12 bg-slate-900 border border-slate-700 rounded-3xl p-6 md:p-8 shadow-2xl">
             <div class="flex flex-wrap items-center justify-between gap-4">
                 <div>
-                    <h3 class="text-2xl md:text-3xl font-black text-white" data-i18n="selected-title">✅ Tuning selected</h3>
-                    <p id="afinacionDisplay" class="mt-2 text-slate-300 text-base md:text-lg" data-i18n="selected-desc">Select a tuning to begin.</p>
+                    <h3 class="text-2xl md:text-3xl font-black text-white" data-i18n="selected-title" translate="no">✅ Tuning selected</h3>
+                    <p id="afinacionDisplay" class="mt-2 text-slate-300 text-base md:text-lg" data-i18n="selected-desc" translate="no">Select a tuning to begin.</p>
                 </div>
                 <div class="text-right">
-                    <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600 text-white font-semibold text-sm" data-i18n="selected-ready">🎯 Ready to tune</span>
+                    <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600 text-white font-semibold text-sm" data-i18n="selected-ready" translate="no">🎯 Ready to tune</span>
                 </div>
             </div>
         </div>
@@ -789,8 +830,8 @@
     <section id="afinador" class="py-16 md:py-24 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
         <div class="max-w-4xl mx-auto px-6">
             <div class="text-center mb-10">
-                <h2 class="text-4xl md:text-6xl font-black" data-i18n="tuner-title">🎯 Professional Tuner</h2>
-                <p class="text-slate-400 mt-3 text-lg" data-i18n="tuner-subtitle">Studio precision · Strobe mode · Real-time detection</p>
+                <h2 class="text-4xl md:text-6xl font-black" data-i18n="tuner-title" translate="no">🎯 Professional Tuner</h2>
+                <p class="text-slate-400 mt-3 text-lg" data-i18n="tuner-subtitle" translate="no">Studio precision · Strobe mode · Real-time detection</p>
             </div>
 
             <div class="tuner-container">
@@ -798,9 +839,9 @@
                 <!-- PANEL DE INFORMACIÓN -->
                 <div class="tuning-info-panel" id="tuningInfoPanel">
                     <div class="tuning-name">
-                        🎸 <span id="tuningNameDisplay" data-i18n="tuner-select">Select a tuning</span>
+                        🎸 <span id="tuningNameDisplay" data-i18n="tuner-select" translate="no">Select a tuning</span>
                     </div>
-                    <div class="tuning-strings" id="tuningStringsDisplay">
+                    <div class="tuning-strings" id="tuningStringsDisplay" translate="no">
                         <span class="string-label">6ª</span>
                         <span class="string-label">5ª</span>
                         <span class="string-label">4ª</span>
@@ -811,7 +852,7 @@
                 </div>
 
                 <!-- COMPARADOR -->
-                <div class="note-comparator">
+                <div class="note-comparator" translate="no">
                     <div class="note-box">
                         <div class="label" data-i18n="note-you">🎤 You play</div>
                         <div class="note-value detected" id="detectedNote">--</div>
@@ -881,11 +922,11 @@
 
                 <!-- Estado -->
                 <div class="tuner-status">
-                    <span id="statusMsg" class="status-msg" data-i18n="tuner-select-msg">🎸 Select a tuning</span>
+                    <span id="statusMsg" class="status-msg" data-i18n="tuner-select-msg" translate="no">🎸 Select a tuning</span>
                 </div>
 
                 <!-- CONTROLES -->
-                <div class="mt-4 flex flex-wrap justify-center gap-3">
+                <div class="mt-4 flex flex-wrap justify-center gap-3" translate="no">
                     <label class="text-xs text-slate-500 flex items-center gap-2">
                         🎵 <span data-i18n="ref-label">Reference</span>
                         <select id="referenceSelect" class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-1 text-white text-xs">
@@ -916,10 +957,10 @@
 
                 <!-- Botón -->
                 <div class="mt-6 text-center">
-                    <button id="tunerBtn" class="btn-tuner" data-i18n="btn-start">🎤 Start Tuner</button>
+                    <button id="tunerBtn" class="btn-tuner" data-i18n="btn-start" translate="no">🎤 Start Tuner</button>
                 </div>
 
-                <div class="mt-3 text-center text-xs text-slate-500">
+                <div class="mt-3 text-center text-xs text-slate-500" translate="no">
                     <kbd class="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-slate-400">Space</kbd> <span data-i18n="shortcut-start">Start/Stop</span> ·
                     <kbd class="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-slate-400">R</kbd> <span data-i18n="shortcut-reset">Reset strings</span>
                 </div>
@@ -930,23 +971,23 @@
     <!-- REDES / SOCIAL -->
     <section id="redes" class="py-16 md:py-24 bg-slate-950">
         <div class="max-w-6xl mx-auto px-6 text-center">
-            <h2 class="text-4xl md:text-5xl font-black" data-i18n="social-title">🌐 Follow us</h2>
-            <p class="mt-3 text-slate-400 text-lg md:text-xl" data-i18n="social-subtitle">Find us on all our social networks.</p>
+            <h2 class="text-4xl md:text-5xl font-black" data-i18n="social-title" translate="no">🌐 Follow us</h2>
+            <p class="mt-3 text-slate-400 text-lg md:text-xl" data-i18n="social-subtitle" translate="no">Find us on all our social networks.</p>
             <div class="grid md:grid-cols-3 gap-6 md:gap-8 mt-12">
                 <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" class="tarjeta bg-red-600 rounded-3xl p-6 md:p-8 shadow-xl">
                     <div class="text-5xl md:text-6xl mb-4">▶️</div>
                     <h3 class="text-2xl md:text-3xl font-black">YouTube</h3>
-                    <p class="mt-3 text-red-100" data-i18n="social-yt">Videos, tunings and tutorials.</p>
+                    <p class="mt-3 text-red-100" data-i18n="social-yt" translate="no">Videos, tunings and tutorials.</p>
                 </a>
                 <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="tarjeta bg-gradient-to-br from-pink-500 via-fuchsia-500 to-orange-500 rounded-3xl p-6 md:p-8 shadow-xl">
                     <div class="text-5xl md:text-6xl mb-4">📷</div>
                     <h3 class="text-2xl md:text-3xl font-black">Instagram</h3>
-                    <p class="mt-3 text-pink-100" data-i18n="social-ig">Photos, reels and news.</p>
+                    <p class="mt-3 text-pink-100" data-i18n="social-ig" translate="no">Photos, reels and news.</p>
                 </a>
                 <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" class="tarjeta bg-black border border-slate-700 rounded-3xl p-6 md:p-8 shadow-xl">
                     <div class="text-5xl md:text-6xl mb-4">🎵</div>
                     <h3 class="text-2xl md:text-3xl font-black">TikTok</h3>
-                    <p class="mt-3 text-slate-300" data-i18n="social-tt">Shorts and demos.</p>
+                    <p class="mt-3 text-slate-300" data-i18n="social-tt" translate="no">Shorts and demos.</p>
                 </a>
             </div>
         </div>
@@ -956,13 +997,13 @@
     <footer class="border-t border-slate-800 bg-slate-950 py-8 md:py-10">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
             <div>
-                <h2 class="text-xl md:text-2xl font-black">🎸 Guitar Voices</h2>
-                <p class="text-slate-500 text-sm mt-1">© 2026 <span data-i18n="footer-rights">All rights reserved.</span></p>
+                <h2 class="text-xl md:text-2xl font-black" translate="no">🎸 Guitar Voices</h2>
+                <p class="text-slate-500 text-sm mt-1">© 2026 <span data-i18n="footer-rights" translate="no">All rights reserved.</span></p>
             </div>
             <div class="flex gap-6 text-sm">
-                <a href="#" class="hover:text-indigo-400 transition" data-i18n="footer-privacy">Privacy</a>
-                <a href="#" class="hover:text-indigo-400 transition" data-i18n="footer-terms">Terms</a>
-                <a href="#" class="hover:text-indigo-400 transition" data-i18n="footer-contact">Contact</a>
+                <a href="#" class="hover:text-indigo-400 transition" data-i18n="footer-privacy" translate="no">Privacy</a>
+                <a href="#" class="hover:text-indigo-400 transition" data-i18n="footer-terms" translate="no">Terms</a>
+                <a href="#" class="hover:text-indigo-400 transition" data-i18n="footer-contact" translate="no">Contact</a>
             </div>
         </div>
     </footer>
