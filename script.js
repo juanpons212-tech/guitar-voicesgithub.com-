@@ -1,998 +1,329 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guitar Voices · Afinador</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <!-- Tailwind CDN (opcional, solo para estilos base) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ["Inter", "sans-serif"] },
-                },
-            },
-        };
-    </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html {
-            scroll-behavior: smooth;
-        }
+        /* --- ESTILOS GLOBALES --- */
         body {
-            font-family: "Inter", sans-serif;
-            background: #020617;
-            color: #f1f5f9;
-            overflow-x: hidden;
+            background: #0f172a;
+            font-family: system-ui, -apple-system, sans-serif;
+            transition: background 0.3s, color 0.3s;
         }
-
-        #intro {
-            position: fixed;
-            inset: 0;
-            background: #020617;
+        /* Contenedor principal */
+        #app {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem 6rem;
+        }
+        /* Valvulas */
+        #valvulas {
             display: flex;
             justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            animation: introOut 3.8s forwards;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
         }
-        #intro h1 {
-            font-size: clamp(3rem, 12vw, 5rem);
-            font-weight: 900;
-            letter-spacing: 6px;
-            background: linear-gradient(90deg, #38bdf8, #818cf8, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: logoPulse 2s ease-in-out infinite;
-        }
-        @keyframes logoPulse {
-            0%,
-            100% {
-                transform: scale(1);
-                filter: drop-shadow(0 0 10px #60a5fa);
-            }
-            50% {
-                transform: scale(1.06);
-                filter: drop-shadow(0 0 35px #818cf8);
-            }
-        }
-        @keyframes introOut {
-            0%,
-            80% {
-                opacity: 1;
-                visibility: visible;
-            }
-            100% {
-                opacity: 0;
-                visibility: hidden;
-            }
-        }
-
-        .heroGlow {
-            position: absolute;
-            width: 700px;
-            height: 700px;
-            border-radius: 999px;
-            background: #4338ca44;
-            filter: blur(180px);
-            pointer-events: none;
-        }
-
-        .tarjeta {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-        .tarjeta:hover {
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6);
-        }
-
         .valvula {
-            width: 2rem;
-            height: 2rem;
-            border-radius: 999px;
-            background: #1e293b;
-            border: 2px solid #334155;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #334155;
+            border: 2px solid #475569;
             transition: all 0.2s ease;
         }
         .valvula.activa {
             background: #22c55e;
-            box-shadow: 0 0 24px #22c55eaa;
-            transform: scale(1.25);
+            box-shadow: 0 0 20px #22c55e88;
+            transform: scale(1.3);
         }
         .valvula.media {
             background: #facc15;
-            box-shadow: 0 0 14px #facc1588;
+            box-shadow: 0 0 12px #facc1588;
         }
         .valvula.lejos {
             background: #ef4444;
         }
-
-        #nota {
-            transition: color 0.25s ease;
+        /* Centro valvula */
+        #centroValvula {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            background: radial-gradient(circle, #e2e8f0, #94a3b8);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
-        #nota.afinada {
-            color: #22c55e;
-            text-shadow: 0 0 30px #22c55e66;
+        #centroValvula.encendida {
+            background: radial-gradient(circle, #86efac, #16a34a);
+            box-shadow: 0 0 50px #22c55e99;
         }
-
-        #indicador {
+        /* Targetas de afinación */
+        .tarjeta {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tarjeta:hover {
+            border-color: #22c55e;
+            transform: translateY(-2px);
+        }
+        /* Indicador de precisión */
+        #indicadorAfinacion {
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background: #94a3b8;
+            background: #cbd5e1;
             margin: 0 auto;
-            transition: transform 0.1s ease, background 0.2s;
+            transition: transform 0.15s ease, background 0.2s;
         }
-        #indicador.correcto {
-            background: #22c55e;
-        }
-        #indicador.izquierda {
-            background: #3b82f6;
-        }
-        #indicador.derecha {
-            background: #f59e0b;
-        }
-
+        #indicadorAfinacion.correcto { background: #22c55e; }
+        #indicadorAfinacion.izquierda { background: #3b82f6; }
+        #indicadorAfinacion.derecha { background: #f59e0b; }
+        /* Medidor de nivel */
         #nivelSonido {
             height: 100%;
             background: linear-gradient(90deg, #22c55e, #84cc16);
             border-radius: 20px;
-            transition: width 0.08s linear;
+            transition: width 0.1s;
         }
-
-        .afinacion-card {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 1rem;
-            padding: 1rem 1.25rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            text-align: left;
-        }
-        .afinacion-card:hover {
-            border-color: #818cf8;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.5);
-        }
-        .afinacion-card .nombre {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: #e2e8f0;
-        }
-        .afinacion-card .cuerdas {
-            color: #94a3b8;
-            font-size: 0.85rem;
-            margin-top: 4px;
-        }
-        .afinacion-card .badge {
-            display: inline-block;
-            font-size: 0.65rem;
-            font-weight: 600;
-            padding: 2px 10px;
-            border-radius: 999px;
-            margin-top: 6px;
-            background: #334155;
-            color: #94a3b8;
-        }
-
-        .cat-btn {
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .cat-btn.active {
-            background: #4f46e5 !important;
-            border-color: #4f46e5 !important;
-        }
-
-        .tono-btn {
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-        .tono-btn:hover {
-            background: #475569 !important;
-        }
-        .tono-btn.active {
-            background: #4f46e5 !important;
-            color: white !important;
-        }
-
+        /* Responsive */
         @media (max-width: 640px) {
-            .valvula {
-                width: 1.4rem;
-                height: 1.4rem;
-            }
-            #intro h1 {
-                font-size: 2.8rem;
-            }
+            #nota { font-size: 3.5rem; }
+            .valvula { width: 24px; height: 24px; }
+            #centroValvula { width: 70px; height: 70px; font-size: 2rem; }
         }
+        /* Modo oscuro (toggle) */
+        .dark body { background: #0b1120; color: #e2e8f0; }
+        .dark .bg-slate-800 { background: #1e293b; }
+        .dark .bg-slate-700 { background: #334155; }
+        .dark .tarjeta { background: #1e293b; border-color: #334155; }
     </style>
 </head>
 <body>
+    <div id="app" class="text-white">
 
-    <!-- INTRO -->
-    <div id="intro"><h1>Guitar Voices</h1></div>
+        <!-- HEADER -->
+        <header class="text-center mb-8">
+            <h1 id="tituloAfinador" class="text-4xl font-bold text-indigo-400">🎸 Guitar Voices</h1>
+            <p class="text-slate-400 mt-2">Afinador inteligente</p>
+        </header>
 
-    <!-- NAV -->
-    <nav class="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-slate-800">
-        <div class="max-w-7xl mx-auto flex items-center justify-between p-4 md:p-6">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-gradient-to-r from-indigo-500 to-cyan-500 flex items-center justify-center text-2xl">🎸</div>
-                <h2 class="text-xl md:text-2xl font-black">Guitar Voices</h2>
+        <!-- BIBLIOTECA DE AFINACIONES -->
+        <section id="biblioteca" class="mb-8">
+            <h2 class="text-xl font-semibold mb-4 text-slate-300">Seleccioná tu afinación</h2>
+            <div id="categorias" class="flex flex-wrap gap-3 mb-4">
+                <button data-cat="abiertas" class="cat-btn px-4 py-2 rounded-full bg-indigo-600 text-white">Abiertas</button>
+                <button data-cat="drop" class="cat-btn px-4 py-2 rounded-full bg-slate-700 text-white">Drop</button>
+                <button data-cat="standard" class="cat-btn px-4 py-2 rounded-full bg-slate-700 text-white">Standard</button>
             </div>
-            <div class="flex gap-4 md:gap-8 font-semibold text-sm md:text-base">
-                <a href="#">Inicio</a>
-                <a href="#biblioteca">Biblioteca</a>
-                <a href="#afinador">Afinador</a>
-                <a href="#redes">Redes</a>
-            </div>
-        </div>
-    </nav>
+            <div id="variantes" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+        </section>
 
-    <!-- HERO -->
-    <header class="relative overflow-hidden py-20 md:py-28">
-        <div class="heroGlow top-0 left-1/2 -translate-x-1/2"></div>
-        <div class="relative z-10 max-w-6xl mx-auto text-center px-6">
-            <div class="inline-flex px-6 py-2 rounded-full bg-slate-800 border border-slate-700 mb-8 text-sm md:text-base">Afinaciones Profesionales</div>
-            <h1 class="text-5xl md:text-8xl font-black leading-tight">
-                La Biblioteca<br />
-                <span class="text-indigo-400">Más Completa</span>
-            </h1>
-            <p class="text-slate-300 text-lg md:text-xl mt-6 max-w-3xl mx-auto">
-                Miles de afinaciones abiertas, standard y drop junto con un afinador cromático profesional de alta precisión.
-            </p>
-            <div class="flex flex-wrap justify-center gap-4 mt-10">
-                <a href="#biblioteca" class="bg-indigo-600 px-8 md:px-10 py-4 rounded-2xl font-bold hover:scale-105 duration-300">Explorar Afinaciones</a>
-                <a href="#afinador" class="bg-slate-800 border border-slate-700 px-8 md:px-10 py-4 rounded-2xl font-bold hover:scale-105 duration-300">Ir al Afinador</a>
-            </div>
-        </div>
-    </header>
-
-    <!-- BIBLIOTECA -->
-    <section id="biblioteca" class="max-w-7xl mx-auto py-16 md:py-24 px-6">
-        <div class="text-center mb-12">
-            <h2 class="text-4xl md:text-6xl font-black">Biblioteca</h2>
-            <p class="text-slate-400 mt-3 text-lg md:text-xl">Elegí una categoría para comenzar.</p>
-        </div>
-
-        <div id="categorias" class="flex flex-wrap justify-center gap-4">
-            <button data-categoria="abiertas" class="cat-btn bg-indigo-600 px-6 md:px-8 py-3 md:py-4 rounded-2xl font-bold">Afinaciones Abiertas</button>
-            <button data-categoria="standard" class="cat-btn bg-slate-800 border border-slate-700 px-6 md:px-8 py-3 md:py-4 rounded-2xl">Standard</button>
-            <button data-categoria="drop" class="cat-btn bg-slate-800 border border-slate-700 px-6 md:px-8 py-3 md:py-4 rounded-2xl">Drop</button>
-            <button data-categoria="otras" class="cat-btn bg-slate-800 border border-slate-700 px-6 md:px-8 py-3 md:py-4 rounded-2xl">Otras</button>
-        </div>
-
-        <div id="tonalidades" class="flex flex-wrap justify-center gap-3 mt-10"></div>
-        <div id="variantes" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8"></div>
-
-        <div id="afinacionElegida" class="mt-12 bg-slate-900 border border-slate-700 rounded-3xl p-6 md:p-8 shadow-2xl">
-            <div class="flex flex-wrap items-center justify-between gap-4">
-                <div>
-                    <h3 class="text-2xl md:text-3xl font-black text-white">Elegí una afinación</h3>
-                    <p id="afinacionDisplay" class="mt-2 text-slate-300 text-base md:text-lg">Seleccioná una afinación para comenzar.</p>
+        <!-- AFINADOR -->
+        <section id="afinador" class="bg-slate-800/50 backdrop-blur-sm rounded-3xl p-6 border border-slate-700">
+            <div class="text-center mb-4">
+                <div id="afinacionDisplay" class="text-slate-300 text-sm">
+                    <span class="text-emerald-400 font-bold">Seleccioná una afinación</span>
                 </div>
-                <div class="text-right">
-                    <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-600 text-white font-semibold text-sm">🎸 Afinación seleccionada</span>
+                <div id="objetivo" class="text-slate-400 text-xs mt-1">Esperando...</div>
+            </div>
+
+            <!-- NOTA Y FRECUENCIA -->
+            <div class="flex flex-col items-center">
+                <span id="nota" class="text-7xl font-bold text-slate-200 transition-all">--</span>
+                <div class="flex gap-6 mt-2 text-sm text-slate-400">
+                    <span id="frecuencia">0 Hz</span>
+                    <span id="cent">0 cents</span>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- AFINADOR -->
-    <section id="afinador" class="py-16 md:py-24 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="text-center">
-                <h2 class="text-4xl md:text-6xl font-black">Afinador Profesional</h2>
-                <p class="text-slate-400 mt-3 text-lg md:text-xl">Alta precisión · Indicador visual · Sonido de confirmación</p>
+            <!-- VÁLVULAS VISUALES -->
+            <div id="valvulas"></div>
+            <div id="centroValvula">🎸</div>
+
+            <!-- INDICADOR DE PRECISIÓN -->
+            <div id="indicadorAfinacion" class="mx-auto mt-2"></div>
+
+            <!-- BARRA DE NIVEL DE SONIDO -->
+            <div class="mt-4 h-2 bg-slate-700 rounded-full overflow-hidden">
+                <div id="nivelSonido" style="width:0%"></div>
             </div>
 
-            <div class="mt-10 md:mt-16 bg-slate-900 border border-slate-700 rounded-[40px] p-6 md:p-10 shadow-2xl">
-                <div class="flex justify-center">
-                    <div id="nota" class="text-7xl md:text-8xl font-black text-indigo-400 tracking-wider">--</div>
-                </div>
-                <div id="frecuencia" class="text-center text-xl md:text-2xl text-slate-300 mt-4">Esperando sonido...</div>
-                <div id="cent" class="text-center text-base md:text-lg text-slate-500 mt-1">0 cents</div>
-                <div id="objetivo" class="text-center text-lg md:text-xl text-emerald-400 mt-4 font-semibold">Seleccioná una afinación</div>
-
-                <div class="mt-10">
-                    <div class="flex justify-center items-end gap-1 md:gap-2">
-                        <div id="v1" class="valvula"></div>
-                        <div id="v2" class="valvula"></div>
-                        <div id="v3" class="valvula"></div>
-                        <div id="v4" class="valvula"></div>
-                        <div id="v5" class="valvula"></div>
-                        <div id="v6" class="valvula"></div>
-                        <div id="v7" class="valvula"></div>
-                        <div id="v8" class="valvula"></div>
-                        <div id="v9" class="valvula"></div>
-                    </div>
-                    <div id="indicador" class="mt-4"></div>
-                    <div class="mt-4 h-2 bg-slate-700 rounded-full overflow-hidden">
-                        <div id="nivelSonido" style="width:0%"></div>
-                    </div>
-                </div>
-
-                <div class="mt-10 flex flex-col items-center gap-4">
-                    <button id="iniciar" class="px-10 md:px-12 py-4 md:py-5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 transition text-lg md:text-xl font-bold shadow-xl">🎤 Iniciar Afinador</button>
-                    <div class="text-sm text-slate-500">Permití el acceso al micrófono cuando el navegador lo solicite.</div>
-                </div>
-
-                <div id="estadoExtra" class="mt-6 text-center text-sm text-slate-400"></div>
+            <!-- BOTÓN INICIAR / DETENER -->
+            <div class="mt-6 text-center">
+                <button id="iniciar" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-2xl font-semibold transition">
+                    🎤 Iniciar afinador
+                </button>
             </div>
-        </div>
-    </section>
 
-    <!-- REDES -->
-    <section id="redes" class="py-16 md:py-24 bg-slate-950">
-        <div class="max-w-6xl mx-auto px-6 text-center">
-            <h2 class="text-4xl md:text-5xl font-black">Seguinos</h2>
-            <p class="mt-3 text-slate-400 text-lg md:text-xl">Encontranos en todas nuestras redes.</p>
-            <div class="grid md:grid-cols-3 gap-6 md:gap-8 mt-12">
-                <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" class="tarjeta bg-red-600 rounded-3xl p-6 md:p-8 shadow-xl">
-                    <div class="text-5xl md:text-6xl mb-4">▶️</div>
-                    <h3 class="text-2xl md:text-3xl font-black">YouTube</h3>
-                    <p class="mt-3 text-red-100">Videos, afinaciones y tutoriales.</p>
-                </a>
-                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="tarjeta bg-gradient-to-br from-pink-500 via-fuchsia-500 to-orange-500 rounded-3xl p-6 md:p-8 shadow-xl">
-                    <div class="text-5xl md:text-6xl mb-4">📷</div>
-                    <h3 class="text-2xl md:text-3xl font-black">Instagram</h3>
-                    <p class="mt-3 text-pink-100">Fotos, reels y novedades.</p>
-                </a>
-                <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" class="tarjeta bg-black border border-slate-700 rounded-3xl p-6 md:p-8 shadow-xl">
-                    <div class="text-5xl md:text-6xl mb-4">🎵</div>
-                    <h3 class="text-2xl md:text-3xl font-black">TikTok</h3>
-                    <p class="mt-3 text-slate-300">Shorts y demostraciones.</p>
-                </a>
+            <!-- ESTADO DE AFINACIÓN -->
+            <div id="estadoAfinacion" class="mt-4 text-center text-sm text-slate-400">Esperando sonido...</div>
+
+            <!-- CONTROLES EXTRAS -->
+            <div class="mt-6 flex flex-wrap justify-center gap-3 text-sm">
+                <button id="siguienteCuerda" class="px-4 py-2 bg-slate-700 rounded-xl hover:bg-slate-600">Siguiente cuerda →</button>
+                <button id="reiniciarCuerdas" class="px-4 py-2 bg-slate-700 rounded-xl hover:bg-slate-600">↻ Reiniciar</button>
+                <button id="modoOscuro" class="px-4 py-2 bg-slate-700 rounded-xl hover:bg-slate-600">🌙</button>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- FOOTER -->
-    <footer class="border-t border-slate-800 bg-slate-950 py-8 md:py-10">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div>
-                <h2 class="text-xl md:text-2xl font-black">🎸 Guitar Voices</h2>
-                <p class="text-slate-500 text-sm mt-1">© 2026 Todos los derechos reservados.</p>
-            </div>
-            <div class="flex gap-6 text-sm">
-                <a href="#" class="hover:text-indigo-400 transition">Privacidad</a>
-                <a href="#" class="hover:text-indigo-400 transition">Términos</a>
-                <a href="#" class="hover:text-indigo-400 transition">Contacto</a>
-            </div>
-        </div>
-    </footer>
+        <!-- AUDIO PING (oculto) -->
+        <audio id="ping" preload="auto">
+            <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
+        </audio>
 
-    <audio id="ping" preload="auto"></audio>
+        <!-- FOOTER -->
+        <footer class="mt-12 text-center text-slate-500 text-xs border-t border-slate-800 pt-6">
+            <p>🎸 Guitar Voices · v1.0</p>
+        </footer>
+    </div>
 
-    <!-- ============================================================ -->
-    <!-- JAVASCRIPT - TODAS LAS FUNCIONES GLOBALES                    -->
-    <!-- ============================================================ -->
     <script>
-        // ---- FUNCIÓN PARA GENERAR TODAS LAS DERIVACIONES DE UNA NOTA ----
-        function generarDerivaciones(nota) {
-            const base = nota;
-            // Mapeo de grados a cuerdas para 6 cuerdas (acordes abiertos)
-            const cuerdasBase = {
-                'C': ['C', 'E', 'G', 'C', 'E', 'G'],
-                'C#': ['C#', 'F', 'G#', 'C#', 'F', 'G#'],
-                'D': ['D', 'F#', 'A', 'D', 'F#', 'A'],
-                'D#': ['D#', 'G', 'A#', 'D#', 'G', 'A#'],
-                'E': ['E', 'G#', 'B', 'E', 'G#', 'B'],
-                'F': ['F', 'A', 'C', 'F', 'A', 'C'],
-                'F#': ['F#', 'A#', 'C#', 'F#', 'A#', 'C#'],
-                'G': ['G', 'B', 'D', 'G', 'B', 'D'],
-                'G#': ['G#', 'C', 'D#', 'G#', 'C', 'D#'],
-                'A': ['A', 'C#', 'E', 'A', 'C#', 'E'],
-                'A#': ['A#', 'D', 'F', 'A#', 'D', 'F'],
-                'B': ['B', 'D#', 'F#', 'B', 'D#', 'F#']
-            };
-
-            const baseCuerdas = cuerdasBase[base] || ['C', 'E', 'G', 'C', 'E', 'G'];
-
-            // Función para modificar cuerdas según el acorde
-            function modificarCuerdas(modificaciones) {
-                const nuevas = [...baseCuerdas];
-                const notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-                modificaciones.forEach(([cuerda, nuevaNota]) => {
-                    if (cuerda >= 0 && cuerda < 6) {
-                        nuevas[cuerda] = nuevaNota;
-                    }
-                });
-                return nuevas;
-            }
-
-            // Definir todas las variantes
-            const variantes = [];
-
-            // Mayor
-            variantes.push({ nombre: `${base} Major`, cuerdas: baseCuerdas });
-
-            // Menor (b3 en cada cuerda que tenga 3ra)
-            const menor = baseCuerdas.map(n => {
-                if (n === base) return n;
-                const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                if (n === base || n === (base + '#') || n === (base + 'b')) return n;
-                // Simplificamos: para las cuerdas que no son la fundamental, bajamos medio tono si es 3ra
-                return n;
-            });
-            variantes.push({ nombre: `${base} Minor`, cuerdas: menor });
-
-            // 7 (b7)
-            const septima = baseCuerdas.map((n, i) => {
-                if (i === 2 || i === 5) { // cuerdas que suelen ser la 5ta o 3ra
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 10) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}7`, cuerdas: septima });
-
-            // Maj7
-            const maj7 = baseCuerdas.map((n, i) => {
-                if (i === 2 || i === 5) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 11) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}Maj7`, cuerdas: maj7 });
-
-            // m7
-            const m7 = menor.map((n, i) => {
-                if (i === 2 || i === 5) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 10) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}m7`, cuerdas: m7 });
-
-            // 6
-            const seis = baseCuerdas.map((n, i) => {
-                if (i === 2 || i === 5) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 9) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}6`, cuerdas: seis });
-
-            // m6
-            const m6 = menor.map((n, i) => {
-                if (i === 2 || i === 5) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 9) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}m6`, cuerdas: m6 });
-
-            // Sus2
-            const sus2 = baseCuerdas.map((n, i) => {
-                if (i === 1 || i === 3) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 2) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}Sus2`, cuerdas: sus2 });
-
-            // Sus4
-            const sus4 = baseCuerdas.map((n, i) => {
-                if (i === 1 || i === 3) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 5) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}Sus4`, cuerdas: sus4 });
-
-            // Aug (5#)
-            const aug = baseCuerdas.map((n, i) => {
-                if (i === 2 || i === 4) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 8) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}Aug`, cuerdas: aug });
-
-            // Dim (b3, b5)
-            const dim = baseCuerdas.map((n, i) => {
-                if (i === 1 || i === 3) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 3) % 12];
-                        return nueva;
-                    }
-                }
-                if (i === 2 || i === 4) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 6) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}Dim`, cuerdas: dim });
-
-            // 7sus4
-            const sieteSus4 = sus4.map((n, i) => {
-                if (i === 2 || i === 5) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 10) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}7sus4`, cuerdas: sieteSus4 });
-
-            // 7sus2
-            const sieteSus2 = sus2.map((n, i) => {
-                if (i === 2 || i === 5) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 10) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}7sus2`, cuerdas: sieteSus2 });
-
-            // add9
-            const add9 = baseCuerdas.map((n, i) => {
-                if (i === 1) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 2) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}add9`, cuerdas: add9 });
-
-            // madd9
-            const madd9 = menor.map((n, i) => {
-                if (i === 1) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 2) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}madd9`, cuerdas: madd9 });
-
-            // 9
-            const nueve = septima.map((n, i) => {
-                if (i === 1) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 2) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}9`, cuerdas: nueve });
-
-            // m9
-            const m9 = m7.map((n, i) => {
-                if (i === 1) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 2) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}m9`, cuerdas: m9 });
-
-            // Maj9
-            const maj9 = maj7.map((n, i) => {
-                if (i === 1) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 2) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}Maj9`, cuerdas: maj9 });
-
-            // 11
-            const once = nueve.map((n, i) => {
-                if (i === 3) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 5) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}11`, cuerdas: once });
-
-            // m11
-            const m11 = m9.map((n, i) => {
-                if (i === 3) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 5) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}m11`, cuerdas: m11 });
-
-            // 13
-            const trece = once.map((n, i) => {
-                if (i === 5) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 9) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}13`, cuerdas: trece });
-
-            // m13
-            const m13 = m11.map((n, i) => {
-                if (i === 5) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 9) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}m13`, cuerdas: m13 });
-
-            // 6/9
-            const seisNueve = seis.map((n, i) => {
-                if (i === 1) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 2) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}6/9`, cuerdas: seisNueve });
-
-            // Dim7
-            const dim7 = dim.map((n, i) => {
-                if (i === 2 || i === 5) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 9) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}Dim7`, cuerdas: dim7 });
-
-            // 7b5
-            const sieteB5 = septima.map((n, i) => {
-                if (i === 2 || i === 4) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 6) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}7b5`, cuerdas: sieteB5 });
-
-            // 7#5
-            const sieteS5 = septima.map((n, i) => {
-                if (i === 2 || i === 4) {
-                    const idx = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].indexOf(n);
-                    if (idx >= 0) {
-                        const nueva = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][(idx + 8) % 12];
-                        return nueva;
-                    }
-                }
-                return n;
-            });
-            variantes.push({ nombre: `${base}7#5`, cuerdas: sieteS5 });
-
-            return variantes;
-        }
-
-        // ---- GENERAR TODAS LAS NOTAS CON SUS DERIVACIONES ----
-        function generarTodasLasNotas() {
-            const notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-            const resultado = {};
-            notas.forEach(nota => {
-                resultado[nota] = generarDerivaciones(nota);
-            });
-            return resultado;
-        }
-
-        // ---- BIBLIOTECA DE AFINACIONES - COMPLETA ----
-        const todasLasNotas = generarTodasLasNotas();
-
+        // ============================================================
+        // 1. BIBLIOTECA DE AFINACIONES (estructura)
+        // ============================================================
         const bibliotecaAfinaciones = {
-            abiertas: todasLasNotas,
-            standard: {
-                "E Standard": [
-                    { nombre: "E Standard", cuerdas: ["E", "A", "D", "G", "B", "E"] },
-                ],
-                "D Standard": [
-                    { nombre: "D Standard", cuerdas: ["D", "G", "C", "F", "A", "D"] },
-                ],
-                "C Standard": [
-                    { nombre: "C Standard", cuerdas: ["C", "F", "Bb", "Eb", "G", "C"] },
-                ],
-                "B Standard": [
-                    { nombre: "B Standard", cuerdas: ["B", "E", "A", "D", "F#", "B"] },
-                ],
-                "A Standard": [
-                    { nombre: "A Standard", cuerdas: ["A", "D", "G", "C", "E", "A"] },
-                ],
-                "G Standard": [
-                    { nombre: "G Standard", cuerdas: ["G", "C", "F", "Bb", "D", "G"] },
-                ],
-                "F Standard": [
-                    { nombre: "F Standard", cuerdas: ["F", "Bb", "Eb", "Ab", "C", "F"] },
-                ],
+            abiertas: {
+                G: [{ nombre: "Open G", cuerdas: ["D", "G", "D", "G", "B", "D"] }],
+                D: [{ nombre: "Open D", cuerdas: ["D", "A", "D", "F#", "A", "D"] }],
+                C: [{ nombre: "Open C", cuerdas: ["C", "G", "C", "G", "C", "E"] }]
             },
             drop: {
-                "Drop D": [
-                    { nombre: "Drop D", cuerdas: ["D", "A", "D", "G", "B", "E"] },
-                ],
-                "Drop C": [
-                    { nombre: "Drop C", cuerdas: ["C", "G", "C", "F", "A", "D"] },
-                ],
-                "Drop B": [
-                    { nombre: "Drop B", cuerdas: ["B", "F#", "B", "E", "G#", "C#"] },
-                ],
-                "Drop A": [
-                    { nombre: "Drop A", cuerdas: ["A", "E", "A", "D", "F#", "B"] },
-                ],
-                "Drop G": [
-                    { nombre: "Drop G", cuerdas: ["G", "D", "G", "C", "E", "A"] },
-                ],
-                "Drop F": [
-                    { nombre: "Drop F", cuerdas: ["F", "C", "F", "Bb", "D", "G"] },
-                ],
-                "Drop E": [
-                    { nombre: "Drop E", cuerdas: ["E", "B", "E", "A", "C#", "F#"] },
-                ],
+                "Drop D": [{ nombre: "Drop D", cuerdas: ["D", "A", "D", "G", "B", "E"] }],
+                "Drop C": [{ nombre: "Drop C", cuerdas: ["C", "G", "C", "F", "A", "D"] }]
             },
-            otras: {
-                "DADGAD": [
-                    { nombre: "DADGAD", cuerdas: ["D", "A", "D", "G", "A", "D"] },
-                ],
-                "DADF#AD": [
-                    { nombre: "DADF#AD", cuerdas: ["D", "A", "D", "F#", "A", "D"] },
-                ],
-                "DGDGBD": [
-                    { nombre: "DGDGBD", cuerdas: ["D", "G", "D", "G", "B", "D"] },
-                ],
-                "CGDGBD": [
-                    { nombre: "CGDGBD", cuerdas: ["C", "G", "D", "G", "B", "D"] },
-                ],
-                "CGCGCE": [
-                    { nombre: "CGCGCE", cuerdas: ["C", "G", "C", "G", "C", "E"] },
-                ],
-                "Open G (Slide)": [
-                    { nombre: "Open G Slide", cuerdas: ["D", "G", "D", "G", "B", "D"] },
-                ],
-                "Open D (Slide)": [
-                    { nombre: "Open D Slide", cuerdas: ["D", "A", "D", "F#", "A", "D"] },
-                ],
-                "Modal D": [
-                    { nombre: "Modal D", cuerdas: ["D", "A", "D", "G", "A", "D"] },
-                ],
-                "Modal G": [
-                    { nombre: "Modal G", cuerdas: ["D", "G", "D", "G", "A", "D"] },
-                ],
+            standard: {
+                "E Standard": [{ nombre: "E Standard", cuerdas: ["E", "A", "D", "G", "B", "E"] }]
             }
         };
 
-        // ---- DOM REFS ----
-        function $(id) { return document.getElementById(id); }
-
-        const dom = {
-            variantes: $("variantes"),
-            tonalidades: $("tonalidades"),
-            afinacionDisplay: $("afinacionDisplay"),
-            objetivo: $("objetivo"),
-            nota: $("nota"),
-            frecuencia: $("frecuencia"),
-            cent: $("cent"),
-            iniciar: $("iniciar"),
-            ping: $("ping"),
-            estadoExtra: $("estadoExtra"),
-            indicador: $("indicador"),
-            nivelSonido: $("nivelSonido"),
-        };
-
-        // ---- ESTADO GLOBAL ----
+        // ============================================================
+        // 2. ESTADO GLOBAL
+        // ============================================================
         let afinacionActual = null;
-        let cuerdaActual = 0;
+        let cuerdaActual = 0; // índice dentro de cuerdas
         let audioContext = null;
         let analyser = null;
         let buffer = null;
-        let detectando = false;
+        let ultimaFrecuencia = 0;
         let ultimoPing = 0;
-        let categoriaActual = 'abiertas';
+
+        const DOM = {
+            variantes: document.getElementById('variantes'),
+            afinacionDisplay: document.getElementById('afinacionDisplay'),
+            objetivo: document.getElementById('objetivo'),
+            nota: document.getElementById('nota'),
+            frecuencia: document.getElementById('frecuencia'),
+            cent: document.getElementById('cent'),
+            iniciar: document.getElementById('iniciar'),
+            ping: document.getElementById('ping'),
+            valvulas: document.getElementById('valvulas'),
+            centroValvula: document.getElementById('centroValvula'),
+            indicador: document.getElementById('indicadorAfinacion'),
+            nivelSonido: document.getElementById('nivelSonido'),
+            estadoAfinacion: document.getElementById('estadoAfinacion'),
+        };
 
         // ============================================================
-        // FUNCIONES
+        // 3. FUNCIONES PRINCIPALES
         // ============================================================
 
+        // 3.1 Mostrar variantes
         function mostrarVariantes(tipo, nota) {
-            dom.variantes.innerHTML = "";
+            DOM.variantes.innerHTML = '';
             const lista = bibliotecaAfinaciones[tipo]?.[nota] || [];
-            if (lista.length === 0) {
-                dom.variantes.innerHTML =
-                    `<p class="text-slate-400 text-center col-span-3">No hay afinaciones disponibles para esta tonalidad.</p>`;
-                return;
-            }
-            lista.forEach((af) => {
-                const div = document.createElement("div");
-                div.className = "afinacion-card";
-                div.innerHTML = `
-                        <div class="nombre">${af.nombre}</div>
-                        <div class="cuerdas">${af.cuerdas.join(" • ")}</div>
-                        <span class="badge">${af.cuerdas.length} cuerdas</span>
-                    `;
-                div.addEventListener('click', function() {
-                    seleccionarAfinacion(af);
-                    document.getElementById("afinador").scrollIntoView({ behavior: "smooth", block: "center" });
-                });
-                dom.variantes.appendChild(div);
-            });
-
-            // Resaltar tonalidad activa
-            document.querySelectorAll('.tono-btn').forEach(b => {
-                b.classList.toggle('active', b.textContent === nota);
-            });
-        }
-
-        function mostrarCategoria(cat) {
-            categoriaActual = cat;
-
-            // Resaltar categoría
-            document.querySelectorAll(".cat-btn").forEach((b) => {
-                const isActive = b.dataset.categoria === cat;
-                b.classList.toggle("active", isActive);
-                b.classList.toggle("bg-slate-800", !isActive);
-                b.classList.toggle("border", !isActive);
-                b.classList.toggle("border-slate-700", !isActive);
-            });
-
-            const keys = Object.keys(bibliotecaAfinaciones[cat] || {});
-            dom.tonalidades.innerHTML = "";
-            if (keys.length === 0) {
-                dom.tonalidades.innerHTML = `<p class="text-slate-400">No hay tonalidades disponibles.</p>`;
-                dom.variantes.innerHTML = "";
-                return;
-            }
-
-            // Crear botones de tonalidad
-            keys.forEach((key) => {
-                const btn = document.createElement("button");
-                btn.className =
-                    "tono-btn px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 transition font-semibold text-sm";
-                btn.textContent = key;
-                btn.addEventListener('click', function() {
-                    mostrarVariantes(cat, key);
-                });
-                dom.tonalidades.appendChild(btn);
-            });
-
-            // Mostrar la primera tonalidad
-            if (keys.length) {
-                // Activar el primer botón
-                const firstBtn = dom.tonalidades.querySelector('.tono-btn');
-                if (firstBtn) firstBtn.classList.add('active');
-                mostrarVariantes(cat, keys[0]);
-            }
-        }
-
-        function seleccionarAfinacion(af) {
-            afinacionActual = af;
-            cuerdaActual = 0;
-            dom.afinacionDisplay.innerHTML = `
-                    <span class="text-emerald-400 font-bold">${af.nombre}</span>
-                    <span class="text-slate-300 ml-2">${af.cuerdas.join(" - ")}</span>
+            lista.forEach(afinacion => {
+                const boton = document.createElement('button');
+                boton.className = 'tarjeta bg-slate-800 border border-slate-700 rounded-2xl p-4 w-full text-left';
+                boton.innerHTML = `
+                    <h3 class="text-lg font-bold">${afinacion.nombre}</h3>
+                    <p class="text-slate-400 text-sm">${afinacion.cuerdas.join(' • ')}</p>
                 `;
+                boton.onclick = () => {
+                    seleccionarAfinacion(afinacion);
+                    document.getElementById('afinador').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                };
+                DOM.variantes.appendChild(boton);
+            });
+        }
+
+        // 3.2 Seleccionar afinación
+        function seleccionarAfinacion(afinacion) {
+            afinacionActual = afinacion;
+            cuerdaActual = 0;
+            DOM.afinacionDisplay.innerHTML = `
+                <span class="text-emerald-400 font-bold">${afinacion.nombre}</span>
+                <br><span class="text-slate-300">${afinacion.cuerdas.join(' - ')}</span>
+            `;
             actualizarObjetivo();
             guardarUltimaAfinacion();
         }
 
-        // ---- FUNCIONES INTERNAS ----
+        // 3.3 Actualizar objetivo (cuerda actual)
         function actualizarObjetivo() {
             if (!afinacionActual) {
-                dom.objetivo.textContent = "Seleccioná una afinación";
+                DOM.objetivo.textContent = 'Seleccioná una afinación';
                 return;
             }
-            const nota = afinacionActual.cuerdas[cuerdaActual] || "--";
+            const nota = afinacionActual.cuerdas[cuerdaActual] || '--';
             const num = 6 - cuerdaActual;
-            dom.objetivo.innerHTML = `Cuerda ${num}ª → <strong class="text-emerald-300">${nota}</strong>`;
+            DOM.objetivo.innerHTML = `Cuerda ${num}ª → <strong class="text-emerald-300">${nota}</strong>`;
         }
 
+        // 3.4 Avanzar cuerda
         function avanzarCuerda() {
             if (!afinacionActual) return;
             cuerdaActual = (cuerdaActual + 1) % afinacionActual.cuerdas.length;
             actualizarObjetivo();
-            if (dom.estadoExtra) dom.estadoExtra.textContent = `Cuerda ${6 - cuerdaActual}ª`;
         }
 
+        // 3.5 Reiniciar cuerdas
+        function reiniciarCuerdas() {
+            cuerdaActual = 0;
+            actualizarObjetivo();
+            DOM.estadoAfinacion.textContent = 'Reiniciado';
+        }
+
+        // 3.6 Guardar / cargar última afinación
         function guardarUltimaAfinacion() {
             if (afinacionActual) {
-                localStorage.setItem("ultimaAfinacionGV", JSON.stringify(afinacionActual));
+                localStorage.setItem('ultimaAfinacionGV', JSON.stringify(afinacionActual));
             }
         }
-
         function cargarUltimaAfinacion() {
             try {
-                const data = localStorage.getItem("ultimaAfinacionGV");
+                const data = localStorage.getItem('ultimaAfinacionGV');
                 if (data) {
                     const af = JSON.parse(data);
-                    if (af?.nombre && af?.cuerdas) {
+                    if (af && af.nombre && af.cuerdas) {
                         seleccionarAfinacion(af);
                         return true;
                     }
                 }
-            } catch (_) { /* ignore */ }
+            } catch (e) {}
             return false;
         }
 
-        // ---- DETECCIÓN DE FRECUENCIA ----
+        // 3.7 Mostrar categoría
+        function mostrarCategoria(cat) {
+            const categorias = document.querySelectorAll('.cat-btn');
+            categorias.forEach(b => b.classList.toggle('bg-indigo-600', b.dataset.cat === cat));
+            const firstKey = Object.keys(bibliotecaAfinaciones[cat] || {})[0];
+            if (firstKey) mostrarVariantes(cat, firstKey);
+        }
+
+        // ============================================================
+        // 4. DETECCIÓN DE FRECUENCIA (autocorrelación)
+        // ============================================================
         function encontrarFrecuencia(buffer, sampleRate) {
-            let mejorOffset = -1,
-                mejorValor = 0;
+            let mejorOffset = -1, mejorValor = 0;
             for (let offset = 20; offset < 1000; offset++) {
                 let suma = 0;
                 for (let i = 0; i < buffer.length - offset; i++) {
@@ -1014,7 +345,7 @@
             return {
                 nota: notas[midi % 12],
                 octava: Math.floor(midi / 12) - 1,
-                completa: notas[midi % 12] + (Math.floor(midi / 12) - 1),
+                completa: notas[midi % 12] + (Math.floor(midi / 12) - 1)
             };
         }
 
@@ -1025,54 +356,66 @@
             return { cents: Math.round(1200 * Math.log2(frecuencia / freqCorrecta)) };
         }
 
-        // ---- VÁLVULAS ----
+        // ============================================================
+        // 5. VÁLVULAS VISUALES
+        // ============================================================
+        function crearValvulas() {
+            DOM.valvulas.innerHTML = '';
+            for (let i = 0; i < 9; i++) {
+                const div = document.createElement('div');
+                div.className = 'valvula';
+                div.id = 'v' + (i + 1);
+                DOM.valvulas.appendChild(div);
+            }
+        }
+
         function moverValvulas(cents) {
-            const valvulas = document.querySelectorAll(".valvula");
-            valvulas.forEach((v) => (v.className = "valvula"));
+            const valvulas = document.querySelectorAll('.valvula');
+            valvulas.forEach(v => v.className = 'valvula');
             let pos = Math.round(((cents + 50) / 100) * 8);
             pos = Math.max(0, Math.min(8, pos));
             const v = valvulas[pos];
             if (v) {
-                if (Math.abs(cents) <= 5) v.classList.add("activa");
-                else if (Math.abs(cents) <= 20) v.classList.add("media");
-                else v.classList.add("lejos");
+                if (Math.abs(cents) <= 5) v.classList.add('activa');
+                else if (Math.abs(cents) <= 20) v.classList.add('media');
+                else v.classList.add('lejos');
             }
-            if (dom.indicador) {
-                dom.indicador.style.transform = `translateX(${Math.max(-40, Math.min(40, cents * 1.5))}px)`;
-                dom.indicador.className = "";
-                if (Math.abs(cents) <= 5) dom.indicador.classList.add("correcto");
-                else if (cents < 0) dom.indicador.classList.add("izquierda");
-                else dom.indicador.classList.add("derecha");
-            }
+            // centro valvula
+            if (Math.abs(cents) <= 5) DOM.centroValvula.classList.add('encendida');
+            else DOM.centroValvula.classList.remove('encendida');
         }
 
-        // ---- LOOP DE AFINACIÓN ----
+        // ============================================================
+        // 6. AFINADOR (loop de detección)
+        // ============================================================
+        let detectando = false;
+
         function iniciarAfinador() {
             if (detectando) {
+                // Detener
                 if (audioContext) audioContext.close();
                 audioContext = null;
                 analyser = null;
                 detectando = false;
-                dom.iniciar.textContent = "🎤 Iniciar Afinador";
-                if (dom.estadoExtra) dom.estadoExtra.textContent = "Detenido";
+                DOM.iniciar.textContent = '🎤 Iniciar afinador';
+                DOM.estadoAfinacion.textContent = 'Detenido';
                 return;
             }
-            navigator.mediaDevices
-                .getUserMedia({ audio: true })
-                .then((stream) => {
-                    audioContext = new(window.AudioContext || window.webkitAudioContext)();
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                    audioContext = new AudioContext();
                     const source = audioContext.createMediaStreamSource(stream);
                     analyser = audioContext.createAnalyser();
                     analyser.fftSize = 4096;
                     source.connect(analyser);
                     buffer = new Float32Array(analyser.fftSize);
                     detectando = true;
-                    dom.iniciar.textContent = "⏹ Detener";
-                    if (dom.estadoExtra) dom.estadoExtra.textContent = "Escuchando...";
+                    DOM.iniciar.textContent = '⏹ Detener';
+                    DOM.estadoAfinacion.textContent = 'Escuchando...';
                     loopDetectar();
                 })
                 .catch(() => {
-                    if (dom.estadoExtra) dom.estadoExtra.textContent = "❌ No se pudo acceder al micrófono";
+                    DOM.estadoAfinacion.textContent = '❌ No se pudo acceder al micrófono';
                 });
         }
 
@@ -1082,41 +425,53 @@
             analyser.getFloatTimeDomainData(buffer);
             const freq = encontrarFrecuencia(buffer, audioContext.sampleRate);
             if (!freq) return;
-
+            ultimaFrecuencia = freq;
             const info = convertirNotaCompleta(freq);
             const { cents } = calcularCents(freq);
 
-            if (dom.nota) dom.nota.textContent = info.completa;
-            if (dom.frecuencia) dom.frecuencia.textContent = freq.toFixed(2) + " Hz";
-            if (dom.cent) dom.cent.textContent = cents + " cents";
+            // Actualizar UI
+            DOM.nota.textContent = info.completa;
+            DOM.frecuencia.textContent = freq.toFixed(2) + ' Hz';
+            DOM.cent.textContent = cents + ' cents';
 
+            // Nivel de sonido (aproximado)
             let suma = 0;
             for (let i = 0; i < buffer.length; i++) suma += buffer[i] * buffer[i];
             const rms = Math.sqrt(suma / buffer.length);
-            if (dom.nivelSonido) dom.nivelSonido.style.width = Math.min(rms * 200, 100) + "%";
+            DOM.nivelSonido.style.width = Math.min(rms * 200, 100) + '%';
 
             moverValvulas(cents);
+            // Indicador
+            const ind = DOM.indicador;
+            ind.style.transform = `translateX(${Math.max(-40, Math.min(40, cents * 1.5))}px)`;
+            ind.className = '';
+            if (Math.abs(cents) <= 5) ind.classList.add('correcto');
+            else if (cents < 0) ind.classList.add('izquierda');
+            else ind.classList.add('derecha');
+
+            // Verificar afinación contra la cuerda actual
             comprobarAfinacion(info.nota, cents);
         }
 
         function comprobarAfinacion(nota, cents) {
             if (!afinacionActual) return;
-            const objetivo = afinacionActual.cuerdas[cuerdaActual] || "";
+            const objetivo = afinacionActual.cuerdas[cuerdaActual] || '';
             if (nota === objetivo && Math.abs(cents) <= 5) {
-                if (dom.nota) dom.nota.classList.add("afinada");
-                if (dom.estadoExtra) dom.estadoExtra.innerHTML = "✅ Afinación perfecta";
+                DOM.estadoAfinacion.innerHTML = '✅ Afinación perfecta';
+                DOM.nota.classList.add('text-green-400');
                 reproducirPing();
-                if (!dom.estadoExtra?.dataset?.avanzado) {
-                    if (dom.estadoExtra) dom.estadoExtra.dataset.avanzado = "true";
+                // Avanzar automáticamente después de un momento
+                if (DOM.estadoAfinacion.dataset.avanzado !== 'true') {
+                    DOM.estadoAfinacion.dataset.avanzado = 'true';
                     setTimeout(() => {
                         avanzarCuerda();
-                        if (dom.estadoExtra) dom.estadoExtra.dataset.avanzado = "";
+                        DOM.estadoAfinacion.dataset.avanzado = '';
                     }, 800);
                 }
             } else {
-                if (dom.nota) dom.nota.classList.remove("afinada");
-                if (dom.estadoExtra && nota) {
-                    dom.estadoExtra.innerHTML = `🎯 ${nota} · ${Math.abs(cents)} cents`;
+                DOM.nota.classList.remove('text-green-400');
+                if (nota) {
+                    DOM.estadoAfinacion.innerHTML = `🎯 ${nota} · ${Math.abs(cents)} cents`;
                 }
             }
         }
@@ -1125,81 +480,69 @@
             const ahora = Date.now();
             if (ahora - ultimoPing < 1500) return;
             ultimoPing = ahora;
-            try {
-                const ctx = new(window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = "sine";
-                osc.frequency.value = 880;
-                gain.gain.value = 0.15;
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + 0.08);
-            } catch (_) { /* fallback */ }
+            const p = DOM.ping;
+            if (p) {
+                p.currentTime = 0;
+                p.play().catch(() => {});
+            }
         }
 
         // ============================================================
-        // INICIALIZACIÓN
+        // 7. INICIALIZACIÓN
         // ============================================================
-        document.addEventListener("DOMContentLoaded", function() {
-
-            // ---- CONFIGURAR BOTONES DE CATEGORÍA ----
-            document.querySelectorAll(".cat-btn").forEach((btn) => {
-                btn.addEventListener("click", function() {
-                    const categoria = this.dataset.categoria;
-                    mostrarCategoria(categoria);
-                });
-            });
-
-            // ---- BOTÓN INICIAR ----
-            if (dom.iniciar) {
-                dom.iniciar.addEventListener("click", iniciarAfinador);
-            }
-
-            // ---- TECLADO: ESPACIO ----
-            document.addEventListener("keydown", (e) => {
-                if (e.key === " " && e.target === document.body) {
-                    e.preventDefault();
-                    iniciarAfinador();
-                }
-            });
-
-            // ---- SCROLL SUAVE ----
-            document.querySelectorAll('a[href^="#"]').forEach((a) => {
-                a.addEventListener("click", (e) => {
-                    const target = document.querySelector(a.getAttribute("href"));
-                    if (target) {
-                        e.preventDefault();
-                        target.scrollIntoView({ behavior: "smooth" });
-                    }
-                });
-            });
-
-            // ---- CARGAR ÚLTIMA AFINACIÓN O MOSTRAR DEFAULT ----
+        function init() {
+            crearValvulas();
+            // Cargar última afinación
             if (!cargarUltimaAfinacion()) {
-                mostrarCategoria("abiertas");
-            } else {
-                // Buscar la categoría de la afinación cargada
-                let encontrada = false;
-                for (const cat in bibliotecaAfinaciones) {
-                    if (encontrada) break;
-                    for (const key in bibliotecaAfinaciones[cat]) {
-                        if (bibliotecaAfinaciones[cat][key].some(af => af.nombre === afinacionActual?.nombre)) {
-                            mostrarCategoria(cat);
-                            encontrada = true;
-                            break;
-                        }
-                    }
-                }
-                if (!encontrada) mostrarCategoria("abiertas");
+                // Mostrar categoría por defecto
+                mostrarCategoria('standard');
+            }
+            // Eventos de categorías
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.onclick = () => {
+                    const cat = btn.dataset.cat;
+                    const firstKey = Object.keys(bibliotecaAfinaciones[cat] || {})[0];
+                    if (firstKey) mostrarVariantes(cat, firstKey);
+                };
+            });
+            // Botón iniciar
+            DOM.iniciar.onclick = iniciarAfinador;
+
+            // Botón siguiente cuerda
+            document.getElementById('siguienteCuerda').onclick = avanzarCuerda;
+            document.getElementById('reiniciarCuerdas').onclick = reiniciarCuerdas;
+
+            // Modo oscuro
+            document.getElementById('modoOscuro').onclick = () => {
+                document.body.classList.toggle('dark');
+                localStorage.setItem('darkModeGV', document.body.classList.contains('dark'));
+            };
+            if (localStorage.getItem('darkModeGV') === 'true') {
+                document.body.classList.add('dark');
             }
 
-            console.log("🎸 Guitar Voices · Listo");
-            const totalAbiertas = Object.keys(bibliotecaAfinaciones.abiertas).reduce((acc, key) =>
-                acc + bibliotecaAfinaciones.abiertas[key].length, 0);
-            console.log(`📚 Total de afinaciones abiertas: ${totalAbiertas}`);
-        });
+            // Scroll suave
+            document.querySelectorAll('a[href^="#"]').forEach(a => {
+                a.onclick = (e) => {
+                    const target = document.querySelector(a.getAttribute('href'));
+                    if (target) { e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth' }); }
+                };
+            });
+
+            // Botón "reiniciar" desde el panel de estado (se crea dinámicamente)
+            // Ya está cubierto con el id "reiniciarCuerdas"
+        }
+
+        // Exponer funciones globales
+        window.mostrarVariantes = mostrarVariantes;
+        window.mostrarCategoria = mostrarCategoria;
+        window.seleccionarAfinacion = seleccionarAfinacion;
+        window.avanzarCuerda = avanzarCuerda;
+        window.reiniciarCuerdas = reiniciarCuerdas;
+
+        // Arrancar
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
