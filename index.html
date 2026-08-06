@@ -19,9 +19,6 @@
         };
     </script>
     <style>
-        /* ============================================================ */
-        /* ESTILOS GLOBALES                                             */
-        /* ============================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -36,11 +33,9 @@
             color: #f1f5f9;
             overflow-x: hidden;
         }
-
         [translate="no"] {
             -webkit-user-modify: read-only;
         }
-
         .goog-te-banner-frame {
             display: none !important;
         }
@@ -168,9 +163,6 @@
             box-shadow: 0 0 20px #4f46e544;
         }
 
-        /* ============================================================ */
-        /* AFINADOR                                                     */
-        /* ============================================================ */
         .tuner-container {
             background: linear-gradient(160deg, #12121f, #0a0a14);
             border-radius: 2rem;
@@ -228,9 +220,6 @@
             color: #22c55e;
         }
 
-        /* ============================================================ */
-        /* COMPARADOR DE NOTAS MEJORADO                                 */
-        /* ============================================================ */
         .note-comparator {
             display: flex;
             justify-content: center;
@@ -275,7 +264,6 @@
             text-shadow: 0 0 40px #22c55e44;
         }
 
-        /* Flechas de ajuste */
         .adjustment-indicator {
             display: flex;
             flex-direction: column;
@@ -315,7 +303,6 @@
         .adjustment-indicator .adjustment-text.neutral {
             color: #22c55e;
         }
-
         @keyframes arrowPulse {
             0%,
             100% {
@@ -327,7 +314,6 @@
                 opacity: 1;
             }
         }
-
         .adjustment-detail {
             font-size: 0.65rem;
             color: #64748b;
@@ -335,9 +321,6 @@
             margin-top: 2px;
         }
 
-        /* ============================================================ */
-        /* MEDIDOR                                                      */
-        /* ============================================================ */
         .meter-wrapper {
             position: relative;
             width: 100%;
@@ -345,7 +328,6 @@
             margin: 0 auto;
             padding: 10px 0 5px 0;
         }
-
         .meter-track {
             position: relative;
             width: 100%;
@@ -511,7 +493,6 @@
                 opacity: 1;
             }
         }
-
         .strobe-rings.rotating {
             animation: strobeRotate 2s linear infinite;
         }
@@ -657,7 +638,6 @@
             content: '✓';
             font-size: 0.8rem;
         }
-        /* Cuerda detectada automáticamente */
         .string-dot.detected {
             border-color: #38bdf8;
             background: #38bdf822;
@@ -701,9 +681,6 @@
             color: white;
         }
 
-        /* ============================================================ */
-        /* CUERDA DETECTADA - INDICADOR VISUAL                         */
-        /* ============================================================ */
         .detected-string-info {
             text-align: center;
             margin-top: 8px;
@@ -852,9 +829,7 @@
                 <span data-i18n="hero-title" translate="no">Professional</span><br />
                 <span class="text-indigo-400" data-i18n="hero-subtitle" translate="no">Tuner</span>
             </h1>
-            <p class="text-slate-300 text-lg md:text-xl mt-6 max-w-3xl mx-auto" data-i18n="hero-desc" translate="no">
-                Studio precision · 300+ tunings · Real-time detection
-            </p>
+            <p class="text-slate-300 text-lg md:text-xl mt-6 max-w-3xl mx-auto" data-i18n="hero-desc" translate="no">Studio precision · 300+ tunings · Real-time detection</p>
             <div class="flex flex-wrap justify-center gap-4 mt-10">
                 <a href="#biblioteca" class="bg-indigo-600 px-8 md:px-10 py-4 rounded-2xl font-bold hover:scale-105 duration-300" data-i18n="hero-btn-library" translate="no">📚 Library</a>
                 <a href="#afinador" class="bg-slate-800 border border-slate-700 px-8 md:px-10 py-4 rounded-2xl font-bold hover:scale-105 duration-300" data-i18n="hero-btn-tuner" translate="no">🎯 Tuner</a>
@@ -902,11 +877,8 @@
 
             <div class="tuner-container">
 
-                <!-- PANEL DE INFORMACIÓN -->
                 <div class="tuning-info-panel" id="tuningInfoPanel">
-                    <div class="tuning-name">
-                        🎸 <span id="tuningNameDisplay" data-i18n="tuner-select" translate="no">Select a tuning</span>
-                    </div>
+                    <div class="tuning-name">🎸 <span id="tuningNameDisplay" data-i18n="tuner-select" translate="no">Select a tuning</span></div>
                     <div class="tuning-strings" id="tuningStringsDisplay" translate="no">
                         <span class="string-label">6ª</span>
                         <span class="string-label">5ª</span>
@@ -917,21 +889,17 @@
                     </div>
                 </div>
 
-                <!-- COMPARADOR MEJORADO CON FLECHAS -->
                 <div class="note-comparator" translate="no">
                     <div class="note-box">
                         <div class="label" data-i18n="note-you">🎤 You play</div>
                         <div class="note-value detected" id="detectedNote">--</div>
                         <div style="font-size:0.7rem;color:#64748b;margin-top:4px;" id="detectedFreq">0 Hz</div>
                     </div>
-
-                    <!-- INDICADOR DE AJUSTE -->
                     <div class="adjustment-indicator" id="adjustmentIndicator">
                         <div class="arrow neutral" id="adjustmentArrow">●</div>
                         <div class="adjustment-text neutral" id="adjustmentText">✓</div>
-                        <div class="adjustment-detail" id="adjustmentDetail">Perfecto</div>
+                        <div class="adjustment-detail" id="adjustmentDetail">Perfect</div>
                     </div>
-
                     <div class="note-box">
                         <div class="label" data-i18n="note-target">🎯 Target</div>
                         <div class="note-value target" id="targetNote">--</div>
@@ -939,14 +907,10 @@
                     </div>
                 </div>
 
-                <!-- CUERDA DETECTADA AUTOMÁTICAMENTE -->
                 <div class="text-center">
-                    <div class="detected-string-info" id="detectedStringInfo">
-                        🎸 Detectando: <span class="highlight" id="detectedStringLabel">--</span>
-                    </div>
+                    <div class="detected-string-info" id="detectedStringInfo">🎸 Detecting: <span class="highlight" id="detectedStringLabel">--</span></div>
                 </div>
 
-                <!-- MEDIDOR ESTROBOSCÓPICO -->
                 <div class="meter-wrapper">
                     <div class="meter-track" id="meterTrack">
                         <div class="tick-marks">
@@ -965,14 +929,11 @@
                             <div class="ring"></div>
                             <div class="ring"></div>
                         </div>
-                        <div class="needle-container">
-                            <div class="needle" id="needle"></div>
-                        </div>
+                        <div class="needle-container"><div class="needle" id="needle"></div></div>
                         <div class="center-dot"></div>
                     </div>
                 </div>
 
-                <!-- LEDs -->
                 <div class="precision-leds" id="precisionLeds">
                     <div class="precision-led" data-pos="0"></div>
                     <div class="precision-led" data-pos="1"></div>
@@ -985,12 +946,8 @@
                     <div class="precision-led" data-pos="8"></div>
                 </div>
 
-                <!-- VU Meter -->
-                <div class="vu-meter">
-                    <div class="vu-bar" id="vuBar"></div>
-                </div>
+                <div class="vu-meter"><div class="vu-bar" id="vuBar"></div></div>
 
-                <!-- Progreso de cuerdas -->
                 <div class="string-progress" id="stringProgress">
                     <div class="string-dot" data-string="0">6</div>
                     <div class="string-dot" data-string="1">5</div>
@@ -1000,12 +957,8 @@
                     <div class="string-dot" data-string="5">1</div>
                 </div>
 
-                <!-- Estado -->
-                <div class="tuner-status">
-                    <span id="statusMsg" class="status-msg" data-i18n="tuner-select-msg" translate="no">🎸 Select a tuning</span>
-                </div>
+                <div class="tuner-status"><span id="statusMsg" class="status-msg" data-i18n="tuner-select-msg" translate="no">🎸 Select a tuning</span></div>
 
-                <!-- CONTROLES -->
                 <div class="mt-4 flex flex-wrap justify-center gap-3" translate="no">
                     <label class="text-xs text-slate-500 flex items-center gap-2">
                         🎵 <span data-i18n="ref-label">Reference</span>
@@ -1035,11 +988,9 @@
                     </label>
                 </div>
 
-                <!-- Botón -->
                 <div class="mt-6 text-center">
                     <button id="tunerBtn" class="btn-tuner" data-i18n="btn-start" translate="no">🎤 Start Tuner</button>
                 </div>
-
                 <div class="mt-3 text-center text-xs text-slate-500" translate="no">
                     <kbd class="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-slate-400">Space</kbd> <span data-i18n="shortcut-start">Start/Stop</span>
                 </div>
@@ -1089,11 +1040,13 @@
 
     <audio id="ping" preload="auto"></audio>
 
+    <!-- ============================================================ -->
+    <!-- JAVASCRIPT COMPLETO                                          -->
+    <!-- ============================================================ -->
     <script>
         // ============================================================
-        // 0. SISTEMA DE TRADUCCIÓN
+        // TRADUCCIONES
         // ============================================================
-
         const translations = {
             en: {
                 'nav-home': 'Home',
@@ -1151,12 +1104,11 @@
                 'status-stopped': '⏹ Stopped',
                 'status-reset': '🔄 Strings reset',
                 'status-string': '🎯 String {num}ª selected',
-                'status-done': '🎉 Guitar fully tuned!',
                 'adjust-perfect': '✓ Perfect',
                 'adjust-up': '▲ {semitones} tone(s) up',
                 'adjust-down': '▼ {semitones} tone(s) down',
-                'adjust-half-up': '▲ {semitones} tone(s) up',
-                'adjust-half-down': '▼ {semitones} tone(s) down',
+                'adjust-half-up': '▲ {semitones} semitone(s) up',
+                'adjust-half-down': '▼ {semitones} semitone(s) down',
                 'detected-string': 'Detected: String {num}ª · {note}',
                 'detected-none': '--',
             },
@@ -1216,12 +1168,11 @@
                 'status-stopped': '⏹ Detenido',
                 'status-reset': '🔄 Cuerdas reiniciadas',
                 'status-string': '🎯 Cuerda {num}ª seleccionada',
-                'status-done': '🎉 Guitarra completamente afinada!',
                 'adjust-perfect': '✓ Perfecto',
                 'adjust-up': '▲ {semitones} tono(s) arriba',
                 'adjust-down': '▼ {semitones} tono(s) abajo',
-                'adjust-half-up': '▲ {semitones} tono(s) arriba',
-                'adjust-half-down': '▼ {semitones} tono(s) abajo',
+                'adjust-half-up': '▲ {semitones} semitono(s) arriba',
+                'adjust-half-down': '▼ {semitones} semitono(s) abajo',
                 'detected-string': 'Detectada: Cuerda {num}ª · {note}',
                 'detected-none': '--',
             },
@@ -1281,12 +1232,11 @@
                 'status-stopped': '⏹ Parado',
                 'status-reset': '🔄 Cordas reiniciadas',
                 'status-string': '🎯 Corda {num}ª selecionada',
-                'status-done': '🎉 Guitarra completamente afinada!',
                 'adjust-perfect': '✓ Perfeito',
                 'adjust-up': '▲ {semitones} tom(ns) acima',
                 'adjust-down': '▼ {semitones} tom(ns) abaixo',
-                'adjust-half-up': '▲ {semitones} tom(ns) acima',
-                'adjust-half-down': '▼ {semitones} tom(ns) abaixo',
+                'adjust-half-up': '▲ {semitones} semitom(ns) acima',
+                'adjust-half-down': '▼ {semitones} semitom(ns) abaixo',
                 'detected-string': 'Detectada: Corda {num}ª · {note}',
                 'detected-none': '--',
             }
@@ -1294,10 +1244,11 @@
 
         let currentLang = 'en';
 
-        function t(key, params = {}) {
+        function t(key, params) {
+            params = params || {};
             let text = translations[currentLang]?.[key] || translations['en'][key] || key;
-            for (const [k, v] of Object.entries(params)) {
-                text = text.replace(`{${k}}`, v);
+            for (var k in params) {
+                text = text.replace('{' + k + '}', params[k]);
             }
             return text;
         }
@@ -1305,19 +1256,19 @@
         function updateLanguage(lang) {
             currentLang = lang;
             localStorage.setItem('guitarVoicesLang', lang);
-            document.querySelectorAll('.lang-selector button').forEach(btn => {
+            document.querySelectorAll('.lang-selector button').forEach(function(btn) {
                 btn.classList.toggle('active', btn.dataset.lang === lang);
             });
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.dataset.i18n;
-                if (translations[lang]?.[key] !== undefined) {
+            document.querySelectorAll('[data-i18n]').forEach(function(el) {
+                var key = el.dataset.i18n;
+                if (translations[lang] && translations[lang][key] !== undefined) {
                     el.textContent = translations[lang][key];
                 }
             });
             document.title = lang === 'en' ? 'Guitar Voices · Intelligent Tuner' :
                 lang === 'es' ? 'Guitar Voices · Afinador Inteligente' :
                 'Guitar Voices · Afinador Inteligente';
-            const intro = document.querySelector('#intro h1');
+            var intro = document.querySelector('#intro h1');
             if (intro) intro.textContent = 'Guitar Voices';
             actualizarMensajesEstado();
             actualizarTargetDisplay();
@@ -1326,8 +1277,9 @@
             actualizarDetectedStringInfo();
         }
 
-        function setStatusMessage(key, params = {}) {
-            const el = document.getElementById('statusMsg');
+        function setStatusMessage(key, params) {
+            params = params || {};
+            var el = document.getElementById('statusMsg');
             if (el) {
                 el.textContent = t(key, params);
                 el.className = 'status-msg';
@@ -1336,97 +1288,18 @@
         }
 
         // ============================================================
-        // 1. BIBLIOTECA DE AFINACIONES
+        // BIBLIOTECA DE AFINACIONES
         // ============================================================
 
-        function generarDerivaciones(nota) {
-            const base = nota;
-            const cuerdasBase = {
-                'C': ['C', 'E', 'G', 'C', 'E', 'G'],
-                'C#': ['C#', 'F', 'G#', 'C#', 'F', 'G#'],
-                'D': ['D', 'F#', 'A', 'D', 'F#', 'A'],
-                'D#': ['D#', 'G', 'A#', 'D#', 'G', 'A#'],
-                'E': ['E', 'G#', 'B', 'E', 'G#', 'B'],
-                'F': ['F', 'A', 'C', 'F', 'A', 'C'],
-                'F#': ['F#', 'A#', 'C#', 'F#', 'A#', 'C#'],
-                'G': ['G', 'B', 'D', 'G', 'B', 'D'],
-                'G#': ['G#', 'C', 'D#', 'G#', 'C', 'D#'],
-                'A': ['A', 'C#', 'E', 'A', 'C#', 'E'],
-                'A#': ['A#', 'D', 'F', 'A#', 'D', 'F'],
-                'B': ['B', 'D#', 'F#', 'B', 'D#', 'F#']
-            };
-            const baseCuerdas = cuerdasBase[base] || ['C', 'E', 'G', 'C', 'E', 'G'];
-            const notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-
-            function desplazar(n, semitonos) {
-                const idx = notas.indexOf(n);
-                if (idx === -1) return n;
-                return notas[(idx + semitonos + 12) % 12];
-            }
-
-            const variantes = [];
-            const tipos = [
-                { nombre: `${base} Major`, fn: (c) => c },
-                { nombre: `${base} Minor`, fn: (c, i) => [1, 3].includes(i) ? desplazar(c, 3) : c },
-                { nombre: `${base}7`, fn: (c, i) => [2, 5].includes(i) ? desplazar(c, 10) : c },
-                { nombre: `${base}Maj7`, fn: (c, i) => [2, 5].includes(i) ? desplazar(c, 11) : c },
-                { nombre: `${base}m7`, fn: (c, i) => [2, 5].includes(i) ? desplazar(c, 10) : c },
-                { nombre: `${base}6`, fn: (c, i) => [2, 5].includes(i) ? desplazar(c, 9) : c },
-                { nombre: `${base}m6`, fn: (c, i) => [2, 5].includes(i) ? desplazar(c, 9) : c },
-                { nombre: `${base}Sus2`, fn: (c, i) => [1, 3].includes(i) ? desplazar(c, 2) : c },
-                { nombre: `${base}Sus4`, fn: (c, i) => [1, 3].includes(i) ? desplazar(c, 5) : c },
-                { nombre: `${base}Aug`, fn: (c, i) => [2, 4].includes(i) ? desplazar(c, 8) : c },
-                { nombre: `${base}Dim`, fn: (c, i) => [1, 3].includes(i) ? desplazar(c, 3) : [2, 4].includes(i) ?
-                        desplazar(c, 6) : c },
-                { nombre: `${base}7sus4`, fn: (c, i) => [1, 3].includes(i) ? desplazar(c, 5) : [2, 5].includes(i) ?
-                        desplazar(c, 10) : c },
-                { nombre: `${base}7sus2`, fn: (c, i) => [1, 3].includes(i) ? desplazar(c, 2) : [2, 5].includes(i) ?
-                        desplazar(c, 10) : c },
-                { nombre: `${base}add9`, fn: (c, i) => i === 1 ? desplazar(c, 2) : c },
-                { nombre: `${base}madd9`, fn: (c, i) => i === 1 ? desplazar(c, 2) : c },
-                { nombre: `${base}9`, fn: (c, i) => i === 1 ? desplazar(c, 2) : [2, 5].includes(i) ? desplazar(c,
-                        10) : c },
-                { nombre: `${base}m9`, fn: (c, i) => i === 1 ? desplazar(c, 2) : [2, 5].includes(i) ? desplazar(c,
-                        10) : c },
-                { nombre: `${base}Maj9`, fn: (c, i) => i === 1 ? desplazar(c, 2) : [2, 5].includes(i) ? desplazar(c,
-                        11) : c },
-                { nombre: `${base}11`, fn: (c, i) => i === 1 ? desplazar(c, 2) : i === 3 ? desplazar(c, 5) : [2, 5]
-                        .includes(i) ? desplazar(c, 10) : c },
-                { nombre: `${base}m11`, fn: (c, i) => i === 1 ? desplazar(c, 2) : i === 3 ? desplazar(c, 5) : [2, 5]
-                        .includes(i) ? desplazar(c, 10) : c },
-                { nombre: `${base}13`, fn: (c, i) => i === 1 ? desplazar(c, 2) : i === 3 ? desplazar(c, 5) : i ===
-                        5 ? desplazar(c, 9) : [2, 5].includes(i) ? desplazar(c, 10) : c },
-                { nombre: `${base}m13`, fn: (c, i) => i === 1 ? desplazar(c, 2) : i === 3 ? desplazar(c, 5) : i ===
-                        5 ? desplazar(c, 9) : [2, 5].includes(i) ? desplazar(c, 10) : c },
-                { nombre: `${base}6/9`, fn: (c, i) => i === 1 ? desplazar(c, 2) : [2, 5].includes(i) ? desplazar(c,
-                        9) : c },
-                { nombre: `${base}Dim7`, fn: (c, i) => [1, 3].includes(i) ? desplazar(c, 3) : [2, 4].includes(i) ?
-                        desplazar(c, 6) : [2, 5].includes(i) ? desplazar(c, 9) : c },
-                { nombre: `${base}7b5`, fn: (c, i) => [2, 4].includes(i) ? desplazar(c, 6) : [2, 5].includes(i) ?
-                        desplazar(c, 10) : c },
-                { nombre: `${base}7#5`, fn: (c, i) => [2, 4].includes(i) ? desplazar(c, 8) : [2, 5].includes(i) ?
-                        desplazar(c, 10) : c },
-            ];
-            tipos.forEach(t => {
-                const cuerdas = baseCuerdas.map((c, i) => t.fn(c, i));
-                variantes.push({ nombre: t.nombre, cuerdas });
-            });
-            return variantes;
-        }
-
-        function generarTodasLasNotas() {
-            const notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-            const resultado = {};
-            notas.forEach(nota => {
-                resultado[nota] = generarDerivaciones(nota);
-            });
-            return resultado;
-        }
-
-        const todasLasNotas = generarTodasLasNotas();
-
-        const bibliotecaAfinaciones = {
-            abiertas: todasLasNotas,
+        var bibliotecaAfinaciones = {
+            abiertas: {
+                "G": [{ nombre: "Open G", cuerdas: ["D", "G", "D", "G", "B", "D"] }],
+                "D": [{ nombre: "Open D", cuerdas: ["D", "A", "D", "F#", "A", "D"] }],
+                "C": [{ nombre: "Open C", cuerdas: ["C", "G", "C", "G", "C", "E"] }],
+                "E": [{ nombre: "Open E", cuerdas: ["E", "B", "E", "G#", "B", "E"] }],
+                "A": [{ nombre: "Open A", cuerdas: ["E", "A", "E", "A", "C#", "E"] }],
+                "F": [{ nombre: "Open F", cuerdas: ["F", "A", "C", "F", "A", "C"] }]
+            },
             standard: {
                 "E Standard": [{ nombre: "E Standard", cuerdas: ["E", "A", "D", "G", "B", "E"] }],
                 "D Standard": [{ nombre: "D Standard", cuerdas: ["D", "G", "C", "F", "A", "D"] }],
@@ -1435,7 +1308,7 @@
                 "A Standard": [{ nombre: "A Standard", cuerdas: ["A", "D", "G", "C", "E", "A"] }],
                 "G Standard": [{ nombre: "G Standard", cuerdas: ["G", "C", "F", "Bb", "D", "G"] }],
                 "F Standard": [{ nombre: "F Standard", cuerdas: ["F", "Bb", "Eb", "Ab", "C", "F"] }],
-                "Standard Barítono": [{ nombre: "Standard Barítono", cuerdas: ["B", "E", "A", "D", "F#", "B"] }],
+                "Standard Barítono": [{ nombre: "Standard Barítono", cuerdas: ["B", "E", "A", "D", "F#", "B"] }]
             },
             drop: {
                 "Drop D": [{ nombre: "Drop D", cuerdas: ["D", "A", "D", "G", "B", "E"] }],
@@ -1446,7 +1319,7 @@
                 "Drop F": [{ nombre: "Drop F", cuerdas: ["F", "C", "F", "Bb", "D", "G"] }],
                 "Drop E": [{ nombre: "Drop E", cuerdas: ["E", "B", "E", "A", "C#", "F#"] }],
                 "Drop D (7 cuerdas)": [{ nombre: "Drop D 7", cuerdas: ["D", "A", "D", "G", "B", "E", "A"] }],
-                "Drop A (7 cuerdas)": [{ nombre: "Drop A 7", cuerdas: ["A", "E", "A", "D", "G", "B", "E"] }],
+                "Drop A (7 cuerdas)": [{ nombre: "Drop A 7", cuerdas: ["A", "E", "A", "D", "G", "B", "E"] }]
             },
             otras: {
                 "DADGAD": [{ nombre: "DADGAD", cuerdas: ["D", "A", "D", "G", "A", "D"] }],
@@ -1470,16 +1343,16 @@
                 "Open Gm": [{ nombre: "Open G Minor", cuerdas: ["D", "G", "D", "G", "Bb", "D"] }],
                 "Open Cm": [{ nombre: "Open C Minor", cuerdas: ["C", "G", "C", "Eb", "G", "C"] }],
                 "Open Em": [{ nombre: "Open E Minor", cuerdas: ["E", "B", "E", "G", "B", "E"] }],
-                "Open Am": [{ nombre: "Open A Minor", cuerdas: ["E", "A", "E", "A", "C", "E"] }],
+                "Open Am": [{ nombre: "Open A Minor", cuerdas: ["E", "A", "E", "A", "C", "E"] }]
             }
         };
 
         // ============================================================
-        // 2. DOM REFS
+        // DOM REFS
         // ============================================================
-        const $ = (id) => document.getElementById(id);
+        var $ = function(id) { return document.getElementById(id); };
 
-        const dom = {
+        var dom = {
             variantes: $("variantes"),
             tonalidades: $("tonalidades"),
             afinacionDisplay: $("afinacionDisplay"),
@@ -1502,95 +1375,86 @@
             precisionSelect: $("precisionSelect"),
             modeSelect: $("modeSelect"),
             strobeRings: $("strobeRings"),
-            // Nuevos elementos
             adjustmentArrow: $("adjustmentArrow"),
             adjustmentText: $("adjustmentText"),
             adjustmentDetail: $("adjustmentDetail"),
             detectedStringInfo: $("detectedStringInfo"),
-            detectedStringLabel: $("detectedStringLabel"),
+            detectedStringLabel: $("detectedStringLabel")
         };
 
         // ============================================================
-        // 3. ESTADO GLOBAL
+        // ESTADO GLOBAL
         // ============================================================
-        let afinacionActual = null;
-        let cuerdaActual = 0;
-        let audioContext = null;
-        let analyser = null;
-        let buffer = null;
-        let detectando = false;
-        let ultimoPing = 0;
-        let ultimaFrecuencia = 0;
-        let ultimoCents = 0;
-        let lecturasEstables = 0;
-        let referenciaFrecuencia = 440;
-        let precisionTolerance = 1;
-        let modoStrobe = true;
-        let modoSilencioso = false;
-        // Para detección automática de cuerda
-        let cuerdaDetectada = -1;
-        let cuerdasAfinadas = [];
+        var afinacionActual = null;
+        var cuerdaActual = 0;
+        var audioContext = null;
+        var analyser = null;
+        var buffer = null;
+        var detectando = false;
+        var ultimoPing = 0;
+        var ultimaFrecuencia = 0;
+        var ultimoCents = 0;
+        var lecturasEstables = 0;
+        var referenciaFrecuencia = 440;
+        var precisionTolerance = 1;
+        var modoStrobe = true;
+        var modoSilencioso = false;
+        var cuerdaDetectada = -1;
+        var cuerdasAfinadas = [];
 
         // ============================================================
-        // 4. FUNCIONES DE BIBLIOTECA
+        // FUNCIONES DE BIBLIOTECA
         // ============================================================
 
         function mostrarVariantes(tipo, nota) {
             dom.variantes.innerHTML = "";
-            const lista = bibliotecaAfinaciones[tipo]?.[nota] || [];
+            var lista = bibliotecaAfinaciones[tipo] && bibliotecaAfinaciones[tipo][nota] || [];
             if (lista.length === 0) {
-                dom.variantes.innerHTML =
-                    `<p class="text-slate-400 text-center col-span-3">${t('library-subtitle')}</p>`;
+                dom.variantes.innerHTML = '<p class="text-slate-400 text-center col-span-3">' + t('library-subtitle') +
+                    '</p>';
                 return;
             }
-            lista.forEach((af) => {
-                const div = document.createElement("div");
+            lista.forEach(function(af) {
+                var div = document.createElement("div");
                 div.className = "afinacion-card";
-                div.innerHTML = `
-                        <div class="nombre">${af.nombre}</div>
-                        <div class="cuerdas">${af.cuerdas.join(" • ")}</div>
-                        <span class="badge">${af.cuerdas.length} ${t('note-string').split(' ')[0] || 'strings'}</span>
-                    `;
+                div.innerHTML =
+                    '<div class="nombre">' + af.nombre + '</div><div class="cuerdas">' + af.cuerdas.join(" • ") +
+                    '</div><span class="badge">' + af.cuerdas.length + ' strings</span>';
                 div.addEventListener('click', function() {
                     seleccionarAfinacion(af);
                     document.getElementById("afinador").scrollIntoView({ behavior: "smooth", block: "center" });
                 });
                 dom.variantes.appendChild(div);
             });
-
-            document.querySelectorAll('.tono-btn').forEach(b => {
+            document.querySelectorAll('.tono-btn').forEach(function(b) {
                 b.classList.toggle('active', b.textContent === nota);
             });
         }
 
         function mostrarCategoria(cat) {
-            document.querySelectorAll(".cat-btn").forEach((b) => {
-                const isActive = b.dataset.categoria === cat;
+            document.querySelectorAll(".cat-btn").forEach(function(b) {
+                var isActive = b.dataset.categoria === cat;
                 b.classList.toggle("active", isActive);
                 b.classList.toggle("bg-slate-800", !isActive);
             });
-
-            const keys = Object.keys(bibliotecaAfinaciones[cat] || {});
+            var keys = Object.keys(bibliotecaAfinaciones[cat] || {});
             dom.tonalidades.innerHTML = "";
             if (keys.length === 0) {
-                dom.tonalidades.innerHTML = `<p class="text-slate-400">${t('library-subtitle')}</p>`;
+                dom.tonalidades.innerHTML = '<p class="text-slate-400">' + t('library-subtitle') + '</p>';
                 dom.variantes.innerHTML = "";
                 return;
             }
-
-            keys.forEach((key) => {
-                const btn = document.createElement("button");
-                btn.className =
-                    "tono-btn px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 transition font-semibold text-sm";
+            keys.forEach(function(key) {
+                var btn = document.createElement("button");
+                btn.className = "tono-btn px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 transition font-semibold text-sm";
                 btn.textContent = key;
                 btn.addEventListener('click', function() {
                     mostrarVariantes(cat, key);
                 });
                 dom.tonalidades.appendChild(btn);
             });
-
             if (keys.length) {
-                const firstBtn = dom.tonalidades.querySelector('.tono-btn');
+                var firstBtn = dom.tonalidades.querySelector('.tono-btn');
                 if (firstBtn) firstBtn.classList.add('active');
                 mostrarVariantes(cat, keys[0]);
             }
@@ -1601,21 +1465,16 @@
             cuerdaActual = 0;
             cuerdasAfinadas = [];
             cuerdaDetectada = -1;
-
-            dom.afinacionDisplay.innerHTML = `
-                    <span class="text-emerald-400 font-bold">${af.nombre}</span>
-                    <span class="text-slate-300 ml-2">${af.cuerdas.join(" - ")}</span>
-                `;
-
+            dom.afinacionDisplay.innerHTML =
+                '<span class="text-emerald-400 font-bold">' + af.nombre + '</span><span class="text-slate-300 ml-2">' +
+                af.cuerdas.join(" - ") + '</span>';
             dom.tuningNameDisplay.textContent = af.nombre;
-
-            const labels = dom.stringLabels;
-            af.cuerdas.forEach((nota, i) => {
-                const num = 6 - i;
-                labels[i].textContent = `${num}ª (${nota})`;
+            var labels = dom.stringLabels;
+            af.cuerdas.forEach(function(nota, i) {
+                var num = 6 - i;
+                labels[i].textContent = num + 'ª (' + nota + ')';
                 labels[i].className = 'string-label';
             });
-
             actualizarTargetDisplay();
             actualizarStringDots();
             actualizarCuerdaInfo();
@@ -1630,25 +1489,24 @@
                 dom.targetCuerda.textContent = t('note-string');
                 return;
             }
-            const nota = afinacionActual.cuerdas[cuerdaActual] || "--";
-            const num = 6 - cuerdaActual;
+            var nota = afinacionActual.cuerdas[cuerdaActual] || "--";
+            var num = 6 - cuerdaActual;
             dom.targetNote.textContent = nota;
-            dom.targetCuerda.textContent = t('note-string').replace('--', `${num}ª`);
+            dom.targetCuerda.textContent = t('note-string').replace('--', num + 'ª');
             dom.targetNote.className = 'note-value target';
-
-            const labels = dom.stringLabels;
-            afinacionActual.cuerdas.forEach((n, i) => {
+            var labels = dom.stringLabels;
+            afinacionActual.cuerdas.forEach(function(n, i) {
                 labels[i].className = 'string-label';
                 if (i === cuerdaActual) labels[i].classList.add('active');
-                if (i < cuerdaActual || cuerdasAfinadas.includes(i)) labels[i].classList.add('done');
+                if (i < cuerdaActual || cuerdasAfinadas.indexOf(i) !== -1) labels[i].classList.add('done');
             });
         }
 
         function actualizarStringDots() {
             if (!afinacionActual) return;
-            dom.stringDots.forEach((dot, i) => {
+            dom.stringDots.forEach(function(dot, i) {
                 dot.className = 'string-dot';
-                if (cuerdasAfinadas.includes(i)) {
+                if (cuerdasAfinadas.indexOf(i) !== -1) {
                     dot.classList.add('done');
                 } else if (i === cuerdaDetectada) {
                     dot.classList.add('detected');
@@ -1663,22 +1521,20 @@
                 dom.tuningNameDisplay.textContent = t('tuner-select');
                 return;
             }
-            const nota = afinacionActual.cuerdas[cuerdaActual] || "--";
-            const num = 6 - cuerdaActual;
-            dom.tuningNameDisplay.textContent = `${afinacionActual.nombre} · ${num}ª (${nota})`;
+            var nota = afinacionActual.cuerdas[cuerdaActual] || "--";
+            var num = 6 - cuerdaActual;
+            dom.tuningNameDisplay.textContent = afinacionActual.nombre + ' · ' + num + 'ª (' + nota + ')';
         }
 
         function avanzarCuerda() {
             if (!afinacionActual) return;
-            // Buscar la siguiente cuerda no afinada
-            let next = (cuerdaActual + 1) % afinacionActual.cuerdas.length;
-            let contador = 0;
-            while (cuerdasAfinadas.includes(next) && contador < afinacionActual.cuerdas.length) {
+            var next = (cuerdaActual + 1) % afinacionActual.cuerdas.length;
+            var contador = 0;
+            while (cuerdasAfinadas.indexOf(next) !== -1 && contador < afinacionActual.cuerdas.length) {
                 next = (next + 1) % afinacionActual.cuerdas.length;
                 contador++;
             }
             if (contador >= afinacionActual.cuerdas.length) {
-                // Todas las cuerdas están afinadas
                 setStatusMessage('status-done');
                 dom.statusMsg.className = 'status-msg success';
                 return;
@@ -1691,13 +1547,11 @@
         }
 
         function marcarCuerdaAfinada(index) {
-            if (!cuerdasAfinadas.includes(index)) {
+            if (cuerdasAfinadas.indexOf(index) === -1) {
                 cuerdasAfinadas.push(index);
-                // Ordenar
-                cuerdasAfinadas.sort((a, b) => a - b);
+                cuerdasAfinadas.sort(function(a, b) { return a - b; });
                 actualizarStringDots();
                 actualizarTargetDisplay();
-                // Verificar si todas están afinadas
                 if (cuerdasAfinadas.length === afinacionActual.cuerdas.length) {
                     setStatusMessage('status-done');
                     dom.statusMsg.className = 'status-msg success';
@@ -1713,27 +1567,26 @@
 
         function cargarUltimaAfinacion() {
             try {
-                const data = localStorage.getItem("ultimaAfinacionGV");
+                var data = localStorage.getItem("ultimaAfinacionGV");
                 if (data) {
-                    const af = JSON.parse(data);
-                    if (af?.nombre && af?.cuerdas) {
+                    var af = JSON.parse(data);
+                    if (af && af.nombre && af.cuerdas) {
                         seleccionarAfinacion(af);
                         return true;
                     }
                 }
-            } catch (_) { return false; }
+            } catch (e) { return false; }
             return false;
         }
 
         // ============================================================
-        // 5. DETECCIÓN DE CUERDA AUTOMÁTICA
+        // DETECCIÓN DE CUERDA AUTOMÁTICA
         // ============================================================
 
         function detectarCuerda(nota) {
             if (!afinacionActual) return -1;
-            // Buscar en qué cuerda coincide la nota detectada
-            for (let i = 0; i < afinacionActual.cuerdas.length; i++) {
-                if (afinacionActual.cuerdas[i] === nota && !cuerdasAfinadas.includes(i)) {
+            for (var i = 0; i < afinacionActual.cuerdas.length; i++) {
+                if (afinacionActual.cuerdas[i] === nota && cuerdasAfinadas.indexOf(i) === -1) {
                     return i;
                 }
             }
@@ -1741,19 +1594,19 @@
         }
 
         function actualizarDetectedStringInfo() {
-            const el = dom.detectedStringLabel;
-            const info = dom.detectedStringInfo;
+            var el = dom.detectedStringLabel;
+            var info = dom.detectedStringInfo;
             if (!afinacionActual) {
                 el.textContent = t('detected-none');
                 el.className = 'highlight';
                 return;
             }
             if (cuerdaDetectada >= 0 && cuerdaDetectada < afinacionActual.cuerdas.length) {
-                const num = 6 - cuerdaDetectada;
-                const nota = afinacionActual.cuerdas[cuerdaDetectada];
+                var num = 6 - cuerdaDetectada;
+                var nota = afinacionActual.cuerdas[cuerdaDetectada];
                 el.textContent = t('detected-string', { num: num, note: nota });
                 el.className = 'highlight';
-                if (cuerdasAfinadas.includes(cuerdaDetectada)) {
+                if (cuerdasAfinadas.indexOf(cuerdaDetectada) !== -1) {
                     el.classList.add('match');
                 }
             } else {
@@ -1763,15 +1616,13 @@
         }
 
         // ============================================================
-        // 6. INDICADOR DE AJUSTE (TONOS A SUBIR/BAJAR)
+        // INDICADOR DE AJUSTE
         // ============================================================
 
         function actualizarAjuste(cents, notaDetectada, notaObjetivo) {
-            const arrow = dom.adjustmentArrow;
-            const text = dom.adjustmentText;
-            const detail = dom.adjustmentDetail;
-
-            // Si no hay nota detectada o no hay objetivo
+            var arrow = dom.adjustmentArrow;
+            var text = dom.adjustmentText;
+            var detail = dom.adjustmentDetail;
             if (!notaDetectada || !notaObjetivo || !afinacionActual) {
                 arrow.className = 'arrow neutral';
                 text.className = 'adjustment-text neutral';
@@ -1779,8 +1630,6 @@
                 detail.textContent = t('adjust-perfect');
                 return;
             }
-
-            // Si la nota detectada coincide con el objetivo y está dentro de la tolerancia
             if (notaDetectada === notaObjetivo && Math.abs(cents) <= precisionTolerance) {
                 arrow.className = 'arrow neutral';
                 text.className = 'adjustment-text neutral';
@@ -1788,12 +1637,9 @@
                 detail.textContent = t('adjust-perfect');
                 return;
             }
-
-            // Calcular diferencia en semitonos entre la nota detectada y el objetivo
-            const notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-            const idxDetectada = notas.indexOf(notaDetectada);
-            const idxObjetivo = notas.indexOf(notaObjetivo);
-
+            var notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+            var idxDetectada = notas.indexOf(notaDetectada);
+            var idxObjetivo = notas.indexOf(notaObjetivo);
             if (idxDetectada === -1 || idxObjetivo === -1) {
                 arrow.className = 'arrow neutral';
                 text.className = 'adjustment-text neutral';
@@ -1801,72 +1647,63 @@
                 detail.textContent = t('adjust-perfect');
                 return;
             }
-
-            let diff = idxObjetivo - idxDetectada;
-            // Normalizar para obtener la distancia más corta
+            var diff = idxObjetivo - idxDetectada;
             if (diff > 6) diff -= 12;
             if (diff < -6) diff += 12;
-
-            // Determinar si es tono o semitono
-            const esTono = Math.abs(diff) % 2 === 0;
-            const semitonos = diff;
-            const tonos = diff / 2;
-
+            var esTono = Math.abs(diff) % 2 === 0;
+            var semitonos = diff;
+            var tonos = diff / 2;
             if (diff > 0) {
-                // Hay que subir (afinar más agudo)
                 arrow.className = 'arrow up';
                 arrow.textContent = '▲';
                 text.className = 'adjustment-text up';
                 if (esTono) {
-                    const plural = Math.abs(tonos) !== 1 ? 's' : '';
-                    text.textContent = t('adjust-up', { semitonos: Math.abs(tonos) + (Math.abs(tonos) !== 1 ? ' tone' :
-                            ' tone') });
-                    detail.textContent = `${Math.abs(tonos)} tono${Math.abs(tonos) !== 1 ? 's' : ''} arriba`;
+                    text.textContent = t('adjust-up', { semitonos: Math.abs(tonos) });
+                    detail.textContent = Math.abs(tonos) + ' tono' + (Math.abs(tonos) !== 1 ? 's' : '') + ' arriba';
                 } else {
                     text.textContent = t('adjust-half-up', { semitonos: Math.abs(semitonos) });
-                    detail.textContent = `${Math.abs(semitonos)} semitono${Math.abs(semitonos) !== 1 ? 's' : ''} arriba`;
+                    detail.textContent = Math.abs(semitonos) + ' semitono' + (Math.abs(semitonos) !== 1 ? 's' : '') +
+                        ' arriba';
                 }
             } else if (diff < 0) {
-                // Hay que bajar (afinar más grave)
                 arrow.className = 'arrow down';
                 arrow.textContent = '▼';
                 text.className = 'adjustment-text down';
                 if (esTono) {
-                    const plural = Math.abs(tonos) !== 1 ? 's' : '';
                     text.textContent = t('adjust-down', { semitonos: Math.abs(tonos) });
-                    detail.textContent = `${Math.abs(tonos)} tono${Math.abs(tonos) !== 1 ? 's' : ''} abajo`;
+                    detail.textContent = Math.abs(tonos) + ' tono' + (Math.abs(tonos) !== 1 ? 's' : '') + ' abajo';
                 } else {
                     text.textContent = t('adjust-half-down', { semitonos: Math.abs(semitonos) });
-                    detail.textContent = `${Math.abs(semitonos)} semitono${Math.abs(semitonos) !== 1 ? 's' : ''} abajo`;
+                    detail.textContent = Math.abs(semitonos) + ' semitono' + (Math.abs(semitonos) !== 1 ? 's' : '') +
+                        ' abajo';
                 }
             } else {
-                // diff === 0, pero cents está fuera de tolerancia
                 if (cents > 0) {
                     arrow.className = 'arrow up';
                     arrow.textContent = '▲';
                     text.className = 'adjustment-text up';
-                    text.textContent = `+${Math.abs(cents)}¢`;
+                    text.textContent = '+' + Math.abs(cents) + '¢';
                     detail.textContent = 'Ajuste fino';
                 } else {
                     arrow.className = 'arrow down';
                     arrow.textContent = '▼';
                     text.className = 'adjustment-text down';
-                    text.textContent = `-${Math.abs(cents)}¢`;
+                    text.textContent = '-' + Math.abs(cents) + '¢';
                     detail.textContent = 'Ajuste fino';
                 }
             }
         }
 
         // ============================================================
-        // 7. DETECCIÓN DE FRECUENCIA
+        // DETECCIÓN DE FRECUENCIA
         // ============================================================
 
         function encontrarFrecuencia(buffer, sampleRate) {
-            let mejorOffset = -1,
+            var mejorOffset = -1,
                 mejorValor = 0;
-            for (let offset = Math.floor(sampleRate / 1000); offset < Math.floor(sampleRate / 20); offset++) {
-                let suma = 0;
-                for (let i = 0; i < buffer.length - offset; i++) {
+            for (var offset = Math.floor(sampleRate / 1000); offset < Math.floor(sampleRate / 20); offset++) {
+                var suma = 0;
+                for (var i = 0; i < buffer.length - offset; i++) {
                     suma += buffer[i] * buffer[i + offset];
                 }
                 if (suma > mejorValor) {
@@ -1879,34 +1716,33 @@
         }
 
         function convertirNotaCompleta(frecuencia, referencia) {
-            const notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-            const numero = 12 * Math.log2(frecuencia / referencia) + 69;
-            const midi = Math.round(numero);
+            var notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+            var numero = 12 * Math.log2(frecuencia / referencia) + 69;
+            var midi = Math.round(numero);
             return {
                 nota: notas[midi % 12],
                 octava: Math.floor(midi / 12) - 1,
-                completa: notas[midi % 12] + (Math.floor(midi / 12) - 1),
+                completa: notas[midi % 12] + (Math.floor(midi / 12) - 1)
             };
         }
 
         function calcularCents(frecuencia, referencia) {
-            const midi = 12 * Math.log2(frecuencia / referencia) + 69;
-            const redondeada = Math.round(midi);
-            const freqCorrecta = referencia * Math.pow(2, (redondeada - 69) / 12);
+            var midi = 12 * Math.log2(frecuencia / referencia) + 69;
+            var redondeada = Math.round(midi);
+            var freqCorrecta = referencia * Math.pow(2, (redondeada - 69) / 12);
             return { cents: Math.round(1200 * Math.log2(frecuencia / freqCorrecta)) };
         }
 
         // ============================================================
-        // 8. AFINADOR
+        // AFINADOR
         // ============================================================
 
         function actualizarAfinador(frecuencia, cents, referencia) {
-            const angulo = Math.max(-45, Math.min(45, cents * 0.9));
-            dom.needle.style.transform = `translate(-50%, -100%) rotate(${angulo}deg)`;
-
-            const ledIndex = Math.round(((cents + 50) / 100) * 8);
-            const pos = Math.max(0, Math.min(8, ledIndex));
-            dom.leds.forEach((led, i) => {
+            var angulo = Math.max(-45, Math.min(45, cents * 0.9));
+            dom.needle.style.transform = 'translate(-50%, -100%) rotate(' + angulo + 'deg)';
+            var ledIndex = Math.round(((cents + 50) / 100) * 8);
+            var pos = Math.max(0, Math.min(8, ledIndex));
+            dom.leds.forEach(function(led, i) {
                 led.className = 'precision-led';
                 if (i === pos) {
                     if (Math.abs(cents) <= precisionTolerance) led.classList.add('green');
@@ -1914,79 +1750,62 @@
                     else led.classList.add('red');
                 }
             });
-
-            const track = dom.meterTrack;
+            var track = dom.meterTrack;
             track.style.boxShadow = 'inset 0 4px 30px rgba(0,0,0,0.7)';
             if (Math.abs(cents) <= precisionTolerance) {
                 track.style.boxShadow = 'inset 0 4px 30px rgba(0,0,0,0.7), 0 0 80px rgba(34,197,94,0.2)';
             }
-
             if (modoStrobe) {
-                const speed = Math.min(Math.abs(cents) / 30, 3);
-                const direction = cents > 0 ? 1 : -1;
-                dom.strobeRings.style.animationDuration = `${Math.max(0.5, 3 - speed)}s`;
+                var speed = Math.min(Math.abs(cents) / 30, 3);
+                var direction = cents > 0 ? 1 : -1;
+                dom.strobeRings.style.animationDuration = Math.max(0.5, 3 - speed) + 's';
                 dom.strobeRings.style.animationDirection = direction > 0 ? 'normal' : 'reverse';
                 dom.strobeRings.style.opacity = Math.min(0.8, 0.3 + Math.abs(cents) / 100);
             }
-
-            const info = convertirNotaCompleta(frecuencia, referencia);
+            var info = convertirNotaCompleta(frecuencia, referencia);
             dom.detectedNote.textContent = info.completa;
             dom.detectedNote.className = 'note-value detected';
             dom.detectedFreq.textContent = frecuencia.toFixed(2) + ' Hz';
-
-            // DETECCIÓN AUTOMÁTICA DE CUERDA
-            const cuerdaEncontrada = detectarCuerda(info.nota);
+            var cuerdaEncontrada = detectarCuerda(info.nota);
             if (cuerdaEncontrada >= 0) {
                 cuerdaDetectada = cuerdaEncontrada;
-                // Cambiar la cuerda actual a la detectada
-                if (cuerdaActual !== cuerdaDetectada && !cuerdasAfinadas.includes(cuerdaDetectada)) {
+                if (cuerdaActual !== cuerdaDetectada && cuerdasAfinadas.indexOf(cuerdaDetectada) === -1) {
                     cuerdaActual = cuerdaDetectada;
                     actualizarTargetDisplay();
                     actualizarStringDots();
                     actualizarCuerdaInfo();
                 }
-            } else {
-                // Si la nota no coincide con ninguna cuerda, mantener la detección
-                // pero no cambiar la cuerda actual
-                if (cuerdaDetectada >= 0 && !cuerdasAfinadas.includes(cuerdaDetectada)) {
-                    // Mantener la detección
-                }
             }
             actualizarDetectedStringInfo();
-
             if (afinacionActual) {
-                const objetivo = afinacionActual.cuerdas[cuerdaActual] || "";
+                var objetivo = afinacionActual.cuerdas[cuerdaActual] || "";
                 if (info.nota === objetivo && Math.abs(cents) <= precisionTolerance) {
                     dom.detectedNote.classList.add('match');
                     dom.targetNote.classList.add('match');
-                    // Marcar cuerda como afinada
-                    if (cuerdaActual >= 0 && !cuerdasAfinadas.includes(cuerdaActual)) {
+                    if (cuerdaActual >= 0 && cuerdasAfinadas.indexOf(cuerdaActual) === -1) {
                         marcarCuerdaAfinada(cuerdaActual);
                     }
                 } else {
                     dom.targetNote.classList.remove('match');
                 }
-
-                // Actualizar indicador de ajuste
                 actualizarAjuste(cents, info.nota, objetivo);
             }
-
             ultimaFrecuencia = frecuencia;
             ultimoCents = cents;
         }
 
         function actualizarVUMeter(buffer) {
-            let suma = 0;
-            for (let i = 0; i < buffer.length; i++) {
+            var suma = 0;
+            for (var i = 0; i < buffer.length; i++) {
                 suma += buffer[i] * buffer[i];
             }
-            const rms = Math.sqrt(suma / buffer.length);
-            const nivel = Math.min(rms * 300, 100);
+            var rms = Math.sqrt(suma / buffer.length);
+            var nivel = Math.min(rms * 300, 100);
             dom.vuBar.style.width = nivel + '%';
         }
 
         // ============================================================
-        // 9. LOOP DE AFINACIÓN
+        // LOOP DE AFINACIÓN
         // ============================================================
 
         function iniciarAfinador() {
@@ -1994,24 +1813,20 @@
                 detenerAfinador();
                 return;
             }
-
             if (!afinacionActual) {
                 setStatusMessage('status-select');
                 dom.statusMsg.className = 'status-msg error';
                 return;
             }
-
             referenciaFrecuencia = parseInt(dom.referenceSelect.value);
             precisionTolerance = parseFloat(dom.precisionSelect.value);
-            const modo = dom.modeSelect.value;
+            var modo = dom.modeSelect.value;
             modoStrobe = modo === 'strobe';
             modoSilencioso = modo === 'silent';
-
-            navigator.mediaDevices
-                .getUserMedia({ audio: true, echoCancellation: false, noiseSuppression: false })
-                .then((stream) => {
+            navigator.mediaDevices.getUserMedia({ audio: true, echoCancellation: false, noiseSuppression: false })
+                .then(function(stream) {
                     audioContext = new(window.AudioContext || window.webkitAudioContext)();
-                    const source = audioContext.createMediaStreamSource(stream);
+                    var source = audioContext.createMediaStreamSource(stream);
                     analyser = audioContext.createAnalyser();
                     analyser.fftSize = 4096;
                     analyser.smoothingTimeConstant = 0.8;
@@ -2021,7 +1836,6 @@
                     dom.tunerBtn.textContent = t('btn-start').replace('🎤', '⏹');
                     dom.tunerBtn.classList.add('active');
                     setStatusMessage('status-listening');
-
                     if (modoStrobe) {
                         dom.strobeRings.classList.add('rotating');
                         dom.strobeRings.style.display = 'block';
@@ -2029,10 +1843,9 @@
                         dom.strobeRings.classList.remove('rotating');
                         dom.strobeRings.style.display = 'none';
                     }
-
                     loopDetectar();
                 })
-                .catch((err) => {
+                .catch(function(err) {
                     setStatusMessage('status-error');
                     dom.statusMsg.className = 'status-msg error';
                     console.error('Error de micrófono:', err);
@@ -2052,10 +1865,8 @@
             dom.vuBar.style.width = '0%';
             dom.strobeRings.style.animationDuration = '3s';
             dom.strobeRings.style.opacity = '0.6';
-            // Resetear detección de cuerda
             cuerdaDetectada = -1;
             actualizarDetectedStringInfo();
-            // Resetear indicador de ajuste
             dom.adjustmentArrow.className = 'arrow neutral';
             dom.adjustmentArrow.textContent = '●';
             dom.adjustmentText.className = 'adjustment-text neutral';
@@ -2066,23 +1877,18 @@
         function loopDetectar() {
             if (!detectando || !analyser) return;
             requestAnimationFrame(loopDetectar);
-
             analyser.getFloatTimeDomainData(buffer);
             actualizarVUMeter(buffer);
-
-            let energia = 0;
-            for (let i = 0; i < buffer.length; i++) {
+            var energia = 0;
+            for (var i = 0; i < buffer.length; i++) {
                 energia += buffer[i] * buffer[i];
             }
-            const rms = Math.sqrt(energia / buffer.length);
-
+            var rms = Math.sqrt(energia / buffer.length);
             if (rms < 0.005) {
                 setStatusMessage('status-play');
-                // Resetear detección de cuerda si no hay sonido
                 if (cuerdaDetectada >= 0) {
                     cuerdaDetectada = -1;
                     actualizarDetectedStringInfo();
-                    // Resetear indicador de ajuste
                     dom.adjustmentArrow.className = 'arrow neutral';
                     dom.adjustmentArrow.textContent = '●';
                     dom.adjustmentText.className = 'adjustment-text neutral';
@@ -2091,27 +1897,21 @@
                 }
                 return;
             }
-
-            const freq = encontrarFrecuencia(buffer, audioContext.sampleRate);
+            var freq = encontrarFrecuencia(buffer, audioContext.sampleRate);
             if (!freq || freq < 30 || freq > 1200) return;
-
-            const { cents } = calcularCents(freq, referenciaFrecuencia);
+            var cents = calcularCents(freq, referenciaFrecuencia).cents;
             actualizarAfinador(freq, cents, referenciaFrecuencia);
             verificarAfinacion(freq, cents);
         }
 
         function verificarAfinacion(frecuencia, cents) {
             if (!afinacionActual) return;
-
-            const info = convertirNotaCompleta(frecuencia, referenciaFrecuencia);
-            const objetivo = afinacionActual.cuerdas[cuerdaActual] || "";
-
-            // Verificar si la cuerda actual ya está afinada
-            if (cuerdasAfinadas.includes(cuerdaActual)) {
-                // Buscar la siguiente cuerda no afinada
-                let next = (cuerdaActual + 1) % afinacionActual.cuerdas.length;
-                let contador = 0;
-                while (cuerdasAfinadas.includes(next) && contador < afinacionActual.cuerdas.length) {
+            var info = convertirNotaCompleta(frecuencia, referenciaFrecuencia);
+            var objetivo = afinacionActual.cuerdas[cuerdaActual] || "";
+            if (cuerdasAfinadas.indexOf(cuerdaActual) !== -1) {
+                var next = (cuerdaActual + 1) % afinacionActual.cuerdas.length;
+                var contador = 0;
+                while (cuerdasAfinadas.indexOf(next) !== -1 && contador < afinacionActual.cuerdas.length) {
                     next = (next + 1) % afinacionActual.cuerdas.length;
                     contador++;
                 }
@@ -2123,36 +1923,27 @@
                 }
                 return;
             }
-
             if (info.nota === objetivo && Math.abs(cents) <= precisionTolerance) {
                 lecturasEstables++;
             } else {
                 lecturasEstables = 0;
             }
-
             if (info.nota === objetivo && Math.abs(cents) <= precisionTolerance && lecturasEstables >= 6) {
                 setStatusMessage('status-tuned');
                 dom.statusMsg.className = 'status-msg success';
-                // Marcar cuerda como afinada
                 marcarCuerdaAfinada(cuerdaActual);
-
-                // Reproducir ping solo si no está en modo silencioso
                 if (!modoSilencioso) {
                     reproducirPing();
                 }
-
-                // Avanzar automáticamente
-                setTimeout(() => {
-                    // Verificar si todas las cuerdas están afinadas
+                setTimeout(function() {
                     if (cuerdasAfinadas.length === afinacionActual.cuerdas.length) {
                         setStatusMessage('status-done');
                         dom.statusMsg.className = 'status-msg success';
                         return;
                     }
-                    // Avanzar a la siguiente cuerda no afinada
-                    let next = (cuerdaActual + 1) % afinacionActual.cuerdas.length;
-                    let contador = 0;
-                    while (cuerdasAfinadas.includes(next) && contador < afinacionActual.cuerdas.length) {
+                    var next = (cuerdaActual + 1) % afinacionActual.cuerdas.length;
+                    var contador = 0;
+                    while (cuerdasAfinadas.indexOf(next) !== -1 && contador < afinacionActual.cuerdas.length) {
                         next = (next + 1) % afinacionActual.cuerdas.length;
                         contador++;
                     }
@@ -2161,7 +1952,8 @@
                         actualizarTargetDisplay();
                         actualizarStringDots();
                         actualizarCuerdaInfo();
-                        setStatusMessage('status-close', { note: afinacionActual.cuerdas[cuerdaActual], cents: 0 });
+                        setStatusMessage('status-close', { note: afinacionActual.cuerdas[cuerdaActual],
+                        cents: 0 });
                         dom.statusMsg.className = 'status-msg warning';
                     }
                 }, 1000);
@@ -2174,21 +1966,20 @@
                     dom.statusMsg.className = 'status-msg';
                 }
             } else {
-                // Mostrar la nota detectada y el objetivo
-                const target = objetivo || '--';
+                var target = objetivo || '--';
                 setStatusMessage('status-detected', { note: info.nota, target: target });
                 dom.statusMsg.className = 'status-msg';
             }
         }
 
         function reproducirPing() {
-            const ahora = Date.now();
+            var ahora = Date.now();
             if (ahora - ultimoPing < 1500) return;
             ultimoPing = ahora;
             try {
-                const ctx = new(window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
+                var ctx = new(window.AudioContext || window.webkitAudioContext)();
+                var osc = ctx.createOscillator();
+                var gain = ctx.createGain();
                 osc.type = "sine";
                 osc.frequency.value = 880;
                 gain.gain.setValueAtTime(0.15, ctx.currentTime);
@@ -2197,47 +1988,42 @@
                 gain.connect(ctx.destination);
                 osc.start();
                 osc.stop(ctx.currentTime + 0.12);
-            } catch (_) {}
+            } catch (e) {}
         }
 
         // ============================================================
-        // 10. INICIALIZACIÓN
+        // INICIALIZACIÓN
         // ============================================================
 
         document.addEventListener("DOMContentLoaded", function() {
 
-            // ---- Configurar selector de idioma ----
-            const savedLang = localStorage.getItem('guitarVoicesLang') || 'en';
+            var savedLang = localStorage.getItem('guitarVoicesLang') || 'en';
             updateLanguage(savedLang);
 
-            document.querySelectorAll('.lang-selector button').forEach(btn => {
+            document.querySelectorAll('.lang-selector button').forEach(function(btn) {
                 btn.addEventListener('click', function() {
                     updateLanguage(this.dataset.lang);
                 });
             });
 
-            // ---- Botones de categoría ----
-            document.querySelectorAll(".cat-btn").forEach((btn) => {
+            document.querySelectorAll(".cat-btn").forEach(function(btn) {
                 btn.addEventListener("click", function() {
                     mostrarCategoria(this.dataset.categoria);
                 });
             });
 
-            // ---- Botón del afinador ----
             dom.tunerBtn.addEventListener("click", iniciarAfinador);
 
-            // ---- Teclas rápidas ----
-            document.addEventListener("keydown", (e) => {
+            document.addEventListener("keydown", function(e) {
                 if (e.key === " " && e.target === document.body) {
                     e.preventDefault();
                     iniciarAfinador();
                 }
             });
 
-            // ---- Click en dots para seleccionar cuerda manualmente ----
-            dom.stringDots.forEach((dot, i) => {
+            dom.stringDots.forEach(function(dot, i) {
                 dot.addEventListener('click', function() {
-                    if (afinacionActual && !cuerdasAfinadas.includes(i)) {
+                    if (afinacionActual && cuerdasAfinadas.indexOf(i) === -1) {
                         cuerdaActual = i;
                         actualizarTargetDisplay();
                         actualizarStringDots();
@@ -2248,12 +2034,10 @@
                 });
             });
 
-            // ---- Cambio de modo ----
             dom.modeSelect.addEventListener('change', function() {
-                const modo = this.value;
+                var modo = this.value;
                 modoStrobe = modo === 'strobe';
                 modoSilencioso = modo === 'silent';
-
                 if (modoStrobe) {
                     dom.strobeRings.style.display = 'block';
                     if (detectando) dom.strobeRings.classList.add('rotating');
@@ -2263,10 +2047,9 @@
                 }
             });
 
-            // ---- Scroll suave ----
-            document.querySelectorAll('a[href^="#"]').forEach((a) => {
-                a.addEventListener("click", (e) => {
-                    const target = document.querySelector(a.getAttribute("href"));
+            document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+                a.addEventListener("click", function(e) {
+                    var target = document.querySelector(this.getAttribute("href"));
                     if (target) {
                         e.preventDefault();
                         target.scrollIntoView({ behavior: "smooth" });
@@ -2274,15 +2057,15 @@
                 });
             });
 
-            // ---- Cargar última afinación ----
             if (!cargarUltimaAfinacion()) {
                 mostrarCategoria("standard");
             } else {
-                let encontrada = false;
-                for (const cat in bibliotecaAfinaciones) {
+                var encontrada = false;
+                for (var cat in bibliotecaAfinaciones) {
                     if (encontrada) break;
-                    for (const key in bibliotecaAfinaciones[cat]) {
-                        if (bibliotecaAfinaciones[cat][key].some(af => af.nombre === afinacionActual?.nombre)) {
+                    for (var key in bibliotecaAfinaciones[cat]) {
+                        if (bibliotecaAfinaciones[cat][key].some(function(af) { return af.nombre === afinacionActual
+                                .nombre; })) {
                             mostrarCategoria(cat);
                             encontrada = true;
                             break;
